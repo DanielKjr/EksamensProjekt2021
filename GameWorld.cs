@@ -11,7 +11,7 @@ namespace EksamensProjekt2021
 
         public GameWorld() //tester hejsa
         {
-            _graphics = new GraphicsDeviceManager(this);
+            _graphics = new GraphicsDeviceManager(this); //mere test
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
