@@ -9,7 +9,7 @@ namespace EksamensProjekt2021
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        public GameWorld()
+        public GameWorld() //tester hejsa
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
