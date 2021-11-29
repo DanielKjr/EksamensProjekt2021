@@ -9,7 +9,9 @@ namespace EksamensProjekt2021
 {
     public abstract class GameObject
     {
-        protected Vector2 position;
+        private Vector2 position;
+        private Vector2 playerPosition;
+        protected Vector2 origin;
         protected Texture2D sprite;
         protected Texture2D[] sprites;
 
@@ -17,8 +19,13 @@ namespace EksamensProjekt2021
         protected float moveSpeed;
         protected int health;
         protected int armor;
+        
 
-        public abstract void Shoot(Weapon weapon);
+        public abstract void Shoot();
+
+        //public abstract void Shoot(Weapon weapon);
+        //den skal bruges senere men for at teste uden vi har våben lavede jeg en uden constructors
+
 
         //get rectangle
         public Rectangle Collision
@@ -34,14 +41,15 @@ namespace EksamensProjekt2021
             }
         }
 
-        public void LoadContent(ContentManager content)
-        {
+        public Vector2 PlayerPosition { get => playerPosition; set => playerPosition = value; }
+        public Vector2 Position { get => position; set => position = value; }
 
-        }
+        public abstract void LoadContent(ContentManager content);
+        
 
         public void Draw(SpriteBatch spriteBatch)
         {
-
+            spriteBatch.Draw(sprite, position, null, Color.White, 0, origin, 1, SpriteEffects.None, 0);
         }
 
         public abstract void Update(GameTime gameTime);

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EksamensProjekt2021
 {
-    class Throwable : Weapon
+    public class Throwable : Weapon
     {
     }
 }
