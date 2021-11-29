@@ -7,7 +7,7 @@ using System.Text;
 
 namespace EksamensProjekt2021
 {
-    public abstract class GameObject : GameWorld
+    public abstract class GameObject
     {
         protected Vector2 position;
         protected Texture2D sprite;
