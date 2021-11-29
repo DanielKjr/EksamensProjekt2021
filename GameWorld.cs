@@ -1,6 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using EksamensProjekt2021.GameObjects;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using System.Collections.Generic;
 
 namespace EksamensProjekt2021
 {
@@ -9,12 +12,34 @@ namespace EksamensProjekt2021
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        public GameWorld() //tester hejsa
+        private List<Enemy> enemies;
+        private List<Projectile> projectiles;
+
+        private Player player;
+
+        private Texture2D cursor;
+        private Song music;
+
+        private int[] map;
+
+
+        public GameWorld() 
         {
-            _graphics = new GraphicsDeviceManager(this); //mere test
+            _graphics = new GraphicsDeviceManager(this); 
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
+
+        public void AddObject(GameObject go)
+        {
+
+        }
+
+        public void RemoveObject(GameObject go)
+        {
+
+        }
+
 
         protected override void Initialize()
         {
@@ -48,5 +73,8 @@ namespace EksamensProjekt2021
 
             base.Draw(gameTime);
         }
+
+        
+
     }
 }
