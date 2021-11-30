@@ -39,8 +39,9 @@ namespace EksamensProjekt2021
 
         private Song music;
 
-        public static byte[,] map = new byte[5, 5];
-        public static byte mapReruns = 0; //See how many times the MapGenerator needed to run
+        public static byte[,] roomLayout = new byte[5, 5];
+        public static byte[,] roomDecorations = new byte[5, 5]; //Decorations within the room.
+        public static byte mapReruns = 0; //See how many times the RoomsGenerator needed to run
 
 
         public static Vector2 screenSize;
@@ -233,21 +234,22 @@ namespace EksamensProjekt2021
 
             byte rndX = (byte)rnd.Next(1, 4);
             byte rndY = (byte)rnd.Next(1, 4);
-            map[rndX, rndY] = 1;  //Sets inital spawn room
-            int[] index = new int[2] {rndX,rndY,}; //Sets index to spawn room.
+            roomLayout[rndX, rndY] = 1;  //Sets inital spawn room
+            int[] index = new int[2] { rndX, rndY, }; //Sets index to spawn room.
 
 
             while (filledRooms < amountOfRooms)
             {
-                for (int x = 0; x < map.GetLength(0); x++)//Find next index point
+                for (int x = 0; x < roomLayout.GetLength(0); x++)//Find next index point
                 {
-                    for (int y = 0; y < map.GetLength(1); y++)
+                    for (int y = 0; y < roomLayout.GetLength(1); y++)
                     {
-                        if (map[x, y] == 255)
+                        if (roomLayout[x, y] == 255)
                         {
                             index[0] = x;
                             index[1] = y;
-                            map[index[0], index[1]] = RoomChance(); //See what this room should become
+                            roomLayout[index[0], index[1]] = RoomChance(); //See what this room should become
+                            roomDecorations[index[0], index[1]] = (byte)rnd.Next(0, 10); //Tell room to have random decoration style. 0-9 exists.
                             filledRooms++;
                             break;
                         }
@@ -261,14 +263,14 @@ namespace EksamensProjekt2021
                     for (int x = -1; x <= 1; x += 2) //Check left and right
                     {
                         if (index[0] + x == -1 || index[0] + x == 5) break; //Check if outside
-                        if (map[index[0] + x, index[1]] == 0) //Check if empty
+                        if (roomLayout[index[0] + x, index[1]] == 0) //Check if empty
                         {
                             switch (rnd.Next(0, 3)) //Randomize if there should be a room in that pos
                             {
                                 case 0:
                                     break; //Room not chosen
                                 case 1:
-                                    map[index[0] + x, index[1]] = 255; //Fill temporary value into room
+                                    roomLayout[index[0] + x, index[1]] = 255; //Fill temporary value into room
                                     createdRooms++;
                                     break;
                                 default:
@@ -279,14 +281,14 @@ namespace EksamensProjekt2021
                     for (int y = -1; y <= 1; y += 2) //Check up and down
                     {
                         if (index[1] + y == -1 || index[1] + y == 5) break; //Check if outside
-                        if (map[index[0], index[1] + y] == 0) //Check if clear
+                        if (roomLayout[index[0], index[1] + y] == 0) //Check if clear
                         {
                             switch (rnd.Next(0, 3)) //Randomize if there should be a room in that pos
                             {
                                 case 0:
                                     break; //Room not chosen
                                 case 1:
-                                    map[index[0], index[1] + y] = 255; //Fill temporary value into room
+                                    roomLayout[index[0], index[1] + y] = 255; //Fill temporary value into room
                                     createdRooms++;
                                     break;
                                 default:
@@ -304,14 +306,15 @@ namespace EksamensProjekt2021
                     RoomsReset();
                     rndX = (byte)rnd.Next(1, 4);
                     rndY = (byte)rnd.Next(1, 4);
-                    map[rndX, rndY] = 1;  //Sets inital spawn room
+                    roomLayout[rndX, rndY] = 1;  //Sets inital spawn room
                     index = new int[2] { rndX, rndY, }; //Sets index to spawn room.
                     mapReruns++;
                 }
             }
-            map[index[0], index[1]] = 5; //Set last created room to be boss room
+            roomLayout[index[0], index[1]] = 5; //Set last created room to be boss room
 
-            RoomDebug(failSafe, mapReruns);
+
+            //RoomDebug(failSafe, mapReruns);
         }
         /// <summary>
         /// Chances of the different rooms
@@ -339,13 +342,13 @@ namespace EksamensProjekt2021
         private void RoomDebug(byte failSafe, byte reruns)
         {
             Console.Clear();
-            for (int y = 0; y < map.GetLength(0); y++)
+            for (int y = 0; y < roomLayout.GetLength(0); y++)
             {
-                for (int x = 0; x < map.GetLength(1); x++)
+                for (int x = 0; x < roomLayout.GetLength(1); x++)
                 {
-                    if (map[x, y] == 0) Console.ForegroundColor = ConsoleColor.White;
+                    if (roomLayout[x, y] == 0) Console.ForegroundColor = ConsoleColor.White;
                     else Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write(map[x, y] + " ");
+                    Console.Write(roomLayout[x, y] + " ");
                 }
                 if (failSafe >= 100) Console.WriteLine("  BROKE");
                 else Console.WriteLine("");
@@ -358,12 +361,44 @@ namespace EksamensProjekt2021
         /// </summary>
         private void RoomsReset()
         {
-            for (int x = 0; x < map.GetLength(0); x++) // Reset map. Bruges til at lave nye levels.
+            for (int x = 0; x < roomLayout.GetLength(0); x++) // Reset map. Bruges til at lave nye levels.
             {
-                for (int y = 0; y < map.GetLength(1); y++)
+                for (int y = 0; y < roomLayout.GetLength(1); y++)
                 {
-                    map[x, y] = 0;
+                    roomLayout[x, y] = 0;
                 }
+            }
+        }
+        /// <summary>
+        /// Draws decorations in the room.
+        /// Needs RoomDecorations[,] for style
+        /// </summary>
+        /// <param name="style"></param>
+        private void RoomDecorationsDraw(byte style)
+        {
+            switch (style)
+            {
+                case 0:
+
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    break;
+                case 9:
+                    break;
             }
         }
     }
