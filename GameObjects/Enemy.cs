@@ -15,11 +15,12 @@ namespace EksamensProjekt2021
         private double fireRate;
         private double timer = 2;
 
-  
+
+    
 
         public Enemy()
         {
-
+            
             Position = new Vector2(50,900);
             this.origin = Vector2.Zero;
             moveSpeed = 100;
@@ -53,7 +54,7 @@ namespace EksamensProjekt2021
         /// <summary>
         /// When called, and within range of player, this method shoots a projectile
         /// </summary>
-        public  void Shoot(GameTime gameTime, Vector2 PlayerPosition)
+        public  void Shoot(GameTime gameTime, Vector2 playerPosition)
         {
             if (Vector2.Distance(Position, PlayerPosition) < 500 )
             {
@@ -68,7 +69,7 @@ namespace EksamensProjekt2021
         /// The method run in Update to make the enemy shoot, firing rate is determined by a timer depending on weapon
         /// </summary>
         /// <param name="gameTime"></param>
-        public void EnemyFireRate(GameTime gameTime, Vector2 PlayerPosition)
+        public void EnemyFireRate(GameTime gameTime, Vector2 playerPosition)
         {
             timer -= gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -88,7 +89,7 @@ namespace EksamensProjekt2021
         /// </summary>
         /// <param name="gameTime"></param>
         /// <param name="PlayerPosition"></param>
-        public void Movement(GameTime gameTime, Vector2 PlayerPosition)
+        public void Movement(GameTime gameTime, Vector2 playerPosition)
         {
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             moveDir = PlayerPosition - this.Position;

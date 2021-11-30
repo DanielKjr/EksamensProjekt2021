@@ -24,7 +24,7 @@ namespace EksamensProjekt2021
         // enum'en som vi lavede ude i gameworld
         private MouseState mStateOld = Mouse.GetState();
         //ska vi bruger senere til shoot-funktion. trust me boiis.
-        private Texture2D startSprite;
+
         public SpriteAnimation anim;
         public SpriteAnimation[] animations = new SpriteAnimation[4];
         
@@ -34,8 +34,9 @@ namespace EksamensProjekt2021
         private Texture2D trumpWalkDown;
 
 
-        float timeElapsed;
-        int currentSpriteIndex = 0;
+ 
+    
+
 
         // forklaret hvor den er relevant
 
@@ -49,14 +50,23 @@ namespace EksamensProjekt2021
 
         public Player()
         {
-
-            position = Position;
+            Position = new Vector2(500, 500);
+            PlayerPosition = position;
             
             
-            fps = 10;
+            
         }
 
+        public Player(Vector2 position)
+        {
+            
+        }
 
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            anim.Draw(spriteBatch);
+           
+        }
 
         public void setX(float newX)
         {
@@ -72,7 +82,7 @@ namespace EksamensProjekt2021
         public override void OnCollision(GameObject other)
         {
 
-
+            
         }
         /*
         public override void Shoot()
@@ -152,9 +162,10 @@ namespace EksamensProjekt2021
 
         public void PlayerAnimation(GameTime gameTime)
         {
-            anim = animations[(int)direction];
-            anim.Position = new Vector2(position.X - 20, position.Y - 48); // ska ændres til at passe spriten
 
+            anim = animations[(int)direction];
+            anim.Position = new Vector2(Position.X - 20, Position.Y - 48); // ska ændres til at passe spriten
+            
             if (isMoving)
             {
                 anim.Update(gameTime);
@@ -179,7 +190,7 @@ namespace EksamensProjekt2021
             HandeInput(gameTime);
             
             PlayerAnimation(gameTime);
-
+            
 
 
         }

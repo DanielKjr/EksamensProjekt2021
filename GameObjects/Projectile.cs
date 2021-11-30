@@ -12,7 +12,7 @@ namespace EksamensProjekt2021
         {
             this.sprite = sprite;
             Position = position;
-            moveSpeed = 200;
+            moveSpeed = 500;
         }
 
 
@@ -24,23 +24,31 @@ namespace EksamensProjekt2021
         public void ProjectileShoot(GameTime gameTime, Vector2 playerPosition)
         {
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            Vector2 shootDir = playerPosition - Position;
+            Vector2 shootDir = PlayerPosition - Position;
             shootDir.Normalize();
             Position += shootDir * moveSpeed * deltaTime;
-
-            if (Vector2.Distance(Position, playerPosition) < 10)
+            
+            if (Vector2.Distance(Position, PlayerPosition) < 10)
             {
                 GameWorld.Despawn(this);
                 //TODO add damage to player
             }
-
-
+            
+            
         }
 
         public override void Update(GameTime gameTime)
         {
             ProjectileShoot(gameTime, PlayerPosition);
 
+        }
+
+        public override void OnCollision(GameObject other)
+        {//virker ikke lige nu da han ikke har nogen hitbox 
+            if (other is Player)
+            {
+                GameWorld.Despawn(this);
+            }
         }
 
 
