@@ -39,7 +39,8 @@ namespace EksamensProjekt2021
 
         private Song music;
 
-
+        public static byte[,] map = new byte[5, 5];
+        public static byte mapReruns = 0; //See how many times the MapGenerator needed to run
 
 
         public static Vector2 screenSize;
@@ -78,16 +79,9 @@ namespace EksamensProjekt2021
             _graphics.PreferredBackBufferHeight = 720;
             _graphics.ApplyChanges();
 
-            MapGenerator(7);
-            /*for (int y = 0; y < map.GetLength(0); y++)
-            {
-                for (int x = 0; x < map.GetLength(1); x++)
-                {
-                    Console.Write(map[x, y]+" ");
-                }
-                Console.WriteLine("");
-            }*/
-            
+            MapGenerator(9);
+
+
 
             base.Initialize();
         }
@@ -127,15 +121,21 @@ namespace EksamensProjekt2021
 
         }
 
+        byte wee;
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            wee++;
+            if (wee > 60)
+            {
+                wee = 0;
+                MapGenerator(9);
+            }
+
             UpdateGameObjects(gameTime);
             player.Update(gameTime);
-
-
             base.Update(gameTime);
         }
 
@@ -219,21 +219,20 @@ namespace EksamensProjekt2021
         }
 
 
-        public byte[,] map = new byte[5, 5];
         private void MapGenerator(byte amountOfRooms)
         {
-            for (int x = 0; x < map.GetLength(0); x++) // Reset map. Bruges til at lave nye levels.
-            {
-                for (int y = 0; y < map.GetLength(1); y++)
-                {
-                    map[x, y] = 0;
-                }
-            }
-            int[] index = new int[2] { 2, 2 };
+            MapReset();
             Random rnd = new Random();
-            map[2, 2] = 1; //Set spawn room at 2,2 (middle of map)
             byte createdRooms = 0;
             byte filledRooms = 0;
+            byte failSafe = 0; //If the code messes up, use this to escape
+
+            byte rndX = (byte)rnd.Next(1, 4);
+            byte rndY = (byte)rnd.Next(1, 4);
+            map[rndX, rndY] = 1;  //Sets inital spawn room
+            int[] index = new int[2] {rndX,rndY,}; //Sets index to spawn room.
+
+
             while (filledRooms < amountOfRooms)
             {
                 for (int x = 0; x < map.GetLength(0); x++)//Find next index point
@@ -251,7 +250,7 @@ namespace EksamensProjekt2021
                     }
                 }
 
-                
+
 
                 if (createdRooms < amountOfRooms) //Only create a new room, if there is a need for it.
                 {
@@ -292,20 +291,62 @@ namespace EksamensProjekt2021
                         }
                     }
                 }
+                failSafe++;
+                if (failSafe >= 100) //If the map failed, run again
+                {
+                    createdRooms = 0;
+                    filledRooms = 0;
+                    failSafe = 0;
+                    MapReset();
+                    rndX = (byte)rnd.Next(1, 4);
+                    rndY = (byte)rnd.Next(1, 4);
+                    map[rndX, rndY] = 1;  //Sets inital spawn room
+                    index = new int[2] { rndX, rndY, }; //Sets index to spawn room.
+                    mapReruns++;
+                }
             }
             map[index[0], index[1]] = 5; //Set last created room to be boss room
+
+            RoomDebug(failSafe, mapReruns);
         }
         private byte RoomChance()
         {
             Random rnd = new Random();
-            switch ((int)rnd.Next(0,101))
+            switch ((int)rnd.Next(0, 101))
             {
-                case int n when (n>-1 && n<15): //15% chance for loot
+                case int n when (n > -1 && n < 15): //15% chance for loot
                     return 4;
                 case int n when (n > 75 && n < 101)://25% chance for hard room
                     return 3;
                 default:                       //60% chance for normal room
                     return 2;
+            }
+        }
+        private void RoomDebug(byte failSafe, byte reruns)
+        {
+            Console.Clear();
+            for (int y = 0; y < map.GetLength(0); y++)
+            {
+                for (int x = 0; x < map.GetLength(1); x++)
+                {
+                    if (map[x, y] == 0) Console.ForegroundColor = ConsoleColor.White;
+                    else Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write(map[x, y] + " ");
+                }
+                if (failSafe >= 100) Console.WriteLine("  BROKE");
+                else Console.WriteLine("");
+            }
+            Console.WriteLine($"\nReruns: {reruns}");
+            mapReruns = 0;
+        }
+        private void MapReset()
+        {
+            for (int x = 0; x < map.GetLength(0); x++) // Reset map. Bruges til at lave nye levels.
+            {
+                for (int y = 0; y < map.GetLength(1); y++)
+                {
+                    map[x, y] = 0;
+                }
             }
         }
     }
