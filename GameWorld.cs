@@ -79,7 +79,7 @@ namespace EksamensProjekt2021
             _graphics.PreferredBackBufferHeight = 720;
             _graphics.ApplyChanges();
 
-            MapGenerator(9);
+            RoomsGenerator(9);
 
 
 
@@ -131,7 +131,7 @@ namespace EksamensProjekt2021
             if (wee > 60)
             {
                 wee = 0;
-                MapGenerator(9);
+                RoomsGenerator(9);
             }
 
             UpdateGameObjects(gameTime);
@@ -218,10 +218,14 @@ namespace EksamensProjekt2021
             _spriteBatch.Draw(collisionTexture, leftLine, Color.Red);
         }
 
-
-        private void MapGenerator(byte amountOfRooms)
+        /// <summary>
+        /// Generates the map based on amount of rooms desired.
+        /// Will auto retry if it fails (random WILL fail)
+        /// </summary>
+        /// <param name="amountOfRooms"></param>
+        private void RoomsGenerator(byte amountOfRooms)
         {
-            MapReset();
+            RoomsReset();
             Random rnd = new Random();
             byte createdRooms = 0;
             byte filledRooms = 0;
@@ -297,7 +301,7 @@ namespace EksamensProjekt2021
                     createdRooms = 0;
                     filledRooms = 0;
                     failSafe = 0;
-                    MapReset();
+                    RoomsReset();
                     rndX = (byte)rnd.Next(1, 4);
                     rndY = (byte)rnd.Next(1, 4);
                     map[rndX, rndY] = 1;  //Sets inital spawn room
@@ -309,6 +313,11 @@ namespace EksamensProjekt2021
 
             RoomDebug(failSafe, mapReruns);
         }
+        /// <summary>
+        /// Chances of the different rooms
+        /// Returns which room it should be
+        /// </summary>
+        /// <returns></returns>
         private byte RoomChance()
         {
             Random rnd = new Random();
@@ -322,6 +331,11 @@ namespace EksamensProjekt2021
                     return 2;
             }
         }
+        /// <summary>
+        /// Console.WriteLine debug method
+        /// </summary>
+        /// <param name="failSafe"></param>
+        /// <param name="reruns"></param>
         private void RoomDebug(byte failSafe, byte reruns)
         {
             Console.Clear();
@@ -339,7 +353,10 @@ namespace EksamensProjekt2021
             Console.WriteLine($"\nReruns: {reruns}");
             mapReruns = 0;
         }
-        private void MapReset()
+        /// <summary>
+        /// Clears Map[] array.
+        /// </summary>
+        private void RoomsReset()
         {
             for (int x = 0; x < map.GetLength(0); x++) // Reset map. Bruges til at lave nye levels.
             {
