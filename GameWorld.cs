@@ -30,7 +30,7 @@ namespace EksamensProjekt2021
         private Texture2D collisionTexture;
 
 
-        private Texture2D playerSprite;
+
         private Texture2D trumpWalkRight;
         private Texture2D trumpWalkLeft;
         private Texture2D trumpWalkUp;
@@ -41,11 +41,10 @@ namespace EksamensProjekt2021
         private int[] map;
 
 
-        public GameWorld()
+
 
         public static Vector2 screenSize;     
         public GameWorld() 
-
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -55,10 +54,7 @@ namespace EksamensProjekt2021
 
         }
 
-        public void AddObject(GameObject go)
-        {
-
-        }
+      
 
         public void RemoveObject(GameObject go)
         {
@@ -76,7 +72,8 @@ namespace EksamensProjekt2021
             enemies = new List<Enemy>();
             deleteObjects = new List<GameObject>();
             AddGameObject(new Enemy());
-            AddGameObject(new Player());
+             AddGameObject(new Player());
+           // new Player();
 
             _graphics.PreferredBackBufferWidth = 1280;
             _graphics.PreferredBackBufferHeight = 720;
@@ -102,9 +99,7 @@ namespace EksamensProjekt2021
             }
 
 
-
-
-            playerSprite = Content.Load<Texture2D>("SpritePlaceHolder2");
+            
             trumpWalkRight = Content.Load<Texture2D>("trumpWalkRight");
             trumpWalkLeft = Content.Load<Texture2D>("trumpWalkLeft");
             trumpWalkUp = Content.Load<Texture2D>("trumpWalkUp");
@@ -118,6 +113,8 @@ namespace EksamensProjekt2021
 
             player.anim = player.animations[0]; //ændre sig afhængig af direction i player
 
+
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -126,11 +123,6 @@ namespace EksamensProjekt2021
                 Exit();
 
             UpdateGameObjects(gameTime);
-
-
-
-
-
             player.Update(gameTime);
 
 
@@ -151,16 +143,14 @@ namespace EksamensProjekt2021
             {
                 go.Draw(_spriteBatch);
             }
-
+            player.anim.Draw(_spriteBatch); //vi bruger Draw metoden i den SpriteAnimation "anim" som vi lavede på playeren. det ser fucking nice ud fordi det er så simpelt
 
             _spriteBatch.End();
 
 
             base.Draw(gameTime);
 
-            _spriteBatch.Begin();
-            player.anim.Draw(_spriteBatch); //vi bruger Draw metoden i den SpriteAnimation "anim" som vi lavede på playeren. det ser fucking nice ud fordi det er så simpelt
-            _spriteBatch.End();
+
 
         }
 
