@@ -6,6 +6,13 @@ using System.Collections.Generic;
 
 namespace EksamensProjekt2021
 {
+    enum Dir
+    {
+        Right,
+        Left,
+        Up,
+        Down
+    }
     public class GameWorld : Game
     {
         private GraphicsDeviceManager _graphics;
@@ -16,20 +23,35 @@ namespace EksamensProjekt2021
         private static List<Enemy> enemies;
         private static List<Projectile> projectiles;
 
-        private Player player;
+        Player player = new Player();
 
         private Texture2D cursor;
+
         private Texture2D collisionTexture;
+
+
+        private Texture2D playerSprite;
+        private Texture2D trumpWalkRight;
+        private Texture2D trumpWalkLeft;
+        private Texture2D trumpWalkUp;
+        private Texture2D trumpWalkDown;
+
         private Song music;
 
         private int[] map;
 
 
         public GameWorld()
+
+        public static Vector2 screenSize;     
+        public GameWorld() 
+
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
+            screenSize = new Vector2(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
         }
 
@@ -48,6 +70,7 @@ namespace EksamensProjekt2021
         {
             // _graphics.IsFullScreen = true;
             // TODO: Add your initialization logic here
+
             gameObjects = new List<GameObject>();
             projectiles = new List<Projectile>();
             enemies = new List<Enemy>();
@@ -65,6 +88,7 @@ namespace EksamensProjekt2021
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+
             collisionTexture = Content.Load<Texture2D>("CollisionTexture ");
 
             foreach (GameObject go in gameObjects)
@@ -79,6 +103,21 @@ namespace EksamensProjekt2021
 
 
 
+
+            playerSprite = Content.Load<Texture2D>("SpritePlaceHolder2");
+            trumpWalkRight = Content.Load<Texture2D>("trumpWalkRight");
+            trumpWalkLeft = Content.Load<Texture2D>("trumpWalkLeft");
+            trumpWalkUp = Content.Load<Texture2D>("trumpWalkUp");
+            trumpWalkDown = Content.Load<Texture2D>("trumpWalkDown");
+
+            player.animations[0] = new SpriteAnimation(trumpWalkRight, 6, 10); // SpriteAnimation(texture2D texture, int frames, int fps) forklaret hvad de gør i SpriteAnimation.cs
+            player.animations[1] = new SpriteAnimation(trumpWalkLeft, 6, 10);
+            player.animations[2] = new SpriteAnimation(trumpWalkUp, 6, 10);
+            player.animations[3] = new SpriteAnimation(trumpWalkDown, 6, 10);
+            //enum kan castes til int, så derfor kan vi bruge et array til at skife imellem dem. forklaret i player og hvor det relevant
+
+            player.anim = player.animations[0]; //ændre sig afhængig af direction i player
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -90,6 +129,9 @@ namespace EksamensProjekt2021
 
 
 
+
+
+            player.Update(gameTime);
 
 
             base.Update(gameTime);
@@ -115,6 +157,11 @@ namespace EksamensProjekt2021
 
 
             base.Draw(gameTime);
+
+            _spriteBatch.Begin();
+            player.anim.Draw(_spriteBatch); //vi bruger Draw metoden i den SpriteAnimation "anim" som vi lavede på playeren. det ser fucking nice ud fordi det er så simpelt
+            _spriteBatch.End();
+
         }
 
         private void AddGameObject(GameObject gameObject)
