@@ -19,9 +19,9 @@ namespace EksamensProjekt2021
         protected float moveSpeed;
         protected int health;
         protected int armor;
-        protected Vector2 playerPosition;
-        public Vector2 PlayerPosition { get => playerPosition; set => playerPosition = value; }
 
+        public Vector2 playerPosition;
+        public Vector2 PlayerPosition { get => playerPosition; set => playerPosition = value; }
         // public abstract void Shoot();
 
         //public abstract void Shoot(Weapon weapon);
@@ -29,7 +29,7 @@ namespace EksamensProjekt2021
 
 
         //get rectangle
-        public Rectangle Collision
+        public virtual Rectangle Collision
         {
             get
             {
@@ -48,7 +48,7 @@ namespace EksamensProjekt2021
         public abstract void LoadContent(ContentManager content);
         
 
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(sprite, position, null, Color.White, 0, origin, 1, SpriteEffects.None, 0);
         }

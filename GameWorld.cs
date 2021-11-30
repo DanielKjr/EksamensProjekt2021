@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 namespace EksamensProjekt2021
 {
@@ -65,16 +66,17 @@ namespace EksamensProjekt2021
         {
             // _graphics.IsFullScreen = true;
             // TODO: Add your initialization logic here
+            player.playerPosition = new Vector2(500, 500);
 
             gameObjects = new List<GameObject>();
             projectiles = new List<Projectile>();
             enemies = new List<Enemy>();
             deleteObjects = new List<GameObject>();
             AddGameObject(new Enemy());
+            gameObjects.Add(player);
+            
+            
 
-
-             AddPlayer(new Player());
-            //new Player();
 
 
             _graphics.PreferredBackBufferWidth = 1280;
@@ -117,7 +119,7 @@ namespace EksamensProjekt2021
             trumpWalkLeft = Content.Load<Texture2D>("trumpWalkLeft");
             trumpWalkUp = Content.Load<Texture2D>("trumpWalkUp");
             trumpWalkDown = Content.Load<Texture2D>("trumpWalkDown");
-            
+          
             player.animations[0] = new SpriteAnimation(trumpWalkRight, 6, 10); // SpriteAnimation(texture2D texture, int frames, int fps) forklaret hvad de gør i SpriteAnimation.cs
             player.animations[1] = new SpriteAnimation(trumpWalkLeft, 6, 10);
             player.animations[2] = new SpriteAnimation(trumpWalkUp, 6, 10);
@@ -134,11 +136,12 @@ namespace EksamensProjekt2021
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            player.Update(gameTime);
-            UpdateGameObjects(gameTime);
             
+            UpdateGameObjects(gameTime);
+            player.Update(gameTime);
 
-
+           
+  
             base.Update(gameTime);
         }
 
@@ -150,13 +153,22 @@ namespace EksamensProjekt2021
             foreach (GameObject go in gameObjects)
             {
                 go.Draw(_spriteBatch);
-                DrawCollisionBox(go);
+                
+               // DrawCollisionBox(go);
+               //den kan ikke finde ud af at tegne player rectangle lige nu så den er disabled
             }
             foreach (Projectile go in projectiles)
             {
                 go.Draw(_spriteBatch);
             }
-            player.anim.Draw(_spriteBatch); //vi bruger Draw metoden i den SpriteAnimation "anim" som vi lavede på playeren. det ser fucking nice ud fordi det er så simpelt
+
+           
+            
+            
+             //   player.anim.Draw(_spriteBatch);
+            
+          //  player.anim.Draw(_spriteBatch); //vi bruger Draw metoden i den SpriteAnimation "anim" som vi lavede på playeren. det ser fucking nice ud fordi det er så simpelt
+          //jeg efterlader dem lige her indtil videre men jeg har overrided draw i player for at gøre det samme
 
 
             _spriteBatch.End();
@@ -181,7 +193,7 @@ namespace EksamensProjekt2021
         }
         private void AddPlayer(GameObject gameObject)
         {
-
+            //måske ikke nødvendig
             if (gameObject is null)
                 throw new System.ArgumentNullException($"{nameof(gameObject)} cannot be null.");
 
@@ -215,7 +227,24 @@ namespace EksamensProjekt2021
             {
                 gameObjects.Remove(go);
             }
-            
+
+            foreach (Player p in gameObjects.OfType<Player>())
+            {
+
+                foreach (Enemy e in gameObjects.OfType<Enemy>())
+                {
+
+                    e.PlayerPosition = p.Position;
+                    e.Update(gameTime);
+                    p.Update(gameTime);
+                }
+                foreach (Projectile proj in projectiles)
+                {
+                    proj.Update(gameTime);
+                    proj.PlayerPosition = p.Position;
+                }
+
+            }
 
         }
 
