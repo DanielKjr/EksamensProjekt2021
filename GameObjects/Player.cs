@@ -1,7 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +12,9 @@ using System.Text;
 
 namespace EksamensProjekt2021
 {
-    class Player : GameObject
+    public class Player : GameObject
     {
+
         private Vector2 position = new Vector2(500, 300);
         private int speed = 350;
         //en værdi vi bare kan ændre til at passe med hvor hurtigt vi vil ha ham. bliver brugt i udregninen af når han bevæger sig
@@ -20,18 +24,31 @@ namespace EksamensProjekt2021
         // enum'en som vi lavede ude i gameworld
         private MouseState mStateOld = Mouse.GetState();
         //ska vi bruger senere til shoot-funktion. trust me boiis.
-
+        private Texture2D startSprite;
         public SpriteAnimation anim;
         public SpriteAnimation[] animations = new SpriteAnimation[4];
+
+
+        private Texture2D trumpWalkRight;
+        private Texture2D trumpWalkLeft;
+        private Texture2D trumpWalkUp;
+        private Texture2D trumpWalkDown;
+
         // forklaret hvor den er relevant
 
-
+        /*
         public Vector2 Position
         {
             get { return position; }
         }
         //property sårn vi ban benytte os af den
+        */
 
+        public Player()
+        {
+            sprite = trumpWalkRight;
+            position = PlayerPosition;
+        }
 
 
 
@@ -49,14 +66,15 @@ namespace EksamensProjekt2021
         public override void OnCollision(GameObject other)
         {
 
+
         }
 
-        public override void Shoot(Weapon weapon)
+        public override void Shoot()
         {
 
         }
 
-        public override void Update(GameTime gameTime)
+        public void HandeInput(GameTime gameTime)
         {
             KeyboardState kState = Keyboard.GetState();
             //keyboard.getstate() ved statusen på vores keyboard (om vi har trykket på en knap eller givet slip for eksempel). kstate gemmer det til en variabel, sårn vi kan benytte os af den
@@ -68,9 +86,9 @@ namespace EksamensProjekt2021
             if (kState.IsKeyDown(Keys.D)) //IsKeyDown ser om en knap er trykket på vores kState. 
             {
                 direction = Dir.Right; // ændre direction, sårn vi ka brugedet til at vælge hvilken animation vi vil bruge
-                //if (position.X < 1920) ska finde en anden måde at begrænse det på
-                    position.X += speed * dt; //sådan at den bevæger sig
-                    isMoving = true; //forklaret ovenover
+                                       //if (position.X < 1920) ska finde en anden måde at begrænse det på
+                position.X += speed * dt; //sådan at den bevæger sig
+                isMoving = true; //forklaret ovenover
             }
             if (kState.IsKeyDown(Keys.A))
             {
@@ -117,6 +135,11 @@ namespace EksamensProjekt2021
             unødvendig kode, fordi enums faktisk er brugbart after all. vi typecaster vores dir til en int, som vi ka bruge i vores array med vores retninger.
             det nedenunder gør essentielt det samme, men ser kloger ud. der må ikke fuckes med rækkefølgen af værdierne der hvor vi laver vores enum i gameWorld
             */
+
+        }
+
+        public void PlayerAnimation(GameTime gameTime)
+        {
             anim = animations[(int)direction];
             anim.Position = new Vector2(position.X - 20, position.Y - 48); // ska ændres til at passe spriten
 
@@ -136,7 +159,33 @@ namespace EksamensProjekt2021
                 }
                 // dette gør at hvis man ik bevæger sig, så sætter den animation til at være den bestemte frame tilsvarende på retning's spritesheet. synes de her er de bedste som idle frames. kan diskuteres
             }
+        }
 
+        public override void Update(GameTime gameTime)
+        {
+            PlayerAnimation(gameTime);
+            HandeInput(gameTime);
+
+
+        }
+
+        public override void LoadContent(ContentManager content)
+        {
+           
+            startSprite = content.Load<Texture2D>("trumpWalkRight");
+
+            trumpWalkRight = content.Load<Texture2D>("trumpWalkRight");
+            trumpWalkLeft = content.Load<Texture2D>("trumpWalkLeft");
+            trumpWalkUp = content.Load<Texture2D>("trumpWalkUp");
+            trumpWalkDown = content.Load<Texture2D>("trumpWalkDown");
+
+            animations[0] = new SpriteAnimation(trumpWalkRight, 6, 10); // SpriteAnimation(texture2D texture, int frames, int fps) forklaret hvad de gør i SpriteAnimation.cs
+            animations[1] = new SpriteAnimation(trumpWalkLeft, 6, 10);
+            animations[2] = new SpriteAnimation(trumpWalkUp, 6, 10);
+            animations[3] = new SpriteAnimation(trumpWalkDown, 6, 10);
+            //enum kan castes til int, så derfor kan vi bruge et array til at skife imellem dem. forklaret i player og hvor det relevant
+
+            anim = animations[0]; //ændre sig afhængig af direction i player
         }
     }
 }
