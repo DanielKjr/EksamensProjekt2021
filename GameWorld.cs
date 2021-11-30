@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System.Collections.Generic;
+using System;
 
 namespace EksamensProjekt2021
 {
@@ -38,13 +39,11 @@ namespace EksamensProjekt2021
 
         private Song music;
 
-        private int[] map;
 
 
 
-
-        public static Vector2 screenSize;     
-        public GameWorld() 
+        public static Vector2 screenSize;
+        public GameWorld()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -54,7 +53,7 @@ namespace EksamensProjekt2021
 
         }
 
-      
+
 
         public void RemoveObject(GameObject go)
         {
@@ -72,12 +71,23 @@ namespace EksamensProjekt2021
             enemies = new List<Enemy>();
             deleteObjects = new List<GameObject>();
             AddGameObject(new Enemy());
-             AddGameObject(new Player());
-           // new Player();
+            //AddGameObject(new Player());
+            new Player();
 
             _graphics.PreferredBackBufferWidth = 1280;
             _graphics.PreferredBackBufferHeight = 720;
             _graphics.ApplyChanges();
+
+            MapGenerator(7);
+            /*for (int y = 0; y < map.GetLength(0); y++)
+            {
+                for (int x = 0; x < map.GetLength(1); x++)
+                {
+                    Console.Write(map[x, y]+" ");
+                }
+                Console.WriteLine("");
+            }*/
+            
 
             base.Initialize();
         }
@@ -99,7 +109,7 @@ namespace EksamensProjekt2021
             }
 
 
-            
+
             trumpWalkRight = Content.Load<Texture2D>("trumpWalkRight");
             trumpWalkLeft = Content.Load<Texture2D>("trumpWalkLeft");
             trumpWalkUp = Content.Load<Texture2D>("trumpWalkUp");
@@ -144,6 +154,7 @@ namespace EksamensProjekt2021
                 go.Draw(_spriteBatch);
             }
             player.anim.Draw(_spriteBatch); //vi bruger Draw metoden i den SpriteAnimation "anim" som vi lavede på playeren. det ser fucking nice ud fordi det er så simpelt
+
 
             _spriteBatch.End();
 
@@ -208,7 +219,94 @@ namespace EksamensProjekt2021
         }
 
 
+        public byte[,] map = new byte[5, 5];
+        private void MapGenerator(byte amountOfRooms)
+        {
+            for (int x = 0; x < map.GetLength(0); x++) // Reset map. Bruges til at lave nye levels.
+            {
+                for (int y = 0; y < map.GetLength(1); y++)
+                {
+                    map[x, y] = 0;
+                }
+            }
+            int[] index = new int[2] { 2, 2 };
+            Random rnd = new Random();
+            map[2, 2] = 1; //Set spawn room at 2,2 (middle of map)
+            byte createdRooms = 0;
+            byte filledRooms = 0;
+            while (filledRooms < amountOfRooms)
+            {
+                for (int x = 0; x < map.GetLength(0); x++)//Find next index point
+                {
+                    for (int y = 0; y < map.GetLength(1); y++)
+                    {
+                        if (map[x, y] == 255)
+                        {
+                            index[0] = x;
+                            index[1] = y;
+                            map[index[0], index[1]] = RoomChance(); //See what this room should become
+                            filledRooms++;
+                            break;
+                        }
+                    }
+                }
 
+                
 
+                if (createdRooms < amountOfRooms) //Only create a new room, if there is a need for it.
+                {
+                    for (int x = -1; x <= 1; x += 2) //Check left and right
+                    {
+                        if (index[0] + x == -1 || index[0] + x == 5) break; //Check if outside
+                        if (map[index[0] + x, index[1]] == 0) //Check if empty
+                        {
+                            switch (rnd.Next(0, 3)) //Randomize if there should be a room in that pos
+                            {
+                                case 0:
+                                    break; //Room not chosen
+                                case 1:
+                                    map[index[0] + x, index[1]] = 255; //Fill temporary value into room
+                                    createdRooms++;
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                    for (int y = -1; y <= 1; y += 2) //Check up and down
+                    {
+                        if (index[1] + y == -1 || index[1] + y == 5) break; //Check if outside
+                        if (map[index[0], index[1] + y] == 0) //Check if clear
+                        {
+                            switch (rnd.Next(0, 3)) //Randomize if there should be a room in that pos
+                            {
+                                case 0:
+                                    break; //Room not chosen
+                                case 1:
+                                    map[index[0], index[1] + y] = 255; //Fill temporary value into room
+                                    createdRooms++;
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                }
+            }
+            map[index[0], index[1]] = 5; //Set last created room to be boss room
+        }
+        private byte RoomChance()
+        {
+            Random rnd = new Random();
+            switch ((int)rnd.Next(0,101))
+            {
+                case int n when (n>-1 && n<15): //15% chance for loot
+                    return 4;
+                case int n when (n > 75 && n < 101)://25% chance for hard room
+                    return 3;
+                default:                       //60% chance for normal room
+                    return 2;
+            }
+        }
     }
 }
