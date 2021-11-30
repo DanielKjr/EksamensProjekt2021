@@ -71,8 +71,11 @@ namespace EksamensProjekt2021
             enemies = new List<Enemy>();
             deleteObjects = new List<GameObject>();
             AddGameObject(new Enemy());
-            //AddGameObject(new Player());
-            new Player();
+
+
+             AddPlayer(new Player());
+            //new Player();
+
 
             _graphics.PreferredBackBufferWidth = 1280;
             _graphics.PreferredBackBufferHeight = 720;
@@ -114,7 +117,7 @@ namespace EksamensProjekt2021
             trumpWalkLeft = Content.Load<Texture2D>("trumpWalkLeft");
             trumpWalkUp = Content.Load<Texture2D>("trumpWalkUp");
             trumpWalkDown = Content.Load<Texture2D>("trumpWalkDown");
-
+            
             player.animations[0] = new SpriteAnimation(trumpWalkRight, 6, 10); // SpriteAnimation(texture2D texture, int frames, int fps) forklaret hvad de gør i SpriteAnimation.cs
             player.animations[1] = new SpriteAnimation(trumpWalkLeft, 6, 10);
             player.animations[2] = new SpriteAnimation(trumpWalkUp, 6, 10);
@@ -123,7 +126,7 @@ namespace EksamensProjekt2021
 
             player.anim = player.animations[0]; //ændre sig afhængig af direction i player
 
-
+            
 
         }
 
@@ -131,9 +134,9 @@ namespace EksamensProjekt2021
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
-            UpdateGameObjects(gameTime);
             player.Update(gameTime);
+            UpdateGameObjects(gameTime);
+            
 
 
             base.Update(gameTime);
@@ -176,6 +179,17 @@ namespace EksamensProjekt2021
 
 
         }
+        private void AddPlayer(GameObject gameObject)
+        {
+
+            if (gameObject is null)
+                throw new System.ArgumentNullException($"{nameof(gameObject)} cannot be null.");
+
+            gameObject.LoadContent(this.Content);
+            
+
+
+        }
 
         public static void Instantiate(Projectile go)
         {
@@ -201,6 +215,7 @@ namespace EksamensProjekt2021
             {
                 gameObjects.Remove(go);
             }
+            
 
         }
 

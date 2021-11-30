@@ -15,7 +15,7 @@ namespace EksamensProjekt2021
         private double fireRate;
         private double timer = 2;
 
-
+  
 
         public Enemy()
         {
@@ -43,14 +43,17 @@ namespace EksamensProjekt2021
 
         public override void Update(GameTime gameTime)
         {
+            
            Movement(gameTime, PlayerPosition);
-            EnemyFireRate(gameTime);
+
+
+            EnemyFireRate(gameTime, PlayerPosition);
         }
 
         /// <summary>
         /// When called, and within range of player, this method shoots a projectile
         /// </summary>
-        public override void Shoot()
+        public  void Shoot(GameTime gameTime, Vector2 PlayerPosition)
         {
             if (Vector2.Distance(Position, PlayerPosition) < 500 )
             {
@@ -65,13 +68,13 @@ namespace EksamensProjekt2021
         /// The method run in Update to make the enemy shoot, firing rate is determined by a timer depending on weapon
         /// </summary>
         /// <param name="gameTime"></param>
-        public void EnemyFireRate(GameTime gameTime)
+        public void EnemyFireRate(GameTime gameTime, Vector2 PlayerPosition)
         {
             timer -= gameTime.ElapsedGameTime.TotalSeconds;
 
             if (timer <= 0)
             {
-                Shoot();
+                Shoot(gameTime, PlayerPosition);
                 //TODO make use of the fireRate double - like fireRate = 1, then change the timer below this to be "timer = 2 - fireRate;" or something like that
                 timer = 2;
                
@@ -98,6 +101,8 @@ namespace EksamensProjekt2021
 
 
         }
+
+
      
 
         public override void OnCollision(GameObject other)
