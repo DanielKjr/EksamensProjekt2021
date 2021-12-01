@@ -20,12 +20,14 @@ namespace EksamensProjekt2021
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        private static List<GameObject> gameObjects;
+        public static List<GameObject> gameObjects;
         private static List<GameObject> deleteObjects;
         private static List<Enemy> enemies;
         private static List<Projectile> projectiles;
 
-        Player player = new Player();
+        public static Player player;
+        public static Enemy enemy;
+        public static GameObject target;
 
         private Texture2D cursor;
 
@@ -49,7 +51,7 @@ namespace EksamensProjekt2021
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-
+            player = new Player();
             screenSize = new Vector2(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
         }
@@ -61,18 +63,25 @@ namespace EksamensProjekt2021
 
         }
 
+        private void AddEnemy()
+        {
+            Enemy enemy = new Enemy(player);
+            gameObjects.Add(enemy);
+        }
 
         protected override void Initialize()
         {
             // _graphics.IsFullScreen = true;
             // TODO: Add your initialization logic here
-            player.playerPosition = new Vector2(500, 500);
+            player = new Player();
+            player.Position = new Vector2(500, 500);
 
             gameObjects = new List<GameObject>();
             projectiles = new List<Projectile>();
             enemies = new List<Enemy>();
             deleteObjects = new List<GameObject>();
-            AddGameObject(new Enemy());
+            //AddGameObject(new Enemy());
+            AddEnemy();
             gameObjects.Add(player);
             
             
@@ -138,8 +147,10 @@ namespace EksamensProjekt2021
                 Exit();
             
             UpdateGameObjects(gameTime);
+            
             player.Update(gameTime);
 
+            
            
   
             base.Update(gameTime);
@@ -226,24 +237,6 @@ namespace EksamensProjekt2021
             foreach (GameObject go in deleteObjects)
             {
                 gameObjects.Remove(go);
-            }
-
-            foreach (Player p in gameObjects.OfType<Player>())
-            {
-
-                foreach (Enemy e in gameObjects.OfType<Enemy>())
-                {
-
-                    e.PlayerPosition = p.Position;
-                    e.Update(gameTime);
-                    p.Update(gameTime);
-                }
-                foreach (Projectile proj in projectiles)
-                {
-                    proj.Update(gameTime);
-                    proj.PlayerPosition = p.Position;
-                }
-
             }
 
         }
