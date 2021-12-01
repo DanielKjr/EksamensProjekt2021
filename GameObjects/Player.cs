@@ -15,7 +15,7 @@ namespace EksamensProjekt2021
     public class Player : GameObject
     {
 
-        private Vector2 position = new Vector2(500, 300);
+       // private Vector2 position = new Vector2(500, 300);
         private int speed = 350;
         //en værdi vi bare kan ændre til at passe med hvor hurtigt vi vil ha ham. bliver brugt i udregninen af når han bevæger sig
         private bool isMoving = false;
@@ -24,15 +24,19 @@ namespace EksamensProjekt2021
         // enum'en som vi lavede ude i gameworld
         private MouseState mStateOld = Mouse.GetState();
         //ska vi bruger senere til shoot-funktion. trust me boiis.
-        private Texture2D startSprite;
+
         public SpriteAnimation anim;
         public SpriteAnimation[] animations = new SpriteAnimation[4];
-
-
+        
         private Texture2D trumpWalkRight;
         private Texture2D trumpWalkLeft;
         private Texture2D trumpWalkUp;
         private Texture2D trumpWalkDown;
+
+
+ 
+    
+
 
         // forklaret hvor den er relevant
 
@@ -46,11 +50,23 @@ namespace EksamensProjekt2021
 
         public Player()
         {
-            sprite = trumpWalkRight;
-            position = PlayerPosition;
+            Position = new Vector2(500, 500);
+            PlayerPosition = position;
+            
+            
+            
         }
 
+        public Player(Vector2 position)
+        {
+            
+        }
 
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            anim.Draw(spriteBatch);
+           
+        }
 
         public void setX(float newX)
         {
@@ -62,20 +78,22 @@ namespace EksamensProjekt2021
         }
         //er her fordi ellers så kommer der en error med den ikke kan finde ud af vector fordi det en data-type og ik en værdi
 
-
+        
         public override void OnCollision(GameObject other)
         {
 
-
+            
         }
-
+        /*
         public override void Shoot()
         {
 
         }
-
+        */
         public void HandeInput(GameTime gameTime)
         {
+
+
             KeyboardState kState = Keyboard.GetState();
             //keyboard.getstate() ved statusen på vores keyboard (om vi har trykket på en knap eller givet slip for eksempel). kstate gemmer det til en variabel, sårn vi kan benytte os af den
 
@@ -89,6 +107,7 @@ namespace EksamensProjekt2021
                                        //if (position.X < 1920) ska finde en anden måde at begrænse det på
                 position.X += speed * dt; //sådan at den bevæger sig
                 isMoving = true; //forklaret ovenover
+                
             }
             if (kState.IsKeyDown(Keys.A))
             {
@@ -96,6 +115,7 @@ namespace EksamensProjekt2021
                 if (position.X > 0)
                     position.X -= speed * dt;
                 isMoving = true;
+                
             }
             if (kState.IsKeyDown(Keys.W))
             {
@@ -103,6 +123,7 @@ namespace EksamensProjekt2021
                 if (position.Y > 0)
                     position.Y -= speed * dt;
                 isMoving = true;
+                
             }
             if (kState.IsKeyDown(Keys.S))
             {
@@ -110,6 +131,7 @@ namespace EksamensProjekt2021
                 if (position.Y < 1080)
                     position.Y += speed * dt;
                 isMoving = true;
+                
             }
             //det burde ændre hvilken animation man bruger efter en prioritet der tilsvare hvornår man skrev den ind, men dette virker da fuck fuk fuck min fucking pik fuck det lort her fuck.
             /*
@@ -140,9 +162,10 @@ namespace EksamensProjekt2021
 
         public void PlayerAnimation(GameTime gameTime)
         {
-            anim = animations[(int)direction];
-            anim.Position = new Vector2(position.X - 20, position.Y - 48); // ska ændres til at passe spriten
 
+            anim = animations[(int)direction];
+            anim.Position = new Vector2(Position.X - 20, Position.Y - 48); // ska ændres til at passe spriten
+            
             if (isMoving)
             {
                 anim.Update(gameTime);
@@ -163,21 +186,29 @@ namespace EksamensProjekt2021
 
         public override void Update(GameTime gameTime)
         {
-            PlayerAnimation(gameTime);
+
             HandeInput(gameTime);
+            
+            PlayerAnimation(gameTime);
+            
 
 
         }
 
+
         public override void LoadContent(ContentManager content)
         {
+
            
-            startSprite = content.Load<Texture2D>("trumpWalkRight");
 
             trumpWalkRight = content.Load<Texture2D>("trumpWalkRight");
             trumpWalkLeft = content.Load<Texture2D>("trumpWalkLeft");
             trumpWalkUp = content.Load<Texture2D>("trumpWalkUp");
             trumpWalkDown = content.Load<Texture2D>("trumpWalkDown");
+
+
+
+
 
             animations[0] = new SpriteAnimation(trumpWalkRight, 6, 10); // SpriteAnimation(texture2D texture, int frames, int fps) forklaret hvad de gør i SpriteAnimation.cs
             animations[1] = new SpriteAnimation(trumpWalkLeft, 6, 10);
@@ -186,6 +217,7 @@ namespace EksamensProjekt2021
             //enum kan castes til int, så derfor kan vi bruge et array til at skife imellem dem. forklaret i player og hvor det relevant
 
             anim = animations[0]; //ændre sig afhængig af direction i player
+            
         }
     }
 }

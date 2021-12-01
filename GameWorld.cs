@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 namespace EksamensProjekt2021
 {
@@ -19,12 +20,14 @@ namespace EksamensProjekt2021
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        private static List<GameObject> gameObjects;
+        public static List<GameObject> gameObjects;
         private static List<GameObject> deleteObjects;
         private static List<Enemy> enemies;
         private static List<Projectile> projectiles;
 
-        Player player = new Player();
+        public static Player player;
+        public static Enemy enemy;
+        public static GameObject target;
 
         private Texture2D cursor;
 
@@ -50,7 +53,7 @@ namespace EksamensProjekt2021
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-
+            player = new Player();
             screenSize = new Vector2(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
         }
@@ -62,19 +65,30 @@ namespace EksamensProjekt2021
 
         }
 
+        private void AddEnemy()
+        {
+            Enemy enemy = new Enemy(player);
+            gameObjects.Add(enemy);
+        }
 
         protected override void Initialize()
         {
             // _graphics.IsFullScreen = true;
             // TODO: Add your initialization logic here
+            player = new Player();
+            player.Position = new Vector2(500, 500);
 
             gameObjects = new List<GameObject>();
             projectiles = new List<Projectile>();
             enemies = new List<Enemy>();
             deleteObjects = new List<GameObject>();
-            AddGameObject(new Enemy());
-            //AddGameObject(new Player());
-            new Player();
+            //AddGameObject(new Enemy());
+            AddEnemy();
+            gameObjects.Add(player);
+            
+            
+
+
 
             _graphics.PreferredBackBufferWidth = 1280;
             _graphics.PreferredBackBufferHeight = 720;
@@ -109,7 +123,7 @@ namespace EksamensProjekt2021
             trumpWalkLeft = Content.Load<Texture2D>("trumpWalkLeft");
             trumpWalkUp = Content.Load<Texture2D>("trumpWalkUp");
             trumpWalkDown = Content.Load<Texture2D>("trumpWalkDown");
-
+          
             player.animations[0] = new SpriteAnimation(trumpWalkRight, 6, 10); // SpriteAnimation(texture2D texture, int frames, int fps) forklaret hvad de gør i SpriteAnimation.cs
             player.animations[1] = new SpriteAnimation(trumpWalkLeft, 6, 10);
             player.animations[2] = new SpriteAnimation(trumpWalkUp, 6, 10);
@@ -118,7 +132,7 @@ namespace EksamensProjekt2021
 
             player.anim = player.animations[0]; //ændre sig afhængig af direction i player
 
-
+            
 
         }
 
@@ -126,8 +140,11 @@ namespace EksamensProjekt2021
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
             UpdateGameObjects(gameTime);
+            
             player.Update(gameTime);
+
             base.Update(gameTime);
         }
 
@@ -139,13 +156,22 @@ namespace EksamensProjekt2021
             foreach (GameObject go in gameObjects)
             {
                 go.Draw(_spriteBatch);
-                DrawCollisionBox(go);
+                
+               // DrawCollisionBox(go);
+               //den kan ikke finde ud af at tegne player rectangle lige nu så den er disabled
             }
             foreach (Projectile go in projectiles)
             {
                 go.Draw(_spriteBatch);
             }
-            player.anim.Draw(_spriteBatch); //vi bruger Draw metoden i den SpriteAnimation "anim" som vi lavede på playeren. det ser fucking nice ud fordi det er så simpelt
+
+           
+            
+            
+             //   player.anim.Draw(_spriteBatch);
+            
+          //  player.anim.Draw(_spriteBatch); //vi bruger Draw metoden i den SpriteAnimation "anim" som vi lavede på playeren. det ser fucking nice ud fordi det er så simpelt
+          //jeg efterlader dem lige her indtil videre men jeg har overrided draw i player for at gøre det samme
 
 
             _spriteBatch.End();
@@ -165,6 +191,17 @@ namespace EksamensProjekt2021
 
             gameObject.LoadContent(this.Content);
             gameObjects.Add(gameObject);
+
+
+        }
+        private void AddPlayer(GameObject gameObject)
+        {
+            //måske ikke nødvendig
+            if (gameObject is null)
+                throw new System.ArgumentNullException($"{nameof(gameObject)} cannot be null.");
+
+            gameObject.LoadContent(this.Content);
+            
 
 
         }

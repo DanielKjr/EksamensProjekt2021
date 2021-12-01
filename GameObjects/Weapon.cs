@@ -17,12 +17,12 @@ namespace EksamensProjekt2021
         {
             
         }
-
+        /*
         public override void Shoot()
         {
            
         }
-
+        */
         public override void Update(GameTime gameTime)
         {
             
