@@ -122,19 +122,10 @@ namespace EksamensProjekt2021
 
         }
 
-        byte wee;
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
-            wee++;
-            if (wee > 60)
-            {
-                wee = 0;
-                RoomsGenerator(9);
-            }
-
             UpdateGameObjects(gameTime);
             player.Update(gameTime);
             base.Update(gameTime);
@@ -374,32 +365,5 @@ namespace EksamensProjekt2021
         /// Needs RoomDecorations[,] for style
         /// </summary>
         /// <param name="style"></param>
-        private void RoomDecorationsDraw(byte style)
-        {
-            switch (style)
-            {
-                case 0:
-
-                    break;
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    break;
-                case 6:
-                    break;
-                case 7:
-                    break;
-                case 8:
-                    break;
-                case 9:
-                    break;
-            }
-        }
     }
 }
