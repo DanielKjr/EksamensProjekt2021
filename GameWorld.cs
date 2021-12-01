@@ -89,12 +89,11 @@ namespace EksamensProjekt2021
             
 
 
-
             _graphics.PreferredBackBufferWidth = 1280;
             _graphics.PreferredBackBufferHeight = 720;
             _graphics.ApplyChanges();
 
-            roomManager.RoomsGenerator(9);
+            roomManager.CreateMap(9);
 
 
 

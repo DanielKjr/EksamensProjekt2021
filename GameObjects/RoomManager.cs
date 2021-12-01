@@ -7,6 +7,7 @@ namespace EksamensProjekt2021
     public class RoomManager
     {
         public static byte[,] roomLayout = new byte[5, 5];
+        public static byte[] playerInRoom = new byte[2]; //See which room the player is in. (X, Y)
         public static byte mapReruns = 0; //See how many times the RoomsGenerator needed to run
 
         /// <summary>
@@ -14,9 +15,9 @@ namespace EksamensProjekt2021
         /// Will auto retry if it fails (random WILL fail)
         /// </summary>
         /// <param name="amountOfRooms"></param>
-        public void RoomsGenerator(byte amountOfRooms)
+        public void CreateMap(byte amountOfRooms)
         {
-            RoomsReset();
+            Reset();
             Random rnd = new Random();
             byte createdRooms = 0;
             byte filledRooms = 0;
@@ -26,6 +27,8 @@ namespace EksamensProjekt2021
             byte rndY = (byte)rnd.Next(1, 4);
             roomLayout[rndX, rndY] = 1;  //Sets inital spawn room
             int[] index = new int[2] { rndX, rndY, }; //Sets index to spawn room.
+            playerInRoom[0] = rndX; //Set new player coords.
+            playerInRoom[1] = rndY;
 
 
             while (filledRooms < amountOfRooms)
@@ -38,7 +41,7 @@ namespace EksamensProjekt2021
                         {
                             index[0] = x;
                             index[1] = y;
-                            roomLayout[index[0], index[1]] = RoomChance(); //See what this room should become
+                            roomLayout[index[0], index[1]] = Chance(); //See what this room should become
                             filledRooms++;
                             break;
                         }
@@ -92,7 +95,7 @@ namespace EksamensProjekt2021
                     createdRooms = 0;
                     filledRooms = 0;
                     failSafe = 0;
-                    RoomsReset();
+                    Reset();
                     rndX = (byte)rnd.Next(1, 4);
                     rndY = (byte)rnd.Next(1, 4);
                     roomLayout[rndX, rndY] = 1;  //Sets inital spawn room
@@ -103,7 +106,7 @@ namespace EksamensProjekt2021
             roomLayout[index[0], index[1]] = 5; //Set last created room to be boss room
 
 
-            RoomDebug(failSafe, mapReruns);
+            Debug(failSafe, mapReruns);
             //To view: Right click EksamensProjekt2021.crsproj -> properties.
             //Outputtype: Console Application.
         }
@@ -112,7 +115,7 @@ namespace EksamensProjekt2021
         /// Returns which room it should be
         /// </summary>
         /// <returns></returns>
-        public byte RoomChance()
+        public byte Chance()
         {
             Random rnd = new Random();
             switch ((int)rnd.Next(0, 101))
@@ -132,7 +135,7 @@ namespace EksamensProjekt2021
         /// </summary>
         /// <param name="failSafe"></param>
         /// <param name="reruns"></param>
-        private void RoomDebug(byte failSafe, byte reruns)
+        private void Debug(byte failSafe, byte reruns)
         {
             //To view: Right click EksamensProjekt2021.crsproj -> properties.
             //Outputtype: Console Application.
@@ -154,7 +157,7 @@ namespace EksamensProjekt2021
         /// <summary>
         /// Clears Map[] array.
         /// </summary>
-        public void RoomsReset()
+        public void Reset()
         {
             for (int x = 0; x < roomLayout.GetLength(0); x++) // Reset map. Bruges til at lave nye levels.
             {
@@ -164,5 +167,21 @@ namespace EksamensProjekt2021
                 }
             }
         }
+
+
+        /*public void NextRoom()
+        {
+            //Checks 1/3 of the screen horizontally.
+            if (GameWorld.player.playerPosition.Y >= (GameWorld.screenSize.Y/3) && GameWorld.player.playerPosition.Y <= (GameWorld.screenSize.Y / 3) * 2)
+            {
+                if (playerInRoom[0] > 0) //Out of index array checker.
+                {
+                    if (GameWorld.player.playerPosition.X <= 50 && roomLayout[playerInRoom[0] - 1, playerInRoom[1]] != 0) //Checks if inside 'door' and if theres a room
+                    {
+                        playerInRoom[0]--;
+                    }
+                }
+            }
+        }*/
     }
 }
