@@ -63,6 +63,15 @@ namespace EksamensProjekt2021
 
         public override void OnCollision(GameObject other)
         {
+            if (other is Player)
+            {
+                if (placementDir.X == -1) playerPosition = new Vector2(sprite.Width * 3, GameWorld.screenSize.Y / 2); //Change player pos to match entering new room from that door
+                if (placementDir.X == 1) playerPosition = new Vector2(GameWorld.screenSize.X - sprite.Width * 3, GameWorld.screenSize.Y / 2);
+                if (placementDir.Y == -1) playerPosition = new Vector2(GameWorld.screenSize.X / 2, sprite.Height * 3);
+                if (placementDir.Y == 1) playerPosition = new Vector2(GameWorld.screenSize.X / 2, GameWorld.screenSize.Y - sprite.Height * 3);
+                RoomManager.playerInRoom[0] += (byte)placementDir.X; //Sets player room pos to new room
+                RoomManager.playerInRoom[1] += (byte)placementDir.Y;
+            }
         }
     }
 }
