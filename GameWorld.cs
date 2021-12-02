@@ -28,6 +28,7 @@ namespace EksamensProjekt2021
         public static Player player;
         public static Enemy enemy;
         public static RoomManager roomManager;
+        public static Door[] doors = new Door[4]; //The 4 doors that CAN spawn
         public static GameObject target;
 
         private Texture2D cursor;
@@ -85,8 +86,11 @@ namespace EksamensProjekt2021
             //AddGameObject(new Enemy());
             AddEnemy();
             gameObjects.Add(player);
-            
-            
+
+            for (byte i = 0; i < 4; i++) // Create the 4 doors. GameObject will handle LoadContent() and Update().
+            {
+                doors[i] = new Door(i);
+            }
 
 
             _graphics.PreferredBackBufferWidth = 1280;
@@ -115,7 +119,6 @@ namespace EksamensProjekt2021
             {
                 go.LoadContent(this.Content);
             }
-
 
 
             trumpWalkRight = Content.Load<Texture2D>("trumpWalkRight");

@@ -29,22 +29,22 @@ namespace EksamensProjekt2021
             switch (dir)
             {
                 case 0:
-                    sprite = content.Load<Texture2D>("Door0");
+                    sprite = content.Load<Texture2D>("SpritePlaceHolder2"); //0
                     pos = new Vector2(GameWorld.screenSize.X / 2 - sprite.Width / 2, 0);
                     placementDir = new Vector2(0, -1);
                     break;
                 case 1:
-                    sprite = content.Load<Texture2D>("Door1");
+                    sprite = content.Load<Texture2D>("SpritePlaceHolder2"); //1
                     pos = new Vector2(GameWorld.screenSize.X / 2 - sprite.Width / 2, GameWorld.screenSize.Y - sprite.Height);
                     placementDir = new Vector2(0, 1);
                     break;
                 case 2:
-                    sprite = content.Load<Texture2D>("Door2");
+                    sprite = content.Load<Texture2D>("SpritePlaceHolder2"); //2
                     pos = new Vector2(0, GameWorld.screenSize.Y / 2 - sprite.Height / 2);
                     placementDir = new Vector2(-1, 0);
                     break;
                 case 3:
-                    sprite = content.Load<Texture2D>("Door3");
+                    sprite = content.Load<Texture2D>("SpritePlaceHolder2"); //3
                     pos = new Vector2(GameWorld.screenSize.X - sprite.Width, GameWorld.screenSize.Y / 2 - sprite.Height / 2);
                     placementDir = new Vector2(1, 0);
                     break;
