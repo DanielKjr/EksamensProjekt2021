@@ -32,11 +32,11 @@ namespace EksamensProjekt2021
             shootDir.Normalize();
             Position += shootDir * moveSpeed * deltaTime;
             
-            if (Vector2.Distance(Position, target.Position) < 10)
-            {
-                GameWorld.Despawn(this);
-                //TODO add damage to player
-            }
+            //if (Vector2.Distance(Position, target.Position) < 10)
+            //{
+            //    GameWorld.Despawn(this);
+            //    //TODO add damage to player
+            //}
             
             
         }

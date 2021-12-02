@@ -144,7 +144,7 @@ namespace EksamensProjekt2021
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
+            
             UpdateGameObjects(gameTime);
             
             player.Update(gameTime);
@@ -160,9 +160,9 @@ namespace EksamensProjekt2021
             foreach (GameObject go in gameObjects)
             {
                 go.Draw(_spriteBatch);
-                
-               // DrawCollisionBox(go);
-               //den kan ikke finde ud af at tegne player rectangle lige nu så den er disabled
+
+                DrawCollisionBox(go);
+                //den kan ikke finde ud af at tegne player rectangle lige nu så den er disabled
             }
             foreach (Projectile go in projectiles)
             {
@@ -239,7 +239,8 @@ namespace EksamensProjekt2021
 
         private void DrawCollisionBox(GameObject go)
         {
-
+           
+            
             Rectangle topLine = new Rectangle(go.Collision.X, go.Collision.Y, go.Collision.Width, 1);
             Rectangle bottomLine = new Rectangle(go.Collision.X, go.Collision.Y + go.Collision.Height, go.Collision.Width, 1);
             Rectangle rightLine = new Rectangle(go.Collision.X + go.Collision.Width, go.Collision.Y, 1, go.Collision.Height);

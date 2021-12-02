@@ -16,7 +16,9 @@ namespace EksamensProjekt2021
     {
 
        // private Vector2 position = new Vector2(500, 300);
-        private int speed = 175;
+
+        private int speed = 250;
+
         //en værdi vi bare kan ændre til at passe med hvor hurtigt vi vil ha ham. bliver brugt i udregninen af når han bevæger sig
         private bool isMoving = false;
         //forklaret hvor den er relevant
@@ -24,7 +26,7 @@ namespace EksamensProjekt2021
         // enum'en som vi lavede ude i gameworld
         private MouseState mStateOld = Mouse.GetState();
         //ska vi bruger senere til shoot-funktion. trust me boiis.
-
+        
         public SpriteAnimation anim;
         public SpriteAnimation[] animations = new SpriteAnimation[4];
         
@@ -34,8 +36,8 @@ namespace EksamensProjekt2021
         private Texture2D trumpWalkDown;
 
 
- 
-    
+
+
 
 
         // forklaret hvor den er relevant
@@ -47,6 +49,31 @@ namespace EksamensProjekt2021
         }
         //property sårn vi ban benytte os af den
         */
+        public override Rectangle Collision
+        {
+            get
+            {
+                if (direction == Dir.Down || direction == Dir.Up)
+                {
+                    return new Rectangle(
+                                   (int)(anim.Position.X),
+                                   (int)(anim.Position.Y),
+                                   43,
+                                   71
+                                   );
+                }
+                else
+                {
+                    return new Rectangle(
+                   (int)(anim.Position.X),
+                   (int)(anim.Position.Y),
+                   63,
+                   70
+                   );
+                }
+            }
+            
+        }
 
         public Player()
         {
@@ -81,7 +108,7 @@ namespace EksamensProjekt2021
         
         public override void OnCollision(GameObject other)
         {
-
+            
             
         }
         /*
@@ -210,14 +237,17 @@ namespace EksamensProjekt2021
 
 
 
-            animations[0] = new SpriteAnimation(trumpWalkRight, 6, 1); // SpriteAnimation(texture2D texture, int frames, int fps) forklaret hvad de gør i SpriteAnimation.cs
-            animations[1] = new SpriteAnimation(trumpWalkLeft, 6, 1);
-            animations[2] = new SpriteAnimation(trumpWalkUp, 6, 1);
-            animations[3] = new SpriteAnimation(trumpWalkDown, 6, 1);
-            //enum kan castes til int, så derfor kan vi bruge et array til at skife imellem dem. forklaret i player og hvor det relevant
 
+            animations[0] = new SpriteAnimation(trumpWalkRight, 6, 2); // SpriteAnimation(texture2D texture, int frames, int fps) forklaret hvad de gør i SpriteAnimation.cs
+            animations[1] = new SpriteAnimation(trumpWalkLeft, 6, 14);
+            animations[2] = new SpriteAnimation(trumpWalkUp, 6, 5);
+            animations[3] = new SpriteAnimation(trumpWalkDown, 6, 20);
+
+            //enum kan castes til int, så derfor kan vi bruge et array til at skife imellem dem. forklaret i player og hvor det relevant
+            
             anim = animations[0]; //ændre sig afhængig af direction i player
             
         }
+
     }
 }
