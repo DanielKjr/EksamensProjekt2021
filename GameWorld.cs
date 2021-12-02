@@ -17,6 +17,7 @@ namespace EksamensProjekt2021
     }
     public class GameWorld : Game
     {
+        public static bool HCDebug = false;
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
@@ -28,7 +29,7 @@ namespace EksamensProjekt2021
         public static Player player;
         public static Enemy enemy;
         public static RoomManager roomManager;
-        public static Door[] doors = new Door[4]; //The 4 doors that CAN spawn
+        public static Door door;
         public static GameObject target;
 
         private Texture2D cursor;
@@ -76,6 +77,11 @@ namespace EksamensProjekt2021
         {
             // _graphics.IsFullScreen = true;
             // TODO: Add your initialization logic here
+            _graphics.PreferredBackBufferWidth = 1280;
+            _graphics.PreferredBackBufferHeight = 720;
+            _graphics.ApplyChanges();
+            screenSize = new Vector2(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+
             player = new Player();
             player.Position = new Vector2(500, 500);
 
@@ -89,13 +95,9 @@ namespace EksamensProjekt2021
 
             for (byte i = 0; i < 4; i++) // Create the 4 doors. GameObject will handle LoadContent() and Update().
             {
-                doors[i] = new Door(i);
+                door = new Door(i);
+                gameObjects.Add(door);
             }
-
-
-            _graphics.PreferredBackBufferWidth = 1280;
-            _graphics.PreferredBackBufferHeight = 720;
-            _graphics.ApplyChanges();
 
             roomManager.CreateMap(9);
 

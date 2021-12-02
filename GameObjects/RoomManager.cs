@@ -139,24 +139,27 @@ namespace EksamensProjekt2021
         /// </summary>
         /// <param name="failSafe"></param>
         /// <param name="reruns"></param>
-        private void Debug(byte failSafe, byte reruns)
+        public void Debug(byte failSafe, byte reruns)
         {
             //To view: Right click EksamensProjekt2021.crsproj -> properties.
             //Outputtype: Console Application.
             Console.Clear();
-            for (int y = 0; y < roomLayout.GetLength(0); y++)
+            if (GameWorld.HCDebug == true)
             {
-                for (int x = 0; x < roomLayout.GetLength(1); x++)
+                for (int y = 0; y < roomLayout.GetLength(0); y++)
                 {
-                    if (roomLayout[x, y] == 0) Console.ForegroundColor = ConsoleColor.White;
-                    else Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write(roomLayout[x, y] + " ");
+                    for (int x = 0; x < roomLayout.GetLength(1); x++)
+                    {
+                        if (roomLayout[x, y] == 0) Console.ForegroundColor = ConsoleColor.White;
+                        else Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write(roomLayout[x, y] + " ");
+                    }
+                    if (failSafe >= 100) Console.WriteLine("  BROKE");
+                    else Console.WriteLine("");
                 }
-                if (failSafe >= 100) Console.WriteLine("  BROKE");
-                else Console.WriteLine("");
+                Console.WriteLine($"\nReruns: {reruns}");
+                mapReruns = 0;
             }
-            Console.WriteLine($"\nReruns: {reruns}");
-            mapReruns = 0;
         }
         /// <summary>
         /// Clears Map[] array.

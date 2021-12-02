@@ -9,8 +9,6 @@ namespace EksamensProjekt2021
 {
     public class Door : GameObject //Conjoined with RoomManager
     {
-        Vector2 pos;
-        Texture2D sprite;
         byte dir;
         Vector2 placementDir;
         bool showDoor;
@@ -30,22 +28,22 @@ namespace EksamensProjekt2021
             {
                 case 0:
                     sprite = content.Load<Texture2D>("SpritePlaceHolder2"); //0
-                    pos = new Vector2(GameWorld.screenSize.X / 2 - sprite.Width / 2, 0);
+                    position = new Vector2(GameWorld.screenSize.X / 2 - sprite.Width / 2, 0);
                     placementDir = new Vector2(0, -1);
                     break;
                 case 1:
                     sprite = content.Load<Texture2D>("SpritePlaceHolder2"); //1
-                    pos = new Vector2(GameWorld.screenSize.X / 2 - sprite.Width / 2, GameWorld.screenSize.Y - sprite.Height);
+                    position = new Vector2(GameWorld.screenSize.X / 2 - sprite.Width / 2, GameWorld.screenSize.Y - sprite.Height);
                     placementDir = new Vector2(0, 1);
                     break;
                 case 2:
                     sprite = content.Load<Texture2D>("SpritePlaceHolder2"); //2
-                    pos = new Vector2(0, GameWorld.screenSize.Y / 2 - sprite.Height / 2);
+                    position = new Vector2(0, GameWorld.screenSize.Y / 2 - sprite.Height / 2);
                     placementDir = new Vector2(-1, 0);
                     break;
                 case 3:
                     sprite = content.Load<Texture2D>("SpritePlaceHolder2"); //3
-                    pos = new Vector2(GameWorld.screenSize.X - sprite.Width, GameWorld.screenSize.Y / 2 - sprite.Height / 2);
+                    position = new Vector2(GameWorld.screenSize.X - sprite.Width, GameWorld.screenSize.Y / 2 - sprite.Height / 2);
                     placementDir = new Vector2(1, 0);
                     break;
             }
@@ -71,6 +69,7 @@ namespace EksamensProjekt2021
                 if (placementDir.Y == 1) playerPosition = new Vector2(GameWorld.screenSize.X / 2, GameWorld.screenSize.Y - sprite.Height * 3);
                 RoomManager.playerInRoom[0] += (byte)placementDir.X; //Sets player room pos to new room
                 RoomManager.playerInRoom[1] += (byte)placementDir.Y;
+                GameWorld.roomManager.Debug(0,0);
             }
         }
     }
