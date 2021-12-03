@@ -11,8 +11,11 @@ namespace EksamensProjekt2021
     public class RoomManager
     {
         public static byte[,] roomLayout = new byte[5, 5];
+        public static byte[,] roomStyle = new byte[5, 5]; //0-9
         public static byte[] playerInRoom = new byte[2]; //See which room the player is in. (X, Y)
         public static byte mapReruns = 0; //See how many times the RoomsGenerator needed to run
+
+        Random rnd = new Random();
 
         /// <summary>
         /// Generates the map based on amount of rooms desired.
@@ -22,7 +25,6 @@ namespace EksamensProjekt2021
         public void CreateMap(byte amountOfRooms)
         {
             Reset();
-            Random rnd = new Random();
             byte createdRooms = 0;
             byte filledRooms = 0;
             byte failSafe = 0; //If the code messes up, use this to escape
@@ -30,22 +32,23 @@ namespace EksamensProjekt2021
             byte rndX = (byte)rnd.Next(1, 4);
             byte rndY = (byte)rnd.Next(1, 4);
             roomLayout[rndX, rndY] = 1;  //Sets inital spawn room
-            int[] index = new int[2] { rndX, rndY, }; //Sets index to spawn room.
+            CreateStyle(1, rndX, rndY); //Create style for inital room
+            byte[] index = new byte[2] { rndX, rndY, }; //Sets index to spawn room.
             playerInRoom[0] = rndX; //Set new player coords.
             playerInRoom[1] = rndY;
 
 
             while (filledRooms < amountOfRooms)
             {
-                for (int x = 0; x < roomLayout.GetLength(0); x++)//Find next index point
+                for (byte x = 0; x < roomLayout.GetLength(0); x++)//Find next index point
                 {
-                    for (int y = 0; y < roomLayout.GetLength(1); y++)
+                    for (byte y = 0; y < roomLayout.GetLength(1); y++)
                     {
                         if (roomLayout[x, y] == 255)
                         {
                             index[0] = x;
                             index[1] = y;
-                            roomLayout[index[0], index[1]] = Chance(); //See what this room should become
+                            roomLayout[index[0], index[1]] = Chance(index[0], index[1]); //See what this room should become
                             filledRooms++;
                             break;
                         }
@@ -103,7 +106,7 @@ namespace EksamensProjekt2021
                     rndX = (byte)rnd.Next(1, 4);
                     rndY = (byte)rnd.Next(1, 4);
                     roomLayout[rndX, rndY] = 1;  //Sets inital spawn room
-                    index = new int[2] { rndX, rndY, }; //Sets index to spawn room.
+                    index = new byte[2] { rndX, rndY, }; //Sets index to spawn room.
                     mapReruns++;
                 }
             }
@@ -119,18 +122,36 @@ namespace EksamensProjekt2021
         /// Returns which room it should be
         /// </summary>
         /// <returns></returns>
-        public byte Chance()
+        private byte Chance(byte x, byte y)
         {
-            Random rnd = new Random();
+            byte roomType;
             switch ((int)rnd.Next(0, 101))
             {
                 case int n when (n > -1 && n < 15): //15% chance for loot
-                    return 4;
+                    roomType = 4;
+                    break;
                 case int n when (n > 75 && n < 101)://25% chance for hard room
-                    return 3;
+                    roomType = 3;
+                    break;
                 default:                       //60% chance for normal room
-                    return 2;
+                    roomType = 2;
+                    break;
             }
+            CreateStyle(roomType, x, y);
+            return roomType;
+        }
+        /// <summary>
+        /// Chances for a room to have the style it has.
+        /// Aka what walls, floors and decorations should be in.
+        /// </summary>
+        /// <param name="roomType"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        private void CreateStyle(byte t, byte x, byte y)
+        {
+            if (t == 0) t += 2; //failsafe
+            if (t > 2) roomStyle[x, y] = (byte)rnd.Next(0 + (t - 1), 10); //The harder or rarer the room, the prettier it should be. Higher values returned.
+            else roomStyle[x, y] = (byte)rnd.Next(0, 10 - (t + 1)); //The easier the room, the lower the value returned.
         }
         /// <summary>
         /// Console.WriteLine debug method
@@ -164,31 +185,43 @@ namespace EksamensProjekt2021
         /// <summary>
         /// Clears Map[] array.
         /// </summary>
-        public void Reset()
+        private void Reset()
         {
             for (int x = 0; x < roomLayout.GetLength(0); x++) // Reset map. Bruges til at lave nye levels.
             {
                 for (int y = 0; y < roomLayout.GetLength(1); y++)
                 {
                     roomLayout[x, y] = 0;
+                    roomStyle[x, y] = 0;
                 }
             }
         }
 
-
-        /*public void NextRoom()
+        /// <summary>
+        /// Fill in walls and object using this method.
+        /// </summary>
+        /// <param name="indexX"></param>
+        /// <param name="indexY"></param>
+        public void InitialiseRoom(byte indexX, byte indexY)
         {
-            //Checks 1/3 of the screen horizontally.
-            if (GameWorld.player.playerPosition.Y >= (GameWorld.screenSize.Y/3) && GameWorld.player.playerPosition.Y <= (GameWorld.screenSize.Y / 3) * 2)
+            switch (roomStyle[indexX,indexY])
             {
-                if (playerInRoom[0] > 0) //Out of index array checker.
-                {
-                    if (GameWorld.player.playerPosition.X <= 50 && roomLayout[playerInRoom[0] - 1, playerInRoom[1]] != 0) //Checks if inside 'door' and if theres a room
-                    {
-                        playerInRoom[0]--;
-                    }
-                }
+                default:
+                    break;
             }
-        }*/
+        }
+        /// <summary>
+        /// Draw the rooms walls & floor using this method
+        /// </summary>
+        /// <param name="indexX"></param>
+        /// <param name="indexY"></param>
+        public void DrawRoom(byte indexX, byte indexY)
+        {
+            switch (roomStyle[indexX, indexY])
+            {
+                default:
+                    break;
+            }
+        }
     }
 }
