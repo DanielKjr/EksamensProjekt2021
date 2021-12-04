@@ -48,6 +48,7 @@ namespace EksamensProjekt2021
 
        
         public Vector2 Position { get => position; set => position = value; }
+        protected int Health { get => health; set => health = value; }
 
         public abstract void LoadContent(ContentManager content);
         
