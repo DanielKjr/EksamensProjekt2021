@@ -51,7 +51,7 @@ namespace EksamensProjekt2021
         public Player()
         {
             Position = new Vector2(500, 500);
-            PlayerPosition = position;
+            //PlayerPosition = position;
             
             
             
@@ -84,12 +84,7 @@ namespace EksamensProjekt2021
 
             
         }
-        /*
-        public override void Shoot()
-        {
 
-        }
-        */
         public void HandeInput(GameTime gameTime)
         {
 
@@ -219,5 +214,7 @@ namespace EksamensProjekt2021
             anim = animations[0]; //ændre sig afhængig af direction i player
             
         }
+
+       
     }
 }

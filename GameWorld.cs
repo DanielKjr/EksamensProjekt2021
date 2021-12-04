@@ -23,11 +23,12 @@ namespace EksamensProjekt2021
         public static List<GameObject> gameObjects;
         private static List<GameObject> deleteObjects;
         private static List<Enemy> enemies;
-        private static List<Projectile> projectiles;
+        public static List<GameObject> newObjects;
+        public static List<GameObject> projectiles;
 
         public static Player player;
         public static Enemy enemy;
-        public static GameObject target;
+        private static GameObject target;
 
         private Texture2D cursor;
 
@@ -48,6 +49,9 @@ namespace EksamensProjekt2021
 
 
         public static Vector2 screenSize;
+
+        public static GameObject Target { get => target; set => target = value; }
+
         public GameWorld()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -67,7 +71,7 @@ namespace EksamensProjekt2021
 
         private void AddEnemy()
         {
-            Enemy enemy = new Enemy(player);
+            Enemy enemy = new Enemy();
             gameObjects.Add(enemy);
         }
 
@@ -79,14 +83,16 @@ namespace EksamensProjekt2021
             player.Position = new Vector2(500, 500);
 
             gameObjects = new List<GameObject>();
-            projectiles = new List<Projectile>();
+            newObjects = new List<GameObject>();
+            projectiles = new List<GameObject>();
             enemies = new List<Enemy>();
             deleteObjects = new List<GameObject>();
-            //AddGameObject(new Enemy());
+          // AddGameObject(new Enemy());
+           // AddGameObject(new Enemy(player, new Throwable(), new Vector2(200, 200)));
             AddEnemy();
             gameObjects.Add(player);
-            
-            
+
+          
 
 
 
@@ -112,11 +118,18 @@ namespace EksamensProjekt2021
                 go.LoadContent(this.Content);
             }
 
-            foreach (Projectile go in projectiles)
+            foreach (GameObject go in gameObjects.OfType<Projectile>())
             {
                 go.LoadContent(this.Content);
             }
 
+
+            /*
+            foreach (Projectile proj in projectiles)
+            {
+                proj.LoadContent(this.Content);
+            }
+           */
 
 
             trumpWalkRight = Content.Load<Texture2D>("trumpWalkRight");
@@ -136,14 +149,18 @@ namespace EksamensProjekt2021
 
         }
 
+   
+
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+
             UpdateGameObjects(gameTime);
             
             player.Update(gameTime);
+            
 
             base.Update(gameTime);
         }
@@ -160,18 +177,17 @@ namespace EksamensProjekt2021
                // DrawCollisionBox(go);
                //den kan ikke finde ud af at tegne player rectangle lige nu så den er disabled
             }
-            foreach (Projectile go in projectiles)
-            {
-                go.Draw(_spriteBatch);
-            }
 
+            
+          
            
-            
-            
-             //   player.anim.Draw(_spriteBatch);
-            
-          //  player.anim.Draw(_spriteBatch); //vi bruger Draw metoden i den SpriteAnimation "anim" som vi lavede på playeren. det ser fucking nice ud fordi det er så simpelt
-          //jeg efterlader dem lige her indtil videre men jeg har overrided draw i player for at gøre det samme
+
+
+
+            //   player.anim.Draw(_spriteBatch);
+
+            //  player.anim.Draw(_spriteBatch); //vi bruger Draw metoden i den SpriteAnimation "anim" som vi lavede på playeren. det ser fucking nice ud fordi det er så simpelt
+            //jeg efterlader dem lige her indtil videre men jeg har overrided draw i player for at gøre det samme
 
 
             _spriteBatch.End();
@@ -206,30 +222,44 @@ namespace EksamensProjekt2021
 
         }
 
-        public static void Instantiate(Projectile go)
+    
+
+        public static void Instantiate(GameObject go)
         {
-            projectiles.Add(go);
+            
+            newObjects.Add(go);
         }
 
-        public static void Despawn(Projectile go)
+        public static void Despawn(GameObject go)
         {
             deleteObjects.Add(go);
         }
 
         public void UpdateGameObjects(GameTime gameTime)
         {
-            gameObjects.AddRange(projectiles);
-            projectiles.Clear();
+            gameObjects.AddRange(newObjects);
+           newObjects.Clear();
 
             foreach (GameObject go in gameObjects)
             {
                 go.Update(gameTime);
+                /*
+                foreach (GameObject other in gameObjects)
+                {
+                    go.CheckCollision(other);
+                }
+                */
 
             }
+            
+            
+           
+
             foreach (GameObject go in deleteObjects)
             {
                 gameObjects.Remove(go);
             }
+            deleteObjects.Clear();
 
         }
 

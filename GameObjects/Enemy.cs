@@ -12,69 +12,52 @@ namespace EksamensProjekt2021
     public class Enemy : GameObject
     {
         private Vector2 moveDir;
+         
+        private Weapon weapon;
+        GameObject playerPos;
 
-        GameObject target;
-        //en vector2 position er en struct så den opdateres aldrig (hvor mindre vi gør det i update) så vi skal have en reference/klasse
+
         private double fireRate;
         private double timer = 2;
 
-        //prøver stadig at lave noget så ignorer indtil videre
-        public GameObject Target { get => target; set => target = value; }
+
 
         public Enemy() : base()
         {
-            this.target = GameWorld.player;
-
+            this.weapon = new Throwable();
+            this.playerPos = GameWorld.player;
             Position = new Vector2(50, 900);
+            target = playerPos.Position;
+            
             this.origin = Vector2.Zero;
             moveSpeed = 100;
         }
 
-        public Enemy(GameObject target)
-        {
-            Position = new Vector2(50, 900);
-            moveSpeed = 100;
-            this.target = GameWorld.player;
-        }
+
+
 
         public override void LoadContent(ContentManager content)
         {
 
             sprite = content.Load<Texture2D>("Enemy2");
-
+            //skal have en Weapon.LoadContent(Content); for at kunne loade våbnets sprite, samme går for spilleren når vi når dertil
+            weapon.LoadContent(content);
 
         }
 
         public override void Update(GameTime gameTime)
         {
 
-
-
-            Movement(gameTime);
             EnemyFireRate(gameTime);
-
-
-
-
+            Movement(gameTime);
+            
         }
 
-        /// <summary>
-        /// When called, and within range of player, this method shoots a projectile
-        /// </summary>
-        public void Shoot(GameTime gameTime, GameObject target)
-        {
-
-            if (Vector2.Distance(this.Position, target.Position) < 500)
-            {
-                GameWorld.Instantiate(new Projectile(sprite, Position, target));
-
-
-            }
-
-        }
+       
 
         /// <summary>
-        /// The method run in Update to make the enemy shoot, firing rate is determined by a timer depending on weapon
+        /// The method run in Update to control the enemies firing rate/shooting. When the timer reaches zero it will update the weapons Position and Target 
+        /// before using the weapons ShootWeapon function.
         /// </summary>
         /// <param name="gameTime"></param>
         public void EnemyFireRate(GameTime gameTime)
@@ -84,7 +67,12 @@ namespace EksamensProjekt2021
 
             if (timer <= 0)
             {
-                Shoot(gameTime, target);
+                
+                //opdatere våbnets position og target til at være lig med enemiens target 
+                weapon.Position = Position;
+                weapon.Target = new Vector2(playerPos.Position.X - 20, playerPos.Position.Y - 20);
+                weapon.ShootWeapon();
+                
                 //TODO make use of the fireRate double - like fireRate = 1, then change the timer below this to be "timer = 2 - fireRate;" or something like that
                 timer = 2;
 
@@ -100,9 +88,9 @@ namespace EksamensProjekt2021
         /// <param name="PlayerPosition"></param>
         public void Movement(GameTime gameTime)
         {
-
+           
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            moveDir = target.Position - this.Position;
+            moveDir = playerPos.Position - this.Position;
             moveDir.Normalize();
             Position += moveDir * moveSpeed * deltaTime;
 
@@ -122,5 +110,6 @@ namespace EksamensProjekt2021
 
         }
 
+       
     }
 }
