@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -8,43 +9,60 @@ namespace EksamensProjekt2021
 {
     public class Projectile : Throwable
     {
-       
 
-        public Projectile(Texture2D sprite, Vector2 position, GameObject target)
+
+
+        public Projectile(Texture2D sprite, Vector2 position, Vector2 target)
         {
-            
             this.sprite = sprite;
             Position = position;
-            moveSpeed = 500;
+            this.target = target;
+            this.origin = Vector2.Zero;
+
+            moveSpeed = 400;
         }
 
 
         /// <summary>
-        /// The animation/movement of the projectile from the enemy position to the PlayerPosition.
+        /// The animation/movement of the projectile from the position of the shooter to the target position.
         /// </summary>
         /// <param name="gameTime"></param>
         /// <param name="playerPosition"></param>
-        public void ProjectileShoot(GameTime gameTime, GameObject target)
+        public void ProjectileShoot(GameTime gameTime, Vector2 target)
         {
-            
+
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            Vector2 shootDir = target.Position - Position;
+            Vector2 shootDir = target - Position;
             shootDir.Normalize();
             Position += shootDir * moveSpeed * deltaTime;
-            
-            //if (Vector2.Distance(Position, target.Position) < 10)
-            //{
-            //    GameWorld.Despawn(this);
-            //    //TODO add damage to player
-            //}
-            
-            
+
+
+
+
+
+
         }
+
+
+
+        public override void LoadContent(ContentManager content)
+        {
+
+
+
+        }
+
 
         public override void Update(GameTime gameTime)
         {
-            //TODO find en måde der ændre det her til at være alt efter hvem der skyder
-            ProjectileShoot(gameTime, GameWorld.player);
+
+            ProjectileShoot(gameTime, target);
+
+            if (Vector2.Distance(Position, target) < 10)
+            {
+                GameWorld.Despawn(this);
+                //TODO add damage to player
+            }
 
         }
 
@@ -55,6 +73,8 @@ namespace EksamensProjekt2021
                 GameWorld.Despawn(this);
             }
         }
+
+
 
 
     }
