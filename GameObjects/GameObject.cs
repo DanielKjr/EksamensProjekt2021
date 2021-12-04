@@ -21,8 +21,8 @@ namespace EksamensProjekt2021
         protected int health;
         protected int armor;
 
-      //  public Vector2 playerPosition;
-      //  public Vector2 PlayerPosition { get => playerPosition; set => playerPosition = value; }
+        public Vector2 playerPosition;
+        public Vector2 PlayerPosition { get => playerPosition; set => playerPosition = value; }
        
 
 

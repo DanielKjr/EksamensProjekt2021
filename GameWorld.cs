@@ -53,7 +53,7 @@ namespace EksamensProjekt2021
 
         public static Vector2 screenSize;
 
-        public static GameObject Target { get => target; set => target = value; }
+       // public static GameObject Target { get => target; set => target = value; }
 
         public GameWorld()
         {
