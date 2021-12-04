@@ -106,7 +106,10 @@ namespace EksamensProjekt2021
 
         public override void OnCollision(GameObject other)
         {
-
+            if (other is Player)
+            {
+                Console.Beep();
+            }
 
         }
 

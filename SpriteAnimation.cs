@@ -5,7 +5,7 @@ namespace EksamensProjekt2021
 {
     public class SpriteManager
     {
-        protected Texture2D Texture;
+        public Texture2D Texture;
         public Vector2 Position = Vector2.Zero;
         public Color Color = Color.White;
         public Vector2 Origin;
@@ -14,7 +14,8 @@ namespace EksamensProjekt2021
         public SpriteEffects SpriteEffect;
         protected Rectangle[] Rectangles;
         protected int FrameIndex = 0;
-
+        public Rectangle sourceA;
+        public Color TextureData;
         public SpriteManager(Texture2D Texture, int frames)
         {
             this.Texture = Texture;
@@ -22,12 +23,19 @@ namespace EksamensProjekt2021
             Rectangles = new Rectangle[frames];
 
             for (int i = 0; i < frames; i++)
+            {
                 Rectangles[i] = new Rectangle(i * width, 0, width, Texture.Height);
+                
+            }
+                
+
             //lader os vælge noget indenfor en specific kasse inden i det spritesheet vi har. virker kun sidelæns fordi jeg ikke er gud. "frames" hentyder til hvor mange frames der er på en række
             // i spritesheet'et og Texture hentyder til selve sprite-sheetet. den regner selv ud hvor lang spritesheetet er ved at divider Texture.Width med mængden af frames der er deri. 
             // frames er en værdi vi selv giver den når vi opretter den
-        }
+            
 
+        }
+       
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Texture, Position, Rectangles[FrameIndex], Color, Rotation, Origin, Scale, SpriteEffect, 0f);
@@ -52,7 +60,13 @@ namespace EksamensProjekt2021
             //og det er så fucking cool at den gør det
             FramesPerSecond = fps;
         }
+        //public void GetTextureData()
+        //{
 
+        //    Color[] textureData = new Color[63 * 71];
+        //    Texture.GetData<Color>(0, Rectangles[FrameIndex], textureData, 0, Texture.Width);
+        //    TextureData = textureData;
+        //}
         public void Update(GameTime gameTime)
         {
             //alle updates ska ha gametime for at opdater.
