@@ -15,8 +15,12 @@ namespace EksamensProjekt2021
     public class Player : GameObject
     {
 
-        // private Vector2 position = new Vector2(500, 300);
+
+       // private Vector2 position = new Vector2(500, 300);
+
+
         private int speed = 250;
+
         //en værdi vi bare kan ændre til at passe med hvor hurtigt vi vil ha ham. bliver brugt i udregninen af når han bevæger sig
         private bool isMoving = false;
         //forklaret hvor den er relevant
@@ -77,6 +81,7 @@ namespace EksamensProjekt2021
         public Player()
         {
             Position = new Vector2(500, 500);
+
             PlayerPosition = position;
             Health = 100;
 
@@ -99,7 +104,7 @@ namespace EksamensProjekt2021
         }
         public override void OnCollision(GameObject other)
         {//virker ikke lige nu da han ikke har nogen hitbox 
-            
+
         }
 
 
@@ -132,12 +137,6 @@ namespace EksamensProjekt2021
 
 
 
-        /*
-        public override void Shoot()
-        {
-
-        }
-        */
         public void HandeInput(GameTime gameTime)
         {
 
@@ -258,15 +257,20 @@ namespace EksamensProjekt2021
 
 
 
+
             animations[0] = new SpriteAnimation(trumpWalkRight, 6, 2); // SpriteAnimation(texture2D texture, int frames, int fps) forklaret hvad de gør i SpriteAnimation.cs
             animations[1] = new SpriteAnimation(trumpWalkLeft, 6, 14);
             animations[2] = new SpriteAnimation(trumpWalkUp, 6, 5);
             animations[3] = new SpriteAnimation(trumpWalkDown, 6, 20);
+
             //enum kan castes til int, så derfor kan vi bruge et array til at skife imellem dem. forklaret i player og hvor det relevant
 
             anim = animations[0]; //ændre sig afhængig af direction i player
 
         }
+
+
+       
 
     }
 }
