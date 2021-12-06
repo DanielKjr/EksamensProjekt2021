@@ -11,20 +11,17 @@ namespace EksamensProjekt2021
 
     public class Enemy : GameObject
     {
-        private Vector2 moveDir;
-         
+        private Vector2 moveDir;        
         private Weapon weapon;
-        GameObject playerPos;
-
-        
+        GameObject playerPos;        
         private double timer = 2;
-
-
 
         public Enemy() : base()
         {
             this.weapon = new Throwable();
+
             this.playerPos = GameWorld.player;
+
             Position = new Vector2(50, 900);
 
             target = playerPos.Position;
@@ -63,6 +60,7 @@ namespace EksamensProjekt2021
         public void EnemyTargeting(GameTime gameTime)
         {
             target = new Vector2(playerPos.Position.X - 20, playerPos.Position.Y - 20);
+
             weapon.Position = Position;
 
             if (Vector2.Distance(Position, playerPos.Position) < weapon.Range)
@@ -81,21 +79,6 @@ namespace EksamensProjekt2021
                
             }
 
-            /*
-            if (timer <= 0)
-            {
-                
-                //opdatere våbnets position og target til at være lig med enemiens target 
-                weapon.Position = Position;
-                weapon.Target = new Vector2(playerPos.Position.X - 20, playerPos.Position.Y - 20);
-                weapon.ShootWeapon();
-                
-                //TODO make use of the fireRate double - like fireRate = 1, then change the timer below this to be "timer = 2 - fireRate;" or something like that
-                timer = 2;
-
-
-            }
-*/
         }
 
         /// <summary>
@@ -123,9 +106,9 @@ namespace EksamensProjekt2021
 
         public override void OnCollision(GameObject other)
         {
-            if (other is Player player)
+            if (other is Hitscan)
             {
-                
+                GameWorld.Despawn(this);
             }
 
         }

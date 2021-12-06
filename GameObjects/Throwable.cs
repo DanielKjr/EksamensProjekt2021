@@ -10,7 +10,6 @@ namespace EksamensProjekt2021
     public class Throwable : Weapon
     {
 
-        
 
         public Throwable()
         {
@@ -51,7 +50,7 @@ namespace EksamensProjekt2021
         public override void LoadContent(ContentManager content)
         {
             sprite = content.Load<Texture2D>("Enemy2");
-
+           
            
         }
     }

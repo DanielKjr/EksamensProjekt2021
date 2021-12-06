@@ -40,12 +40,6 @@ namespace EksamensProjekt2021
         private Texture2D collisionTexture;
 
 
-
-        private Texture2D trumpWalkRight;
-        private Texture2D trumpWalkLeft;
-        private Texture2D trumpWalkUp;
-        private Texture2D trumpWalkDown;
-
         private Song music;
 
         
@@ -138,23 +132,7 @@ namespace EksamensProjekt2021
                 go.LoadContent(this.Content);
             }
 
-            //player.LoadContent(Content);
-
-            //trumpWalkRight = Content.Load<Texture2D>("trumpWalkRight");
-            //trumpWalkLeft = Content.Load<Texture2D>("trumpWalkLeft");
-            //trumpWalkUp = Content.Load<Texture2D>("trumpWalkUp");
-            //trumpWalkDown = Content.Load<Texture2D>("trumpWalkDown");
-          
-
-            //player.animations[0] = new SpriteAnimation(trumpWalkRight, 6, 10); // SpriteAnimation(texture2D texture, int frames, int fps) forklaret hvad de gør i SpriteAnimation.cs
-            //player.animations[1] = new SpriteAnimation(trumpWalkLeft, 6, 10);
-            //player.animations[2] = new SpriteAnimation(trumpWalkUp, 6, 10);
-            //player.animations[3] = new SpriteAnimation(trumpWalkDown, 6, 10);
-            ////enum kan castes til int, så derfor kan vi bruge et array til at skife imellem dem. forklaret i player og hvor det relevant
-
-
-            //player.anim = player.animations[0]; //ændre sig afhængig af direction i player
-
+       
             
 
         }

@@ -113,7 +113,7 @@ namespace EksamensProjekt2021
             roomLayout[index[0], index[1]] = 5; //Set last created room to be boss room
 
 
-            Debug(failSafe, mapReruns);
+          //  Debug(failSafe, mapReruns);
             //To view: Right click EksamensProjekt2021.crsproj -> properties.
             //Outputtype: Console Application.
         }
