@@ -192,7 +192,7 @@ namespace EksamensProjekt2021
                 go.Draw(_spriteBatch);
 
                 DrawCollisionBox(go);
-                //den kan ikke finde ud af at tegne player rectangle lige nu så den er disabled
+                
             }
 
             
@@ -260,12 +260,12 @@ namespace EksamensProjekt2021
             foreach (GameObject go in gameObjects)
             {
                 go.Update(gameTime);
-                /*
+                
                 foreach (GameObject other in gameObjects)
                 {
                     go.CheckCollision(other);
                 }
-                */
+                
 
             }
             

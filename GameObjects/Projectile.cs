@@ -63,7 +63,7 @@ namespace EksamensProjekt2021
                 GameWorld.Despawn(this);
                 //TODO add damage to player
             }
-
+            
         }
 
         public override void OnCollision(GameObject other)
