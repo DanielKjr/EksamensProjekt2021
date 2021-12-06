@@ -15,8 +15,13 @@ namespace EksamensProjekt2021
     public class Player : GameObject
     {
 
+        private Weapon weapon;
+        // private Vector2 position = new Vector2(500, 300);
 
-       // private Vector2 position = new Vector2(500, 300);
+        private MouseState mStateOld = Mouse.GetState();
+        private MouseState mState;
+        public Vector2 mPos;
+        private bool mLeftReleased = true;
 
 
         private int speed = 250;
@@ -26,7 +31,7 @@ namespace EksamensProjekt2021
         //forklaret hvor den er relevant
         private Dir direction = Dir.Right;
         // enum'en som vi lavede ude i gameworld
-        private MouseState mStateOld = Mouse.GetState();
+       
         //ska vi bruger senere til shoot-funktion. trust me boiis.
         static public bool isAlive = true;
 
@@ -37,7 +42,6 @@ namespace EksamensProjekt2021
         private Texture2D trumpWalkLeft;
         private Texture2D trumpWalkUp;
         private Texture2D trumpWalkDown;
-
 
 
 
@@ -78,17 +82,42 @@ namespace EksamensProjekt2021
 
         }
 
+      
+
         public Player()
         {
             Position = new Vector2(500, 500);
-
+            this.weapon = new Hitscan(sprite, Position, mPos);
+            target = mPos;
             PlayerPosition = position;
             Health = 100;
 
 
         }
 
+        public void PlayerShoot()
+        {
+            mState = Mouse.GetState();
+            mPos = new Vector2(mState.X + 15, mState.Y + 20);
+            weapon.Target = mPos;
+            weapon.Position = Position;
 
+            if (mState.LeftButton == ButtonState.Pressed && mLeftReleased == true)
+            {
+
+                mLeftReleased = false;
+                weapon.ShootWeapon(mPos);
+                
+            }
+           
+
+            if (mState.LeftButton == ButtonState.Released)
+            {
+                mLeftReleased = true;
+            }
+
+
+        }
 
         public void Damage(int damage)
         {
@@ -233,11 +262,13 @@ namespace EksamensProjekt2021
 
         public override void Update(GameTime gameTime)
         {
-
+            
+            
+            
             HandeInput(gameTime);
 
             PlayerAnimation(gameTime);
-
+            PlayerShoot();
 
 
         }
@@ -245,7 +276,7 @@ namespace EksamensProjekt2021
 
         public override void LoadContent(ContentManager content)
         {
-
+            weapon.LoadContent(content);
 
 
             trumpWalkRight = content.Load<Texture2D>("trumpWalkRight");

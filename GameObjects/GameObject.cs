@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,10 +24,7 @@ namespace EksamensProjekt2021
 
         public Vector2 playerPosition;
         public Vector2 PlayerPosition { get => playerPosition; set => playerPosition = value; }
-       
 
-
-       
 
 
         //get rectangle
@@ -54,7 +52,7 @@ namespace EksamensProjekt2021
 
         //Target er så våbnet kan finde positionen 
         public Vector2 Target { get => target; set => target = value; }
-
+      
 
         public abstract void LoadContent(ContentManager content);
         

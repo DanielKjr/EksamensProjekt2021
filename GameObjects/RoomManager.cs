@@ -58,6 +58,7 @@ namespace EksamensProjekt2021
             roomLayout[index[0], index[1]] = 5; //Set last created room to be boss room
 
 
+
             Debug(failSafe, mapReruns);
         }
         private void RoomCreate(sbyte x, sbyte y, int ix, int iy)

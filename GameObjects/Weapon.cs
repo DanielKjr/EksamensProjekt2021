@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,12 +10,14 @@ namespace EksamensProjekt2021
 {
    public abstract class Weapon : GameObject
     {
-
+        
         protected int range;
         protected int fireRate;
+        
 
         public int Range { get => range; set => range = value; }
         public int FireRate { get => fireRate; set => fireRate = value; }
+
 
         public Weapon()
         {
