@@ -16,8 +16,7 @@ namespace EksamensProjekt2021
         private Weapon weapon;
         GameObject playerPos;
 
-
-        private double fireRate;
+        
         private double timer = 2;
 
 
@@ -27,6 +26,7 @@ namespace EksamensProjekt2021
             this.weapon = new Throwable();
             this.playerPos = GameWorld.player;
             Position = new Vector2(50, 900);
+
             target = playerPos.Position;
             
             this.origin = Vector2.Zero;
@@ -48,23 +48,40 @@ namespace EksamensProjekt2021
         public override void Update(GameTime gameTime)
         {
 
-            EnemyFireRate(gameTime);
+            EnemyTargeting(gameTime);
             Movement(gameTime);
-            
+           
         }
 
        
 
         /// <summary>
-        /// The method run in Update to control the enemies firing rate/shooting. When the timer reaches zero it will update the weapons Position and Target 
-        /// before using the weapons ShootWeapon function.
+        /// should only run in Update, updates the weapons position, which follows the Enemy, and the players position.
+        /// if the player is within the weapons range it will start the timer, then fire and reset the timer to the weapons fireRate.
         /// </summary>
         /// <param name="gameTime"></param>
-        public void EnemyFireRate(GameTime gameTime)
+        public void EnemyTargeting(GameTime gameTime)
         {
+            target = new Vector2(playerPos.Position.X - 20, playerPos.Position.Y - 20);
+            weapon.Position = Position;
 
-            timer -= gameTime.ElapsedGameTime.TotalSeconds;
+            if (Vector2.Distance(Position, playerPos.Position) < weapon.Range)
+            {
+                timer -= gameTime.ElapsedGameTime.TotalSeconds;
 
+                if (timer <= 0)
+                {
+                    weapon.ShootWeapon(target);
+
+                    timer = weapon.FireRate;
+                }
+                       
+                        
+                   
+               
+            }
+
+            /*
             if (timer <= 0)
             {
                 
@@ -78,7 +95,7 @@ namespace EksamensProjekt2021
 
 
             }
-
+*/
         }
 
         /// <summary>
