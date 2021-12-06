@@ -219,6 +219,8 @@ namespace EksamensProjekt2021
         {
             switch (roomStyle[indexX, indexY])
             {
+                case 0:
+                    break;
                 default:
                     break;
             }
