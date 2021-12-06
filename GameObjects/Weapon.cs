@@ -9,8 +9,12 @@ namespace EksamensProjekt2021
 {
    public abstract class Weapon : GameObject
     {
-       
 
+        protected int range;
+        protected int fireRate;
+
+        public int Range { get => range; set => range = value; }
+        public int FireRate { get => fireRate; set => fireRate = value; }
 
         public Weapon()
         {
@@ -32,9 +36,9 @@ namespace EksamensProjekt2021
 
         /// <summary>
         /// The shoot function depends on the weapon type, the Player/Enemy needs a weapon to access this function
-        /// and is then used by weapon.ShootWeapon();
+        /// and is then used by weapon.ShootWeapon(target);
         /// </summary>
-        public abstract void ShootWeapon();
+        public abstract void ShootWeapon(Vector2 target);
 
         
 

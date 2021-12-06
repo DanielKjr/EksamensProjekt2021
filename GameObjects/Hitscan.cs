@@ -7,7 +7,7 @@ namespace EksamensProjekt2021
 {
     class Hitscan : Weapon
     {
-        public override void ShootWeapon()
+        public override void ShootWeapon(Vector2 target)
         {
             
         }
