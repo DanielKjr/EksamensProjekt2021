@@ -51,22 +51,29 @@ namespace EksamensProjekt2021
 
         public override void Update(GameTime gameTime)
         {
+            showDoor = false;
             if (RoomManager.roomLayout[RoomManager.playerInRoom[0], RoomManager.playerInRoom[1]] <= 1) //checks if the room the player is in is empty
             {
-                if (RoomManager.roomLayout[RoomManager.playerInRoom[0] + (int)placementDir.X, RoomManager.playerInRoom[1] + (int)placementDir.Y] >= 1)
-                { showDoor = true; } //If the room to the DOOR PLACEMENT DIRECTION is clear and exists, show door
+                if (RoomManager.playerInRoom[0] + (int)placementDir.X > -1 && RoomManager.playerInRoom[0] + (int)placementDir.X < 5) //Out of bounds X check
+                {
+                    if (RoomManager.playerInRoom[1] + (int)placementDir.Y > -1 && RoomManager.playerInRoom[1] + (int)placementDir.Y < 5) //Out if bounds Y check
+                    {
+                        if (RoomManager.roomLayout[RoomManager.playerInRoom[0] + (int)placementDir.X, RoomManager.playerInRoom[1] + (int)placementDir.Y] >= 1)
+                        { showDoor = true; } //If the room to the DOOR PLACEMENT DIRECTION is clear and exists, show door
+                    }
+                }
             }
-            else showDoor = false;
         }
 
         public override void OnCollision(GameObject other)
         {
             if (other is Player && showDoor) // Only allow collision if the door is active
             {
-                if (placementDir.X == -1) playerPosition = new Vector2(sprite.Width * 3, GameWorld.screenSize.Y / 2); //Change player pos to match entering new room from that door
-                if (placementDir.X == 1) playerPosition = new Vector2(GameWorld.screenSize.X - sprite.Width * 3, GameWorld.screenSize.Y / 2);
-                if (placementDir.Y == -1) playerPosition = new Vector2(GameWorld.screenSize.X / 2, sprite.Height * 3);
-                if (placementDir.Y == 1) playerPosition = new Vector2(GameWorld.screenSize.X / 2, GameWorld.screenSize.Y - sprite.Height * 3);
+                //Change player pos to match entering new room from that door
+                if (placementDir.X == -1) GameWorld.player.Position = new Vector2(GameWorld.screenSize.X - sprite.Width * 3, GameWorld.screenSize.Y / 2);
+                if (placementDir.X == 1) GameWorld.player.Position = new Vector2(sprite.Width * 3, GameWorld.screenSize.Y / 2);
+                if (placementDir.Y == -1) GameWorld.player.Position = new Vector2(GameWorld.screenSize.X / 2, sprite.Height * 3);
+                if (placementDir.Y == 1) GameWorld.player.Position = new Vector2(GameWorld.screenSize.X / 2, GameWorld.screenSize.Y - sprite.Height * 3);
                 RoomManager.playerInRoom[0] += (byte)placementDir.X; //Sets player room pos to new room
                 RoomManager.playerInRoom[1] += (byte)placementDir.Y;
                 GameWorld.roomManager.Debug(0,0);
