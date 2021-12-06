@@ -10,6 +10,7 @@ namespace EksamensProjekt2021
 {
     public class RoomManager
     {
+        enum RoomType { Empty, Normal, Hard, Loot, Boss }
         public static byte[,] roomLayout = new byte[5, 5];
         public static byte[,] roomStyle = new byte[5, 5]; //0-9
         public static byte[] playerInRoom = new byte[2]; //See which room the player is in. (X, Y)
@@ -48,7 +49,7 @@ namespace EksamensProjekt2021
                         {
                             index[0] = x;
                             index[1] = y;
-                            roomLayout[index[0], index[1]] = Chance(index[0], index[1]); //See what this room should become
+                            roomLayout[index[0], index[1]] = (byte)Chance(index[0], index[1]); //See what this room should become
                             filledRooms++;
                             break;
                         }
@@ -122,23 +123,18 @@ namespace EksamensProjekt2021
         /// Returns which room it should be
         /// </summary>
         /// <returns></returns>
-        private byte Chance(byte x, byte y)
+        private RoomType Chance(byte x, byte y)
         {
-            byte roomType;
-            switch ((int)rnd.Next(0, 101))
+            switch ((sbyte)rnd.Next(0, 101))
             {
-                case int n when (n > -1 && n < 15): //15% chance for loot
-                    roomType = 4;
-                    break;
-                case int n when (n > 75 && n < 101)://25% chance for hard room
-                    roomType = 3;
-                    break;
+                case sbyte n when (n > -1 && n < 15): //15% chance for loot
+                    return RoomType.Loot;
+                case sbyte n when (n > 75 && n < 101)://25% chance for hard room
+                    return RoomType.Hard;
                 default:                       //60% chance for normal room
-                    roomType = 2;
-                    break;
+                    return RoomType.Normal;
             }
-            CreateStyle(roomType, x, y);
-            return roomType;
+            //CreateStyle(roomType, x, y);
         }
         /// <summary>
         /// Chances for a room to have the style it has.
@@ -164,9 +160,9 @@ namespace EksamensProjekt2021
         {
             //To view: Right click EksamensProjekt2021.crsproj -> properties.
             //Outputtype: Console Application.
-            Console.Clear();
             if (GameWorld.HCDebug == true)
             {
+                Console.Clear();
                 for (int y = 0; y < roomLayout.GetLength(0); y++)
                 {
                     for (int x = 0; x < roomLayout.GetLength(1); x++)
@@ -204,7 +200,7 @@ namespace EksamensProjekt2021
         /// <param name="indexY"></param>
         public void InitialiseRoom(byte indexX, byte indexY)
         {
-            switch (roomStyle[indexX,indexY])
+            switch (roomStyle[indexX, indexY])
             {
                 default:
                     break;
