@@ -74,7 +74,7 @@ namespace EksamensProjekt2021
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (showDoor)spriteBatch.Draw(sprite, position, null, Color.White, 0, origin, 1, SpriteEffects.None, 0);
+            if (showDoor)spriteBatch.Draw(sprite, position, null, Color.White, 45, origin, 1, SpriteEffects.None, 0);
         }
     }
 }
