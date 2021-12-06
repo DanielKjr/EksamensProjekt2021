@@ -15,7 +15,9 @@ namespace EksamensProjekt2021
     public class Player : GameObject
     {
 
+
        // private Vector2 position = new Vector2(500, 300);
+
 
         private int speed = 250;
 
@@ -26,10 +28,11 @@ namespace EksamensProjekt2021
         // enum'en som vi lavede ude i gameworld
         private MouseState mStateOld = Mouse.GetState();
         //ska vi bruger senere til shoot-funktion. trust me boiis.
-        
+        static public bool isAlive = true;
+
         public SpriteAnimation anim;
         public SpriteAnimation[] animations = new SpriteAnimation[4];
-        
+
         private Texture2D trumpWalkRight;
         private Texture2D trumpWalkLeft;
         private Texture2D trumpWalkUp;
@@ -72,27 +75,54 @@ namespace EksamensProjekt2021
                    );
                 }
             }
-            
+
         }
 
         public Player()
         {
             Position = new Vector2(500, 500);
+
             PlayerPosition = position;
-            
-            
-            
+            Health = 100;
+
+
         }
+
+
+
+        public void Damage(int damage)
+        {
+            Health -= damage;
+            if (Health <= 0)
+            {
+
+                GameWorld.Despawn(this);
+
+                isAlive = false;
+            }
+
+        }
+        public override void OnCollision(GameObject other)
+        {//virker ikke lige nu da han ikke har nogen hitbox 
+
+        }
+
+
+        public void MedkitHeal(int Healthplus)
+        {
+            Health += Healthplus;
+        }
+
 
         public Player(Vector2 position)
         {
-            
+
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             anim.Draw(spriteBatch);
-           
+
         }
 
         public void setX(float newX)
@@ -105,18 +135,8 @@ namespace EksamensProjekt2021
         }
         //er her fordi ellers så kommer der en error med den ikke kan finde ud af vector fordi det en data-type og ik en værdi
 
-        
-        public override void OnCollision(GameObject other)
-        {
-            
-            
-        }
-        /*
-        public override void Shoot()
-        {
 
-        }
-        */
+
         public void HandeInput(GameTime gameTime)
         {
 
@@ -134,7 +154,7 @@ namespace EksamensProjekt2021
                                        //if (position.X < 1920) ska finde en anden måde at begrænse det på
                 position.X += speed * dt; //sådan at den bevæger sig
                 isMoving = true; //forklaret ovenover
-                
+
             }
             if (kState.IsKeyDown(Keys.A))
             {
@@ -142,7 +162,7 @@ namespace EksamensProjekt2021
                 if (position.X > 0)
                     position.X -= speed * dt;
                 isMoving = true;
-                
+
             }
             if (kState.IsKeyDown(Keys.W))
             {
@@ -150,7 +170,7 @@ namespace EksamensProjekt2021
                 if (position.Y > 0)
                     position.Y -= speed * dt;
                 isMoving = true;
-                
+
             }
             if (kState.IsKeyDown(Keys.S))
             {
@@ -158,7 +178,7 @@ namespace EksamensProjekt2021
                 if (position.Y < 1080)
                     position.Y += speed * dt;
                 isMoving = true;
-                
+
             }
             //det burde ændre hvilken animation man bruger efter en prioritet der tilsvare hvornår man skrev den ind, men dette virker da fuck fuk fuck min fucking pik fuck det lort her fuck.
             /*
@@ -192,7 +212,7 @@ namespace EksamensProjekt2021
 
             anim = animations[(int)direction];
             anim.Position = new Vector2(Position.X - 20, Position.Y - 48); // ska ændres til at passe spriten
-            
+
             if (isMoving)
             {
                 anim.Update(gameTime);
@@ -215,9 +235,9 @@ namespace EksamensProjekt2021
         {
 
             HandeInput(gameTime);
-            
+
             PlayerAnimation(gameTime);
-            
+
 
 
         }
@@ -226,7 +246,7 @@ namespace EksamensProjekt2021
         public override void LoadContent(ContentManager content)
         {
 
-           
+
 
             trumpWalkRight = content.Load<Texture2D>("trumpWalkRight");
             trumpWalkLeft = content.Load<Texture2D>("trumpWalkLeft");
@@ -244,10 +264,13 @@ namespace EksamensProjekt2021
             animations[3] = new SpriteAnimation(trumpWalkDown, 6, 8);
 
             //enum kan castes til int, så derfor kan vi bruge et array til at skife imellem dem. forklaret i player og hvor det relevant
-            
+
             anim = animations[0]; //ændre sig afhængig af direction i player
-            
+
         }
+
+
+       
 
     }
 }

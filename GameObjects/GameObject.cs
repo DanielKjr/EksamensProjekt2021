@@ -10,7 +10,8 @@ namespace EksamensProjekt2021
     public abstract class GameObject
     {
         protected Vector2 position;
-       
+        protected Vector2 target;
+
         protected Vector2 origin;
         protected Texture2D sprite;
         protected Texture2D[] sprites;
@@ -22,10 +23,10 @@ namespace EksamensProjekt2021
 
         public Vector2 playerPosition;
         public Vector2 PlayerPosition { get => playerPosition; set => playerPosition = value; }
-        // public abstract void Shoot();
+       
 
-        //public abstract void Shoot(Weapon weapon);
-        //den skal bruges senere men for at teste uden vi har våben lavede jeg en uden constructors
+
+       
 
 
         //get rectangle
@@ -49,11 +50,18 @@ namespace EksamensProjekt2021
        
         public Vector2 Position { get => position; set => position = value; }
 
+        protected int Health { get => health; set => health = value; }
+
+        //Target er så våbnet kan finde positionen 
+        public Vector2 Target { get => target; set => target = value; }
+
+
         public abstract void LoadContent(ContentManager content);
         
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
+            
             spriteBatch.Draw(sprite, position, null, Color.White, 0, origin, 1, SpriteEffects.None, 0);
         }
 
