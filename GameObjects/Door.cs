@@ -101,7 +101,7 @@ namespace EksamensProjekt2021
         /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
-            //if (showDoor)spriteBatch.Draw(sprite, position, null, Color.White, 0, origin, 1, effect, 0);
+            if (showDoor)spriteBatch.Draw(sprite, position, null, Color.White, 0, origin, 1, effect, 0);
         }
     }
 }
