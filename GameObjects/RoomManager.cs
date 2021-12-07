@@ -100,8 +100,6 @@ namespace EksamensProjekt2021
                     return RoomType.Normal;
 
             }
-            CreateStyle(roomType, x, y);
-            return roomType;
         }
         /// <summary>
         /// Chances for a room to have the style it has.
@@ -116,26 +114,6 @@ namespace EksamensProjekt2021
             if (t > 2) roomStyle[x, y] = (byte)rnd.Next(0 + (t - 1), 10); //The harder or rarer the room, the prettier it should be. Higher values returned.
             else roomStyle[x, y] = (byte)rnd.Next(0, 10 - (t + 1)); //The easier the room, the lower the value returned.
         }
-        /// <summary>
-        /// Chances for a room to have the style it has.
-        /// Aka what walls, floors and decorations should be in.
-        /// </summary>
-        /// <param name="roomType"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        private void CreateStyle(byte t, byte x, byte y)
-        {
-            if (t == 0) t += 2; //failsafe
-            if (t > 2) roomStyle[x, y] = (byte)rnd.Next(0 + (t - 1), 10); //The harder or rarer the room, the prettier it should be. Higher values returned.
-            else roomStyle[x, y] = (byte)rnd.Next(0, 10 - (t + 1)); //The easier the room, the lower the value returned.
-        }
-        /// <summary>
-        /// Console.WriteLine debug method
-        /// To view: Right click EksamensProjekt2021.crsproj -> properties.
-        /// Outputtype: Console Application.
-        /// </summary>
-        /// <param name="failSafe"></param>
-        /// <param name="reruns"></param>
         public void Debug(byte failSafe, byte reruns)
         {
             //To view: Right click EksamensProjekt2021.crsproj -> properties.
