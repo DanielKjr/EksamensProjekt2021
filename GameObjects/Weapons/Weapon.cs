@@ -8,6 +8,7 @@ using System.Text;
 
 namespace EksamensProjekt2021
 {
+
     public abstract class Weapon : GameObject
     {
 
@@ -15,12 +16,14 @@ namespace EksamensProjekt2021
         protected int fireRate;
         private float rotation;
 
+
         public int Range { get => range; set => range = value; }
         public int FireRate { get => fireRate; set => fireRate = value; }
 
 
         public Weapon()
         {
+
 
         }
 
@@ -30,16 +33,19 @@ namespace EksamensProjekt2021
         public override void LoadContent(ContentManager content)
         {
 
+
         }
 
         public override void OnCollision(GameObject other)
         {
+
 
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(sprite, position, null, Color.White, rotation, origin, 1, SpriteEffects.None, 0);
+
         }
 
         /// <summary>
@@ -50,8 +56,10 @@ namespace EksamensProjekt2021
 
 
 
+
         public override void Update(GameTime gameTime)
         {
+
 
         }
     }

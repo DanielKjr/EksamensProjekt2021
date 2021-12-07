@@ -10,7 +10,9 @@ namespace EksamensProjekt2021
 {
     class Hitscan : Weapon
     {
+
         protected Texture2D projectile;
+
 
         public Hitscan()
         {
@@ -66,7 +68,6 @@ namespace EksamensProjekt2021
         public override void LoadContent(ContentManager content)
         {
              sprite = content.Load<Texture2D>("CollisionTexture ");
-            
 
            
         }

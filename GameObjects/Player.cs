@@ -79,10 +79,12 @@ namespace EksamensProjekt2021
         {
             Position = new Vector2(500, 500);
 
+
             this.weapon = new Revolver();
           //  this.weapon = new Hitscan();
          
            // this.weapon = new Throwable();
+
            
             PlayerPosition = position;
             Health = 100;
