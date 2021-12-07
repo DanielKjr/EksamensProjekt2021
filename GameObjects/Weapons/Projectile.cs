@@ -7,7 +7,7 @@ using System.Text;
 
 namespace EksamensProjekt2021
 {
-    public class Projectile : Throwable
+     class Projectile : Throwable
     {
 
 
@@ -67,10 +67,11 @@ namespace EksamensProjekt2021
         }
 
         public override void OnCollision(GameObject other)
-        {//virker ikke lige nu da han ikke har nogen hitbox 
-            if (other is Player)
+        {
+            if (other is Player || other is Enemy)
             {
-                GameWorld.Despawn(this);
+                //lige nu despawner den projektiler når den der instantiere det skyder
+               // GameWorld.Despawn(this);
             }
         }
 

@@ -16,7 +16,6 @@ namespace EksamensProjekt2021
     {
 
         private Weapon weapon;
-        // private Vector2 position = new Vector2(500, 300);
 
         private MouseState mStateOld = Mouse.GetState();
         private MouseState mState;
@@ -47,15 +46,7 @@ namespace EksamensProjekt2021
 
 
 
-        // forklaret hvor den er relevant
 
-        /*
-        public Vector2 Position
-        {
-            get { return position; }
-        }
-        //property sårn vi ban benytte os af den
-        */
         public override Rectangle Collision
         {
             get
@@ -84,29 +75,52 @@ namespace EksamensProjekt2021
 
       
 
-        public Player()
+        public Player() 
         {
             Position = new Vector2(500, 500);
-            this.weapon = new Hitscan(sprite, Position, mPos);
-            target = mPos;
+            //this.weapon = new Hitscan();
+         
+            this.weapon = new Throwable();
+           
             PlayerPosition = position;
             Health = 100;
+
+         
+
+        }
+
+        public Player(Weapon weapon)
+        {
+            this.weapon = weapon;
+           
+           
+
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+
+
+           
+            HandeInput(gameTime);
+
+            PlayerAnimation(gameTime);
+            PlayerShoot(gameTime);
 
 
         }
 
-        public void PlayerShoot()
+        public void PlayerShoot(GameTime gameTime)
         {
-            mState = Mouse.GetState();
-            mPos = new Vector2(mState.X + 15, mState.Y + 20);
-            weapon.Target = mPos;
             weapon.Position = Position;
+            mState = Mouse.GetState();
+            target = new Vector2(mState.X + 15, mState.Y + 20);
 
             if (mState.LeftButton == ButtonState.Pressed && mLeftReleased == true)
             {
 
                 mLeftReleased = false;
-                weapon.ShootWeapon(mPos);
+                weapon.ShootWeapon(target);
                 
             }
            
@@ -260,18 +274,7 @@ namespace EksamensProjekt2021
             }
         }
 
-        public override void Update(GameTime gameTime)
-        {
-            
-            
-            
-            HandeInput(gameTime);
-
-            PlayerAnimation(gameTime);
-            PlayerShoot();
-
-
-        }
+       
 
 
         public override void LoadContent(ContentManager content)
