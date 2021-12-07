@@ -15,6 +15,8 @@ namespace EksamensProjekt2021
         public static byte[,] roomLayout = new byte[5, 5];
         public static byte[,] roomStyle = new byte[5, 5]; //0-9
         public static byte[] playerInRoom = new byte[2]; //See which room the player is in. (X, Y)
+        public static int roomsCleared; //----------------------------------------------------------------------------------------------------IMPLEMENT
+        public static int levelsCleared; 
         public static byte mapReruns = 0; //See how many times the RoomsGenerator needed to run
 
         private byte filledRooms = 0;
@@ -24,19 +26,19 @@ namespace EksamensProjekt2021
 
         /// <summary>
         /// Generates the map based on amount of rooms desired.
-        /// Will auto retry if it fails (random WILL fail)
+        /// Will auto retry if it fails (Never fails tho)
         /// </summary>
         /// <param name="amountOfRooms"></param>
         public void CreateMap(byte amountOfRooms)
         {
             Reset();
-            
+
             while (filledRooms < amountOfRooms)
             {
                 for (sbyte i = -1; i < 2; i += 2)
                 {
-                    RoomCreate(i, 0, index[0], index[1]); //Check x=-1 and x=1
-                    RoomCreate(0, i, index[0], index[1]); //Check y=-1 and y=1
+                    RoomCreate(i, 0, index[0], index[1], amountOfRooms); //Check x=-1 and x=1
+                    RoomCreate(0, i, index[0], index[1], amountOfRooms); //Check y=-1 and y=1
                 }
 
                 if (indexList.Count > 0) //Finds next random index point. Cannot be already used.
@@ -45,10 +47,8 @@ namespace EksamensProjekt2021
                     string parseString = indexList[listIndex]; //Fill list contents into string
                     indexList.RemoveAt(listIndex); //Removes entry from list
 
-                    string temp = parseString[0] + "0"; //Inserts first number and a '0' into temp string
-                    index[0] = int.Parse(temp) / 10; //Converts temp string into int for index pos. And Divides by 10 to achieve it.
-                    temp = parseString[1] + "0"; //Repeat for Y coord.
-                    index[1] = int.Parse(temp) / 10;
+                    index[0] = int.Parse(parseString[0] + "0") / 10; //Converts list entry into int for index pos
+                    index[1] = int.Parse(parseString[1] + "0") / 10; //Force to add "0" for it to be string. Parse doesnt take char.
                 }
                 failSafe++;
                 if (failSafe > 100) Reset();
@@ -58,11 +58,20 @@ namespace EksamensProjekt2021
 
             Debug(failSafe, mapReruns);
         }
-        private void RoomCreate(sbyte x, sbyte y, int ix, int iy)
+        /// <summary>
+        /// Creates rooms in the map. Checks if there can be, should be, and then calls Chance()
+        /// Adds entry to indexList for further map creation.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="ix"></param>
+        /// <param name="iy"></param>
+        /// <param name="rooms"></param>
+        private void RoomCreate(sbyte x, sbyte y, int ix, int iy, int rooms)
         {
             if (ix + x > -1 && ix + x < 5 && iy + y > -1 && iy + y < 5) //Out of bounds checker
             {
-                if (roomLayout[ix + x, iy + y] == 0) //Checks if there already a room
+                if (roomLayout[ix + x, iy + y] == 0 && filledRooms <= rooms) //Checks if there already a room, and if there should be added more rooms (desired amount)
                 {
                     if ((byte)rnd.Next(0, 2) == 1) //Randomizes if there should be a room
                     {
@@ -132,10 +141,6 @@ namespace EksamensProjekt2021
                 }
                 Console.WriteLine($"\nReruns: {reruns}");
                 mapReruns = 0;
-                for (int i = 0; i < indexList.Count; i++)
-                {
-                    Console.WriteLine(indexList[i]);
-                }
             }
         }
         /// <summary>

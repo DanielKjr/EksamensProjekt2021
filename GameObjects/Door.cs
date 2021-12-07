@@ -12,6 +12,11 @@ namespace EksamensProjekt2021
         byte dir;
         Vector2 placementDir;
         bool showDoor;
+        SpriteEffects effect = SpriteEffects.None; //Needed for right door
+        public SpriteAnimation doorAnim;
+        
+
+
         /// <summary>
         /// 0 = up, 1 = down, 2 = left, 3 = right
         /// </summary>
@@ -20,14 +25,17 @@ namespace EksamensProjekt2021
         {
             this.dir = placement;
         }
-
-
+        /// <summary>
+        /// Load doors. Done in GameWorld.Initialize.
+        /// Takes directional value to know which door should be loaded. (up, down, left, or right door)
+        /// </summary>
+        /// <param name="content"></param>
         public override void LoadContent(ContentManager content)
         {
             switch (dir)
             {
                 case 0:
-                    sprite = content.Load<Texture2D>("SpritePlaceHolder2"); //0
+                    sprite = content.Load<Texture2D>("DoorTop"); //0
                     position = new Vector2(GameWorld.screenSize.X / 2 - sprite.Width / 2, 0);
                     placementDir = new Vector2(0, -1);
                     break;
@@ -37,18 +45,23 @@ namespace EksamensProjekt2021
                     placementDir = new Vector2(0, 1);
                     break;
                 case 2:
-                    sprite = content.Load<Texture2D>("SpritePlaceHolder2"); //2
+                    sprite = content.Load<Texture2D>("DoorSides"); //2
                     position = new Vector2(0, GameWorld.screenSize.Y / 2 - sprite.Height / 2);
                     placementDir = new Vector2(-1, 0);
                     break;
                 case 3:
-                    sprite = content.Load<Texture2D>("SpritePlaceHolder2"); //3
+                    sprite = content.Load<Texture2D>("DoorSides"); //3
                     position = new Vector2(GameWorld.screenSize.X - sprite.Width, GameWorld.screenSize.Y / 2 - sprite.Height / 2);
                     placementDir = new Vector2(1, 0);
+                    effect = SpriteEffects.FlipHorizontally;
                     break;
             }
+            doorAnim = new SpriteAnimation(sprite, 4, 5);
         }
-
+        /// <summary>
+        /// Updates if the door should be shown. Best if it runs every frame despite potential lag.
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
             showDoor = false;
@@ -64,7 +77,10 @@ namespace EksamensProjekt2021
                 }
             }
         }
-
+        /// <summary>
+        /// When player hits the door, check if they should be moved to next room.
+        /// </summary>
+        /// <param name="other"></param>
         public override void OnCollision(GameObject other)
         {
             if (other is Player && showDoor) // Only allow collision if the door is active
@@ -79,9 +95,13 @@ namespace EksamensProjekt2021
                 GameWorld.roomManager.Debug(0,0);
             }
         }
+        /// <summary>
+        /// Custom draw. Needed showDoor bool to see if the door should be rendered.
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (showDoor)spriteBatch.Draw(sprite, position, null, Color.White, 45, origin, 1, SpriteEffects.None, 0);
+            //if (showDoor)spriteBatch.Draw(sprite, position, null, Color.White, 0, origin, 1, effect, 0);
         }
     }
 }
