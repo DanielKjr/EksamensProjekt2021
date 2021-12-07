@@ -22,6 +22,7 @@ namespace EksamensProjekt2021
             rectangle.Y = (int)mPos.Y;
             rectangle.Height = 1;
             rectangle.Width = 1;
+        }
 
         public override void ShootWeapon(Vector2 target)
         {
