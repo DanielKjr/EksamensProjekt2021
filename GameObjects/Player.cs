@@ -79,7 +79,7 @@ namespace EksamensProjekt2021
         {
             Position = new Vector2(500, 500);
 
-
+            
             this.weapon = new Revolver();
           //  this.weapon = new Hitscan();
          
@@ -104,7 +104,7 @@ namespace EksamensProjekt2021
         public override void Update(GameTime gameTime)
         {
 
-
+           
            
             HandeInput(gameTime);
 
@@ -284,6 +284,7 @@ namespace EksamensProjekt2021
         public override void LoadContent(ContentManager content)
         {
             weapon.LoadContent(content);
+
 
 
             trumpWalkRight = content.Load<Texture2D>("trumpWalkRight");

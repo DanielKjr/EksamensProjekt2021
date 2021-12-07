@@ -4,10 +4,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace EksamensProjekt2021
 {
-    class Revolver : Hitscan
+   class Revolver : Hitscan
     {
 
-        public Revolver()
+        public Revolver() 
         {
             
         }
@@ -21,7 +21,8 @@ namespace EksamensProjekt2021
 
         public override void LoadContent(ContentManager content)
         {
-            sprite = content.Load<Texture2D>("Enemy2");
+            
+           sprite = content.Load<Texture2D>("CollisionTexture ");
            
         }
 
