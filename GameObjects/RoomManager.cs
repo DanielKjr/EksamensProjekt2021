@@ -52,6 +52,7 @@ namespace EksamensProjekt2021
                 }
                 failSafe++;
                 if (failSafe > 100) Reset();
+
             }
             roomLayout[index[0], index[1]] = 5; //Set last created room to be boss room
 
@@ -97,7 +98,23 @@ namespace EksamensProjekt2021
                     return RoomType.Hard;
                 default:                       //60% chance for normal room
                     return RoomType.Normal;
+
             }
+            CreateStyle(roomType, x, y);
+            return roomType;
+        }
+        /// <summary>
+        /// Chances for a room to have the style it has.
+        /// Aka what walls, floors and decorations should be in.
+        /// </summary>
+        /// <param name="roomType"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        private void CreateStyle(byte t, byte x, byte y)
+        {
+            if (t == 0) t += 2; //failsafe
+            if (t > 2) roomStyle[x, y] = (byte)rnd.Next(0 + (t - 1), 10); //The harder or rarer the room, the prettier it should be. Higher values returned.
+            else roomStyle[x, y] = (byte)rnd.Next(0, 10 - (t + 1)); //The easier the room, the lower the value returned.
         }
         /// <summary>
         /// Chances for a room to have the style it has.
@@ -167,6 +184,7 @@ namespace EksamensProjekt2021
             playerInRoom[0] = rndX; //Set new player coords.
             playerInRoom[1] = rndY;
         }
+
         /// <summary>
         /// Fill in walls and object using this method.
         /// </summary>
@@ -174,7 +192,9 @@ namespace EksamensProjekt2021
         /// <param name="indexY"></param>
         public void InitialiseRoom(byte indexX, byte indexY)
         {
+
             switch (roomStyle[indexX, indexY])
+
             {
                 default:
                     break;
