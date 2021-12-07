@@ -32,7 +32,7 @@ namespace EksamensProjekt2021
 
         public static RoomManager roomManager;
         public static Door door;
-       
+
 
 
         private Texture2D cursor;
@@ -42,12 +42,10 @@ namespace EksamensProjekt2021
 
         private Song music;
 
-        
-
 
         public static Vector2 screenSize;
 
-       // public static GameObject Target { get => target; set => target = value; }
+
 
         public GameWorld()
         {
@@ -76,30 +74,24 @@ namespace EksamensProjekt2021
         protected override void Initialize()
         {
             // _graphics.IsFullScreen = true;
-            // TODO: Add your initialization logic here
             _graphics.PreferredBackBufferWidth = 1280;
             _graphics.PreferredBackBufferHeight = 720;
             _graphics.ApplyChanges();
             screenSize = new Vector2(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
             player = new Player();
+
+
             player.Position = new Vector2(500, 500);
 
             gameObjects = new List<GameObject>();
             newObjects = new List<GameObject>();
             projectiles = new List<GameObject>();
             enemies = new List<Enemy>();
-            
+
             deleteObjects = new List<GameObject>();
-          // AddGameObject(new Enemy());
-           // AddGameObject(new Enemy(player, new Throwable(), new Vector2(200, 200)));
-            AddEnemy();
             gameObjects.Add(player);
-
-
-
-          
-
+            AddEnemy();
 
 
 
@@ -127,13 +119,9 @@ namespace EksamensProjekt2021
                 go.LoadContent(this.Content);
             }
 
-            foreach (GameObject go in gameObjects.OfType<Projectile>())
-            {
-                go.LoadContent(this.Content);
-            }
 
-       
-            
+
+
 
         }
 
@@ -143,18 +131,20 @@ namespace EksamensProjekt2021
                 Exit();
 
             UpdateGameObjects(gameTime);
-            
+
             player.Update(gameTime);
-            
+
 
             base.Update(gameTime);
             foreach (GameObject go in gameObjects)
             {
                 go.Update(gameTime);
+
                 foreach (GameObject other in gameObjects)
                 {
                     go.CheckCollision(other);
                 }
+
             }
         }
 
@@ -168,19 +158,8 @@ namespace EksamensProjekt2021
                 go.Draw(_spriteBatch);
 
                 DrawCollisionBox(go);
-                
+
             }
-
-            
-          
-           
-
-
-
-            //   player.anim.Draw(_spriteBatch);
-
-            //  player.anim.Draw(_spriteBatch); //vi bruger Draw metoden i den SpriteAnimation "anim" som vi lavede på playeren. det ser fucking nice ud fordi det er så simpelt
-            //jeg efterlader dem lige her indtil videre men jeg har overrided draw i player for at gøre det samme
 
 
             _spriteBatch.End();
@@ -210,16 +189,16 @@ namespace EksamensProjekt2021
                 throw new System.ArgumentNullException($"{nameof(gameObject)} cannot be null.");
 
             gameObject.LoadContent(this.Content);
-            
+
 
 
         }
 
-    
+
 
         public static void Instantiate(GameObject go)
         {
-            
+
             newObjects.Add(go);
         }
 
@@ -231,22 +210,22 @@ namespace EksamensProjekt2021
         public void UpdateGameObjects(GameTime gameTime)
         {
             gameObjects.AddRange(newObjects);
-           newObjects.Clear();
+            newObjects.Clear();
 
             foreach (GameObject go in gameObjects)
             {
                 go.Update(gameTime);
-                
+
                 foreach (GameObject other in gameObjects)
                 {
                     go.CheckCollision(other);
                 }
-                
+
 
             }
-            
-            
-           
+
+
+
 
             foreach (GameObject go in deleteObjects)
             {
@@ -258,8 +237,8 @@ namespace EksamensProjekt2021
 
         private void DrawCollisionBox(GameObject go)
         {
-           
-            
+
+
             Rectangle topLine = new Rectangle(go.Collision.X, go.Collision.Y, go.Collision.Width, 1);
             Rectangle bottomLine = new Rectangle(go.Collision.X, go.Collision.Y + go.Collision.Height, go.Collision.Width, 1);
             Rectangle rightLine = new Rectangle(go.Collision.X + go.Collision.Width, go.Collision.Y, 1, go.Collision.Height);
@@ -271,6 +250,6 @@ namespace EksamensProjekt2021
             _spriteBatch.Draw(collisionTexture, leftLine, Color.Red);
         }
 
-        
+
     }
 }

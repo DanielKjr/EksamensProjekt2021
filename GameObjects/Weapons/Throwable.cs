@@ -7,7 +7,7 @@ using System.Text;
 
 namespace EksamensProjekt2021
 {
-    public class Throwable : Weapon
+     class Throwable : Weapon
     {
 
 
@@ -16,6 +16,13 @@ namespace EksamensProjekt2021
             range = 500;
             fireRate = 2;
             
+        }
+
+        public Throwable(Texture2D sprite, Vector2 position, Vector2 target)
+        {
+           
+            range = 500;
+            fireRate = 2;
         }
 
 
