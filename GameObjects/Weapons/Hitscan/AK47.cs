@@ -7,7 +7,8 @@ namespace EksamensProjekt2021
     {
         public AK47()
         {
-            range = 500;
+            range = 400;
+            damage = 5;
         }
 
 
