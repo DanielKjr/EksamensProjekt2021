@@ -17,7 +17,7 @@ namespace EksamensProjekt2021
     }
     public class GameWorld : Game
     {
-        public static bool HCDebug = true;
+        public static bool HCDebug = false;
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
@@ -32,6 +32,7 @@ namespace EksamensProjekt2021
 
         public static RoomManager roomManager;
         public static Door door;
+        public static UserInterface ui;
 
 
 
@@ -80,7 +81,7 @@ namespace EksamensProjekt2021
             screenSize = new Vector2(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
             player = new Player();
-
+            ui = new UserInterface();
 
             player.Position = new Vector2(500, 500);
 
@@ -119,7 +120,7 @@ namespace EksamensProjekt2021
             {
                 go.LoadContent(this.Content);
             }
-
+            ui.LoadContent(Content);
 
 
 
@@ -145,8 +146,8 @@ namespace EksamensProjekt2021
                 {
                     go.CheckCollision(other);
                 }
-
             }
+            //ui.mapDisplay();
         }
 
         protected override void Draw(GameTime gameTime)
@@ -161,8 +162,9 @@ namespace EksamensProjekt2021
                 DrawCollisionBox(go);
 
             }
+            ui.mapDisplay(_spriteBatch);
 
-            
+
             _spriteBatch.End();
 
 

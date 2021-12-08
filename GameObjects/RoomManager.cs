@@ -14,9 +14,10 @@ namespace EksamensProjekt2021
         private List<string> indexList = new List<string>(20);
         public static byte[,] roomLayout = new byte[5, 5];
         public static byte[,] roomStyle = new byte[5, 5]; //0-9
+        public static bool[,] revealedRoom = new bool[5, 5];
         public static byte[] playerInRoom = new byte[2]; //See which room the player is in. (X, Y)
         public static int roomsCleared; //----------------------------------------------------------------------------------------------------IMPLEMENT
-        public static int levelsCleared; 
+        public static int levelsCleared;
         public static byte mapReruns = 0; //See how many times the RoomsGenerator needed to run
 
         private byte filledRooms = 0;
@@ -55,9 +56,7 @@ namespace EksamensProjekt2021
 
             }
             roomLayout[index[0], index[1]] = 5; //Set last created room to be boss room
-
-
-
+            RevealRooms();
             Debug(failSafe, mapReruns);
         }
         /// <summary>
@@ -101,7 +100,7 @@ namespace EksamensProjekt2021
                     return RoomType.Normal;
 
             }
-           
+
         }
         /// <summary>
         /// Chances for a room to have the style it has.
@@ -116,7 +115,7 @@ namespace EksamensProjekt2021
             if (t > 2) roomStyle[x, y] = (byte)rnd.Next(0 + (t - 1), 10); //The harder or rarer the room, the prettier it should be. Higher values returned.
             else roomStyle[x, y] = (byte)rnd.Next(0, 10 - (t + 1)); //The easier the room, the lower the value returned.
         }
-       
+
         /// <summary>
         /// Console.WriteLine debug method
         /// To view: Right click EksamensProjekt2021.crsproj -> properties.
@@ -137,6 +136,7 @@ namespace EksamensProjekt2021
                     {
                         if (roomLayout[x, y] == 0) Console.ForegroundColor = ConsoleColor.White;
                         else Console.ForegroundColor = ConsoleColor.Green;
+                        if (revealedRoom[x, y] == true) Console.ForegroundColor = ConsoleColor.Magenta;
                         if (x == playerInRoom[0] && y == playerInRoom[1]) Console.ForegroundColor = ConsoleColor.Red;
                         Console.Write(roomLayout[x, y] + " ");
                     }
@@ -159,6 +159,7 @@ namespace EksamensProjekt2021
                 {
                     roomLayout[x, y] = 0;
                     roomStyle[x, y] = 0;
+                    revealedRoom[x, y] = false;
                 }
             }
             indexList.Clear();
@@ -201,6 +202,31 @@ namespace EksamensProjekt2021
                     break;
                 default:
                     break;
+            }
+        }
+        public void RevealRooms()
+        {
+            byte x = playerInRoom[0];
+            byte y = playerInRoom[1];
+            revealedRoom[x, y] = true;
+            for (int i = -1; i < 2; i += 2)
+            {
+                if (x + i > -1 && x + i < 5) //Out of bounds failsafe
+                {
+                    if (roomLayout[x + i, y] >= 1)
+                    {
+                        revealedRoom[x + i, y] = true; //Reveal rooms left and right
+                        Console.Write($"x{i} true");
+                    }
+                }
+                if (y + i > -1 && y + i < 5)
+                {
+                    if (roomLayout[x, y + i] >= 1)
+                    {
+                        revealedRoom[x, y + i] = true; //Reveal room up and down
+                        Console.Write($"y{i} true");
+                    }
+                }
             }
         }
     }
