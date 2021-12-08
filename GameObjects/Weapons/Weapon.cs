@@ -15,7 +15,7 @@ namespace EksamensProjekt2021
         protected int range;
         protected int fireRate;
         protected float rotation;
-
+        protected SpriteEffects weaponMirror;
 
         public int Range { get => range; set => range = value; }
         public int FireRate { get => fireRate; set => fireRate = value; }
@@ -41,7 +41,7 @@ namespace EksamensProjekt2021
         /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(sprite, position, null, Color.White, rotation, origin, 1, SpriteEffects.None, 0);
+            spriteBatch.Draw(sprite, position, null, Color.White, rotation, origin, 1, weaponMirror, 0);
 
         }
 

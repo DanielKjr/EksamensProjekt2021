@@ -77,11 +77,11 @@ namespace EksamensProjekt2021
         {
             Position = new Vector2(500, 500);
 
-            
-           
-            
 
-            this.weapon = new Revolver();
+
+
+            this.weapon = new AK47();
+           // this.weapon = new Revolver();
 
 
             //  this.weapon = new Hitscan();
@@ -117,7 +117,7 @@ namespace EksamensProjekt2021
         public void UpdateWeapon()
         {
             //set weapon position so it knows where to draw it
-            weapon.Position = new Vector2(Position.X + 10, Position.Y);
+            weapon.Position = new Vector2(Position.X - 20, Position.Y - 35);
 
             //mstate to create mouse position
             mState = Mouse.GetState();
