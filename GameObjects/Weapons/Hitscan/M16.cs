@@ -8,6 +8,7 @@ namespace EksamensProjekt2021
         public M16()
         {
             range = 500;
+            damage = 5;
         }
 
 

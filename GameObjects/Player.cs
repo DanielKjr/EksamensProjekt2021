@@ -17,7 +17,7 @@ namespace EksamensProjekt2021
 
         private MouseState mStateOld = Mouse.GetState();
         private MouseState mState;
-        public Vector2 mousePosition;
+        private Vector2 mousePosition;
         private bool mLeftReleased = true;
 
 
@@ -71,7 +71,7 @@ namespace EksamensProjekt2021
 
         }
 
-      
+        public Vector2 MousePosition { get => mousePosition; set => mousePosition = value; }
 
         public Player() 
         {
@@ -80,7 +80,7 @@ namespace EksamensProjekt2021
 
 
 
-            this.weapon = new AK47();
+            this.weapon = new M16();
            // this.weapon = new Revolver();
 
 
@@ -104,7 +104,7 @@ namespace EksamensProjekt2021
             UpdateWeapon();
             PlayerShoot(gameTime);
             HandeInput(gameTime);
-
+            
             PlayerAnimation(gameTime);
             
 
@@ -116,16 +116,36 @@ namespace EksamensProjekt2021
         /// </summary>
         public void UpdateWeapon()
         {
+
+
             //set weapon position so it knows where to draw it
-            weapon.Position = new Vector2(Position.X - 20, Position.Y - 35);
+            weapon.Position = Position;
 
             //mstate to create mouse position
             mState = Mouse.GetState();
-            mousePosition = new Vector2(mState.X + 15, mState.Y + 20);
+            mousePosition = new Vector2(mState.X -20 , mState.Y  -20);
+
+            
 
             //weapon rotation, gets passed on to weapon.Rotation which is then drawn
             Vector2 wRotate = mousePosition - weapon.Position;
             weapon.Rotation = (float)Math.Atan2(wRotate.Y, wRotate.X);
+           
+
+            if (MousePosition.X > 550)
+            {
+                weapon.WeaponMirror = SpriteEffects.None;
+            }
+            else
+            {
+                weapon.WeaponMirror = SpriteEffects.FlipVertically;
+                
+
+
+
+
+            }
+
         }
 
         /// <summary>
@@ -155,8 +175,8 @@ namespace EksamensProjekt2021
 
         public void Damage(int damage)
         {
-            Health -= damage;
-            if (Health <= 0)
+            health -= damage;
+            if (health <= 0)
             {
 
                 GameWorld.Despawn(this);
@@ -167,7 +187,10 @@ namespace EksamensProjekt2021
         }
         public override void OnCollision(GameObject other)
         {
-
+            if (other is Projectile)
+            {
+                Damage(weapon.Damage);
+            }
         }
 
 
@@ -185,7 +208,7 @@ namespace EksamensProjekt2021
         public override void Draw(SpriteBatch spriteBatch)
         {
             anim.Draw(spriteBatch);
-
+            
             weapon.Draw(spriteBatch);
 
         }
@@ -305,6 +328,8 @@ namespace EksamensProjekt2021
         public override void LoadContent(ContentManager content)
         {
             weapon.LoadContent(content);
+            
+             weapon.Origin = new Vector2(20,20);
 
 
 

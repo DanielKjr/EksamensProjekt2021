@@ -44,14 +44,16 @@ namespace EksamensProjekt2021
 
 
         public static Vector2 screenSize;
-
+        
 
 
         public GameWorld()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;
+
+            IsMouseVisible = false;
+
             player = new Player();
             roomManager = new RoomManager();
             screenSize = new Vector2(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
@@ -112,7 +114,7 @@ namespace EksamensProjekt2021
         {
             
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            cursor = Content.Load<Texture2D>("crosshair");
             collisionTexture = Content.Load<Texture2D>("CollisionTexture ");
 
             foreach (GameObject go in gameObjects)
@@ -153,6 +155,7 @@ namespace EksamensProjekt2021
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             _spriteBatch.Begin();
+            _spriteBatch.Draw(cursor, new Vector2(player.MousePosition.X , player.MousePosition.Y ), null, Color.Red);
 
             foreach (GameObject go in gameObjects)
             {
@@ -162,7 +165,8 @@ namespace EksamensProjekt2021
 
             }
 
-            
+           
+
             _spriteBatch.End();
 
 
@@ -210,14 +214,15 @@ namespace EksamensProjekt2021
 
         public void UpdateGameObjects(GameTime gameTime)
         {
-            
+
             foreach (var go in newObjects)
             {//has to be here to give projectiles a sprite before they are added to gameObjects and then drawn.
                 go.LoadContent(this.Content);
             }
-            
+
             gameObjects.AddRange(newObjects);
             newObjects.Clear();
+            
 
             foreach (GameObject go in gameObjects)
             {

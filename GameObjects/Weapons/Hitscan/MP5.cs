@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace EksamensProjekt2021
@@ -8,6 +9,8 @@ namespace EksamensProjekt2021
         public MP5()
         {
             range = 500;
+            damage = 5;
+            
         }
 
 

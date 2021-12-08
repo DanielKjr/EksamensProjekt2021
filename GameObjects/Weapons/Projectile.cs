@@ -12,8 +12,9 @@ namespace EksamensProjekt2021
 
 
 
-        public Projectile(Texture2D sprite, Vector2 position, Vector2 target)
+        public Projectile(Texture2D sprite, Vector2 position, Vector2 target, byte damage)
         {
+            this.damage = damage;
             this.sprite = sprite;
             Position = position;
             this.target = target;
