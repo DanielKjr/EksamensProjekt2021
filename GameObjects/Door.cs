@@ -1,9 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EksamensProjekt2021
 {
@@ -13,8 +10,16 @@ namespace EksamensProjekt2021
         Vector2 placementDir;
         bool showDoor;
         SpriteEffects effect = SpriteEffects.None; //Needed for right door
-        public SpriteAnimation doorAnim;
-        
+        Texture2D storedSprite;
+
+        int width;
+        byte height;
+
+        float animTimer;
+        int fpsThreshold = 1; //Seconds between frames
+        Rectangle[] source = new Rectangle[4];
+        byte frameIndex = 0;
+
 
 
         /// <summary>
@@ -35,28 +40,55 @@ namespace EksamensProjekt2021
             switch (dir)
             {
                 case 0:
-                    sprite = content.Load<Texture2D>("DoorTop"); //0
-                    position = new Vector2(GameWorld.screenSize.X / 2 - sprite.Width / 2, 0);
+                    storedSprite = content.Load<Texture2D>("DoorTop"); //0
+                    animSetup();
+                    position = new Vector2(GameWorld.screenSize.X / 2 - width / 2, 0);
                     placementDir = new Vector2(0, -1);
                     break;
                 case 1:
-                    sprite = content.Load<Texture2D>("SpritePlaceHolder2"); //1
-                    position = new Vector2(GameWorld.screenSize.X / 2 - sprite.Width / 2, GameWorld.screenSize.Y - sprite.Height);
+                    storedSprite = content.Load<Texture2D>("DoorTop"); //1
+                    animSetup();
+                    position = new Vector2(GameWorld.screenSize.X / 2 - width / 2, GameWorld.screenSize.Y - height);
                     placementDir = new Vector2(0, 1);
+                    effect = SpriteEffects.FlipVertically;
                     break;
                 case 2:
-                    sprite = content.Load<Texture2D>("DoorSides"); //2
-                    position = new Vector2(0, GameWorld.screenSize.Y / 2 - sprite.Height / 2);
+                    storedSprite = content.Load<Texture2D>("DoorTop"); //2
+                    animSetup();
+                    position = new Vector2(0, GameWorld.screenSize.Y / 2 - storedSprite.Height / 2);
                     placementDir = new Vector2(-1, 0);
                     break;
                 case 3:
-                    sprite = content.Load<Texture2D>("DoorSides"); //3
-                    position = new Vector2(GameWorld.screenSize.X - sprite.Width, GameWorld.screenSize.Y / 2 - sprite.Height / 2);
+                    storedSprite = content.Load<Texture2D>("DoorTop"); //3
+                    animSetup();
+                    position = new Vector2(GameWorld.screenSize.X - width, GameWorld.screenSize.Y / 2 - height / 2);
                     placementDir = new Vector2(1, 0);
                     effect = SpriteEffects.FlipHorizontally;
                     break;
             }
-            doorAnim = new SpriteAnimation(sprite, 4, 5);
+        }
+        /// <summary>
+        /// Create all data needed for spriteSheet
+        /// </summary>
+        void animSetup()
+        {
+            width = storedSprite.Width / 4;
+            height = (byte)storedSprite.Height;
+            for (int i = 0; i < 4; i++)
+            {
+                source[i] = new Rectangle(width * i, 0, width, height);
+            }
+            sprite = storedSprite; //DONT DO THIS---------------------------------------
+        }
+        /// <summary>
+        /// Needs custom rect since its a spriteSheet
+        /// </summary>
+        public override Rectangle Collision
+        {
+            get
+            {
+                return new Rectangle((int)position.X, (int)position.Y, width, height);
+            }
         }
         /// <summary>
         /// Updates if the door should be shown. Best if it runs every frame despite potential lag.
@@ -76,6 +108,16 @@ namespace EksamensProjekt2021
                     }
                 }
             }
+            if (showDoor) //Animation section.
+            {
+                animTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (animTimer >= fpsThreshold)
+                {
+                    if (frameIndex < 3) frameIndex++;
+                    animTimer = 0;
+                }
+            }
+            if (!showDoor) frameIndex = 0;
         }
         /// <summary>
         /// When player hits the door, check if they should be moved to next room.
@@ -92,7 +134,7 @@ namespace EksamensProjekt2021
                 if (placementDir.Y == 1) GameWorld.player.Position = new Vector2(GameWorld.screenSize.X / 2, GameWorld.screenSize.Y - sprite.Height * 3);
                 RoomManager.playerInRoom[0] += (byte)placementDir.X; //Sets player room pos to new room
                 RoomManager.playerInRoom[1] += (byte)placementDir.Y;
-                GameWorld.roomManager.Debug(0,0);
+                GameWorld.roomManager.Debug(0, 0);
             }
         }
         /// <summary>
@@ -101,7 +143,7 @@ namespace EksamensProjekt2021
         /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
-            //if (showDoor)spriteBatch.Draw(sprite, position, null, Color.White, 0, origin, 1, effect, 0);
+            spriteBatch.Draw(sprite, position, source[frameIndex], Color.White, 0, origin, 1, effect, 0);
         }
     }
 }
