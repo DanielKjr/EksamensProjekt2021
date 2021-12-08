@@ -25,17 +25,21 @@ namespace EksamensProjekt2021
             for (int i = 0; i < frames; i++)
             {
                 Rectangles[i] = new Rectangle(i * width, 0, width, Texture.Height);
-                
+
             }
-                
+            
+
 
             //lader os vælge noget indenfor en specific kasse inden i det spritesheet vi har. virker kun sidelæns fordi jeg ikke er gud. "frames" hentyder til hvor mange frames der er på en række
             // i spritesheet'et og Texture hentyder til selve sprite-sheetet. den regner selv ud hvor lang spritesheetet er ved at divider Texture.Width med mængden af frames der er deri. 
             // frames er en værdi vi selv giver den når vi opretter den
-            
+
 
         }
-       
+        public void SetPosition(Vector2 Position)
+        {
+            this.Position = Position;
+        }
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Texture, Position, Rectangles[FrameIndex], Color, Rotation, Origin, Scale, SpriteEffect, 0f);
@@ -48,7 +52,7 @@ namespace EksamensProjekt2021
     {
         private float timeElapsed;
         public bool IsLooping = true;
-        private float timeToUpdate; 
+        private float timeToUpdate;
         public int FramesPerSecond { set { timeToUpdate = (1f / value); } }
         //de 3 værdier her bruger vi til at skife frame, så det er animeret. det er sat op sådan at vi let kan ændre tallene på hvad end vi bruger spriteManager'en på ved at sætte vores ønskede
         //"fps" når vi konstruere vores spriteAnimation ude i gameworld's load (eller hvor vi nu ender med at ha det). Propertien "FramesPerSecond" er en property til TimeToUpdate, og er 
