@@ -1,9 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EksamensProjekt2021
 {
@@ -70,6 +67,9 @@ namespace EksamensProjekt2021
                     break;
             }
         }
+        /// <summary>
+        /// Create all data needed for spriteSheet
+        /// </summary>
         void animSetup()
         {
             width = storedSprite.Width / 4;
@@ -80,6 +80,9 @@ namespace EksamensProjekt2021
             }
             sprite = storedSprite; //DONT DO THIS---------------------------------------
         }
+        /// <summary>
+        /// Needs custom rect since its a spriteSheet
+        /// </summary>
         public override Rectangle Collision
         {
             get
