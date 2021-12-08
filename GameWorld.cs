@@ -93,7 +93,7 @@ namespace EksamensProjekt2021
             gameObjects.Add(player);
             AddEnemy();
 
-
+            //gameObjects.Add(new Revolver());
 
             for (byte i = 0; i < 4; i++) // Create the 4 doors. GameObject will handle LoadContent() and Update().
             {
@@ -110,6 +110,7 @@ namespace EksamensProjekt2021
 
         protected override void LoadContent()
         {
+            
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             collisionTexture = Content.Load<Texture2D>("CollisionTexture ");
@@ -161,7 +162,7 @@ namespace EksamensProjekt2021
 
             }
 
-
+            
             _spriteBatch.End();
 
 
@@ -209,6 +210,12 @@ namespace EksamensProjekt2021
 
         public void UpdateGameObjects(GameTime gameTime)
         {
+            
+            foreach (var go in newObjects)
+            {//has to be here to give projectiles a sprite before they are added to gameObjects and then drawn.
+                go.LoadContent(this.Content);
+            }
+            
             gameObjects.AddRange(newObjects);
             newObjects.Clear();
 
