@@ -124,13 +124,6 @@ namespace EksamensProjekt2021
         /// </summary>
         /// <param name="failSafe"></param>
         /// <param name="reruns"></param>
-        /// <summary>
-        /// Console.WriteLine debug method
-        /// To view: Right click EksamensProjekt2021.crsproj -> properties.
-        /// Outputtype: Console Application.
-        /// </summary>
-        /// <param name="failSafe"></param>
-        /// <param name="reruns"></param>
         public void Debug(byte failSafe, byte reruns)
         {
             //To view: Right click EksamensProjekt2021.crsproj -> properties.
