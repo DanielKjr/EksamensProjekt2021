@@ -7,16 +7,22 @@ using System.Text;
 
 namespace EksamensProjekt2021
 {
-    public class Throwable : Weapon
+     class Throwable : Weapon
     {
 
-        
 
         public Throwable()
         {
             range = 500;
             fireRate = 2;
             
+        }
+
+        public Throwable(Texture2D sprite, Vector2 position, Vector2 target)
+        {
+           
+            range = 500;
+            fireRate = 2;
         }
 
 
@@ -51,7 +57,7 @@ namespace EksamensProjekt2021
         public override void LoadContent(ContentManager content)
         {
             sprite = content.Load<Texture2D>("Enemy2");
-
+           
            
         }
     }
