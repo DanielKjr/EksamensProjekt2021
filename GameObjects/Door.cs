@@ -128,10 +128,10 @@ namespace EksamensProjekt2021
             if (other is Player && showDoor) // Only allow collision if the door is active
             {
                 //Change player pos to match entering new room from that door
-                if (placementDir.X == -1) GameWorld.player.Position = new Vector2(GameWorld.screenSize.X - sprite.Width * 3, GameWorld.screenSize.Y / 2);
-                if (placementDir.X == 1) GameWorld.player.Position = new Vector2(sprite.Width * 3, GameWorld.screenSize.Y / 2);
-                if (placementDir.Y == -1) GameWorld.player.Position = new Vector2(GameWorld.screenSize.X / 2, sprite.Height * 3);
-                if (placementDir.Y == 1) GameWorld.player.Position = new Vector2(GameWorld.screenSize.X / 2, GameWorld.screenSize.Y - sprite.Height * 3);
+                if (placementDir.X == -1) GameWorld.player.Position = new Vector2(GameWorld.screenSize.X - width * 2, GameWorld.screenSize.Y / 2);
+                if (placementDir.X == 1) GameWorld.player.Position = new Vector2(width * 2, GameWorld.screenSize.Y / 2);
+                if (placementDir.Y == -1) GameWorld.player.Position = new Vector2(GameWorld.screenSize.X / 2, GameWorld.screenSize.Y - height * 2);
+                if (placementDir.Y == 1) GameWorld.player.Position = new Vector2(GameWorld.screenSize.X / 2, height * 2);
                 RoomManager.playerInRoom[0] += (byte)placementDir.X; //Sets player room pos to new room
                 RoomManager.playerInRoom[1] += (byte)placementDir.Y;
                 GameWorld.roomManager.Debug(0, 0);
