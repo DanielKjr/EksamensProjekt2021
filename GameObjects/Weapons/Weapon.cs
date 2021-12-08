@@ -14,12 +14,12 @@ namespace EksamensProjekt2021
 
         protected int range;
         protected int fireRate;
-        private float rotation;
+        protected float rotation;
 
 
         public int Range { get => range; set => range = value; }
         public int FireRate { get => fireRate; set => fireRate = value; }
-
+        public float Rotation { get => rotation; set => rotation = value; }
 
         public Weapon()
         {
@@ -29,19 +29,16 @@ namespace EksamensProjekt2021
 
 
 
-
-        public override void LoadContent(ContentManager content)
-        {
-
-
-        }
-
         public override void OnCollision(GameObject other)
         {
 
 
         }
 
+        /// <summary>
+        /// Override to allow the weapon to have it's own rotation 
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(sprite, position, null, Color.White, rotation, origin, 1, SpriteEffects.None, 0);

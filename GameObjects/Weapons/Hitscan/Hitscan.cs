@@ -11,17 +11,7 @@ namespace EksamensProjekt2021
     class Hitscan : Weapon
     {
 
-        
-
-
-        public Hitscan()
-        {
-
-            
-            
-
-        }
-
+        //if Hitscan has any unique attributes this is where they should be
        
 
         public static void Shoot()
@@ -37,14 +27,20 @@ namespace EksamensProjekt2021
             rectangle.Width = 1;
         }
 
+        /// <summary>
+        /// This version simply takes position of the weapon and a target, it all uses the same projectile.
+        /// </summary>
+        /// <param name="target"></param>
         public override void ShootWeapon(Vector2 target)
         {
 
-            GameWorld.Instantiate(new HitscanShoot(sprite, Position, target));
+            GameWorld.Instantiate(new HitscanShoot(Position, target));
+
+           
 
         }
 
-        
+       
 
         public override void Update(GameTime gameTime)
         {
@@ -53,8 +49,8 @@ namespace EksamensProjekt2021
         }
         public override void LoadContent(ContentManager content)
         {
+            //skal være her men tror ikke noget skal loades her
             
-             //sprite = content.Load<Texture2D>("CollisionTexture ");
 
            
         }

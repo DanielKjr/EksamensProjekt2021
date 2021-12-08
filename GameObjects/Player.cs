@@ -1,10 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +17,7 @@ namespace EksamensProjekt2021
 
         private MouseState mStateOld = Mouse.GetState();
         private MouseState mState;
-        public Vector2 mPos;
+        public Vector2 mousePosition;
         private bool mLeftReleased = true;
 
 
@@ -80,12 +78,17 @@ namespace EksamensProjekt2021
             Position = new Vector2(500, 500);
 
             
-            this.weapon = new Revolver();
-          //  this.weapon = new Hitscan();
-         
-           // this.weapon = new Throwable();
-
            
+            
+
+            this.weapon = new Revolver();
+
+
+            //  this.weapon = new Hitscan();
+
+            // this.weapon = new Throwable();
+
+
             PlayerPosition = position;
             Health = 100;
 
@@ -93,38 +96,51 @@ namespace EksamensProjekt2021
 
         }
 
-        public Player(Weapon weapon)
-        {
-            this.weapon = weapon;
-           
-           
-
-        }
+        
 
         public override void Update(GameTime gameTime)
         {
 
-           
-           
+            UpdateWeapon();
+            PlayerShoot(gameTime);
             HandeInput(gameTime);
 
             PlayerAnimation(gameTime);
-            PlayerShoot(gameTime);
+            
 
 
         }
 
+        /// <summary>
+        /// Updates weapon position, target and rotation.
+        /// </summary>
+        public void UpdateWeapon()
+        {
+            //set weapon position so it knows where to draw it
+            weapon.Position = new Vector2(Position.X + 10, Position.Y);
+
+            //mstate to create mouse position
+            mState = Mouse.GetState();
+            mousePosition = new Vector2(mState.X + 15, mState.Y + 20);
+
+            //weapon rotation, gets passed on to weapon.Rotation which is then drawn
+            Vector2 wRotate = mousePosition - weapon.Position;
+            weapon.Rotation = (float)Math.Atan2(wRotate.Y, wRotate.X);
+        }
+
+        /// <summary>
+        /// Method is run in Update, it instantiates a projectile on click by using the current weapons' shoot function if the clicked position is in range.
+        /// </summary>
+        /// <param name="gameTime"></param>
         public void PlayerShoot(GameTime gameTime)
         {
-            weapon.Position = Position;
-            mState = Mouse.GetState();
-            target = new Vector2(mState.X + 15, mState.Y + 20);
+          
 
-            if (mState.LeftButton == ButtonState.Pressed && mLeftReleased == true)
+            if (mState.LeftButton == ButtonState.Pressed && mLeftReleased == true && Vector2.Distance(Position, mousePosition) < weapon.Range)
             {
-
+                
                 mLeftReleased = false;
-                weapon.ShootWeapon(target);
+                weapon.ShootWeapon(mousePosition);
                 
             }
            
@@ -150,7 +166,7 @@ namespace EksamensProjekt2021
 
         }
         public override void OnCollision(GameObject other)
-        {//virker ikke lige nu da han ikke har nogen hitbox 
+        {
 
         }
 
@@ -170,16 +186,21 @@ namespace EksamensProjekt2021
         {
             anim.Draw(spriteBatch);
 
+            weapon.Draw(spriteBatch);
+
         }
 
-        public void setX(float newX)
+        
+        public void SetX(float newX)
         {
             position.X = newX;
         }
-        public void setY(float newY)
+        public void SetY(float newY)
         {
             position.Y = newY;
         }
+        
+
         //er her fordi ellers så kommer der en error med den ikke kan finde ud af vector fordi det en data-type og ik en værdi
 
 
