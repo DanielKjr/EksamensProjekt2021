@@ -119,7 +119,7 @@ namespace EksamensProjekt2021
 
 
             //set weapon position so it knows where to draw it
-            weapon.Position = Position;
+            weapon.Position = new Vector2(Position.X + 10, Position.Y);
 
             //mstate to create mouse position
             mState = Mouse.GetState();
@@ -132,18 +132,16 @@ namespace EksamensProjekt2021
             weapon.Rotation = (float)Math.Atan2(wRotate.Y, wRotate.X);
            
 
-            if (MousePosition.X > 550)
+            if (MousePosition.X > GameWorld.screenSize.X / 2)
             {
                 weapon.WeaponMirror = SpriteEffects.None;
+                direction = Dir.Right;
             }
             else
             {
                 weapon.WeaponMirror = SpriteEffects.FlipVertically;
+                direction = Dir.Left;
                 
-
-
-
-
             }
 
         }
@@ -161,6 +159,7 @@ namespace EksamensProjekt2021
                 
                 mLeftReleased = false;
                 weapon.ShootWeapon(mousePosition);
+                weapon.GunFire.Play();
                 
             }
            

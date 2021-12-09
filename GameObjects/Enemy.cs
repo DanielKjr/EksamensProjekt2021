@@ -77,9 +77,7 @@ namespace EksamensProjekt2021
                     timer = weapon.FireRate;
                 }
                        
-                        
-                   
-               
+              
             }
 
         }
@@ -95,7 +93,7 @@ namespace EksamensProjekt2021
         {
            
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            moveDir = playerPos.Position - this.Position;
+            moveDir = playerPos.Position - new Vector2(Position.X + 50, Position.Y - 40);
             moveDir.Normalize();
             Position += moveDir * moveSpeed * deltaTime;
 
