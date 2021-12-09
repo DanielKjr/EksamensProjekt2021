@@ -28,12 +28,14 @@ namespace EksamensProjekt2021
         public static List<GameObject> projectiles;
 
         public static Player player;
+        private User_Interface user_Interface;
         public static Enemy enemy;
 
         public static RoomManager roomManager;
         public static Door door;
+        
 
-
+        public static SpriteFont HUDFont;
 
         private Texture2D cursor;
 
@@ -80,7 +82,7 @@ namespace EksamensProjekt2021
             screenSize = new Vector2(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
             player = new Player();
-
+            user_Interface = new User_Interface();
 
             player.Position = new Vector2(500, 500);
 
@@ -91,6 +93,7 @@ namespace EksamensProjekt2021
 
             deleteObjects = new List<GameObject>();
             gameObjects.Add(player);
+            gameObjects.Add(user_Interface);
             AddEnemy();
 
             //gameObjects.Add(new Revolver());
@@ -112,7 +115,7 @@ namespace EksamensProjekt2021
         {
             
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            HUDFont = Content.Load<SpriteFont>("HUDFont");
             collisionTexture = Content.Load<Texture2D>("CollisionTexture ");
 
             foreach (GameObject go in gameObjects)
@@ -161,8 +164,9 @@ namespace EksamensProjekt2021
                 DrawCollisionBox(go);
 
             }
-
             
+            _spriteBatch.DrawString(HUDFont, $"Health:  {player.currentHealth}/100", new Vector2(15, 10), Color.White);
+            _spriteBatch.DrawString(HUDFont, $"Armor:   {player.currentHealth}/50", new Vector2(15, 32), Color.White);
             _spriteBatch.End();
 
 

@@ -20,7 +20,7 @@ namespace EksamensProjekt2021
         protected int fps;
         protected float moveSpeed;
         protected int health;
-        protected int armor;
+        private int armor;
 
         public Vector2 playerPosition;
         public Vector2 PlayerPosition { get => playerPosition; set => playerPosition = value; }
@@ -52,7 +52,7 @@ namespace EksamensProjekt2021
 
         //Target er så våbnet kan finde positionen 
         public Vector2 Target { get => target; set => target = value; }
-      
+        protected int Armor { get => armor; set => armor = value; }
 
         public abstract void LoadContent(ContentManager content);
         

@@ -8,12 +8,14 @@ namespace EksamensProjekt2021
         public MP5()
         {
             range = 500;
+            Name = "MP5";
         }
 
 
         public override void LoadContent(ContentManager content)
         {
             sprite = content.Load<Texture2D>("Weapons/MP5");
+            Sprite = sprite;
         }
     }
 }
