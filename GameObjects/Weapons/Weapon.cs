@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -8,23 +9,28 @@ using System.Text;
 
 namespace EksamensProjekt2021
 {
-
+  
     public abstract class Weapon : GameObject
     {
 
         protected int range;
+        protected byte damage;
         protected int fireRate;
         protected float rotation;
         protected SpriteEffects weaponMirror;
+        protected SoundEffect gunFire;
 
         public int Range { get => range; set => range = value; }
         public int FireRate { get => fireRate; set => fireRate = value; }
         public float Rotation { get => rotation; set => rotation = value; }
+        public byte Damage { get => damage; set => damage = value; }
+
+        public SpriteEffects WeaponMirror { get => weaponMirror; set => weaponMirror = value; }
+        public SoundEffect GunFire { get => gunFire; set => gunFire = value; }
 
         public Weapon()
         {
-
-
+           
         }
 
 
@@ -45,6 +51,8 @@ namespace EksamensProjekt2021
 
         }
 
+
+
         /// <summary>
         /// The shoot function depends on the weapon type, the Player/Enemy needs a weapon to access this function
         /// and is then used by weapon.ShootWeapon(target);
@@ -56,7 +64,7 @@ namespace EksamensProjekt2021
 
         public override void Update(GameTime gameTime)
         {
-
+            
 
         }
     }
