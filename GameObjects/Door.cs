@@ -53,13 +53,13 @@ namespace EksamensProjekt2021
                     effect = SpriteEffects.FlipVertically;
                     break;
                 case 2:
-                    storedSprite = content.Load<Texture2D>("DoorTop"); //2
+                    storedSprite = content.Load<Texture2D>("DoorSides"); //2
                     animSetup();
                     position = new Vector2(0, GameWorld.screenSize.Y / 2 - storedSprite.Height / 2);
                     placementDir = new Vector2(-1, 0);
                     break;
                 case 3:
-                    storedSprite = content.Load<Texture2D>("DoorTop"); //3
+                    storedSprite = content.Load<Texture2D>("DoorSides"); //3
                     animSetup();
                     position = new Vector2(GameWorld.screenSize.X - width, GameWorld.screenSize.Y / 2 - height / 2);
                     placementDir = new Vector2(1, 0);
