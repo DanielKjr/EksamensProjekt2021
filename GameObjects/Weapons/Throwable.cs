@@ -15,17 +15,11 @@ namespace EksamensProjekt2021
         {
             range = 500;
             fireRate = 2;
+            damage = 30;
             
         }
 
-        public Throwable(Texture2D sprite, Vector2 position, Vector2 target)
-        {
-           
-            range = 500;
-            fireRate = 2;
-        }
-
-
+ 
 
         /// <summary>
         /// This version of the ShootWeapon function will instantiate a projectile from the current position towards the target.
@@ -35,18 +29,10 @@ namespace EksamensProjekt2021
         {
 
             //hvis vi kun har den her, så står våbnet kun for at skyde, hvilket er en god ting, tror jeg
-            GameWorld.Instantiate(new Projectile(sprite, Position, target));
+            GameWorld.Instantiate(new Projectile(Position, target, damage));
 
 
-            /*
-            if (Vector2.Distance(Position, target) < 500)
-            {
-               
-               GameWorld.Instantiate(new Projectile(sprite, Position, target));
-
-
-            }
-            */
+           
         }
 
         public override void Update(GameTime gameTime)

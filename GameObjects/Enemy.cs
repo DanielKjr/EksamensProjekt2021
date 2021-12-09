@@ -13,7 +13,9 @@ namespace EksamensProjekt2021
     {
         private Vector2 moveDir;        
         private Weapon weapon;
-        GameObject playerPos;        
+        bool isAlive = true;
+        GameObject playerPos;
+        
         private double timer = 2;
 
         public Enemy() : base()
@@ -28,6 +30,7 @@ namespace EksamensProjekt2021
             
             this.origin = Vector2.Zero;
             moveSpeed = 100;
+            health = 10;
         }
 
 
@@ -44,10 +47,10 @@ namespace EksamensProjekt2021
 
         public override void Update(GameTime gameTime)
         {
-
+            
             EnemyTargeting(gameTime);
             Movement(gameTime);
-           
+            
         }
 
        
@@ -74,12 +77,12 @@ namespace EksamensProjekt2021
                     timer = weapon.FireRate;
                 }
                        
-                        
-                   
-               
+              
             }
 
         }
+
+        
 
         /// <summary>
         /// Moves the enemy towards the Player
@@ -90,7 +93,7 @@ namespace EksamensProjekt2021
         {
            
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            moveDir = playerPos.Position - this.Position;
+            moveDir = playerPos.Position - new Vector2(Position.X + 50, Position.Y - 40);
             moveDir.Normalize();
             Position += moveDir * moveSpeed * deltaTime;
 
@@ -101,14 +104,26 @@ namespace EksamensProjekt2021
 
         }
 
+        public void Damage()
+        {
+           // health -= damage;
+            if (health <= 0)
+            {
 
+                GameWorld.Despawn(this);
+
+                isAlive = false;
+            }
+
+        }
 
 
         public override void OnCollision(GameObject other)
         {
-            if (other is Hitscan)
+            if (other is HitscanShoot)
             {
-                GameWorld.Despawn(this);
+                Damage();
+                GameWorld.Despawn(other);
             }
 
         }

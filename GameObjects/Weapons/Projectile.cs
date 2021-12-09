@@ -12,9 +12,10 @@ namespace EksamensProjekt2021
 
 
 
-        public Projectile(Texture2D sprite, Vector2 position, Vector2 target)
+        public Projectile(Vector2 position, Vector2 target, byte damage)
         {
-            this.sprite = sprite;
+            this.damage = damage;
+            
             Position = position;
             this.target = target;
             this.origin = Vector2.Zero;
@@ -36,11 +37,6 @@ namespace EksamensProjekt2021
             shootDir.Normalize();
             Position += shootDir * moveSpeed * deltaTime;
 
-
-
-
-
-
         }
 
 
@@ -48,7 +44,7 @@ namespace EksamensProjekt2021
         public override void LoadContent(ContentManager content)
         {
 
-
+            sprite = content.Load<Texture2D>("medkit");
 
         }
 

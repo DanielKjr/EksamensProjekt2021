@@ -13,6 +13,7 @@ namespace EksamensProjekt2021
             //insert damage, armor, magazine or what not here
 
             range = 500;
+           
         }
 
 
