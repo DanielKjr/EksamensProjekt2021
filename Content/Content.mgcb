@@ -121,6 +121,12 @@
 /processorParam:TextureFormat=Color
 /build:repairkit.png
 
+#begin SoundEffects/SingleShot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/SingleShot.wav
+
 #begin SpritePlaceHolder2.png
 /importer:TextureImporter
 /processor:TextureProcessor

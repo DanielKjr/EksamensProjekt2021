@@ -15,7 +15,7 @@ namespace EksamensProjekt2021
         {
             range = 500;
             fireRate = 2;
-            damage = 50;
+            damage = 30;
             
         }
 
@@ -29,18 +29,10 @@ namespace EksamensProjekt2021
         {
 
             //hvis vi kun har den her, så står våbnet kun for at skyde, hvilket er en god ting, tror jeg
-            GameWorld.Instantiate(new Projectile(sprite, Position, target, damage));
+            GameWorld.Instantiate(new Projectile(Position, target, damage));
 
 
-            /*
-            if (Vector2.Distance(Position, target) < 500)
-            {
-               
-               GameWorld.Instantiate(new Projectile(sprite, Position, target));
-
-
-            }
-            */
+           
         }
 
         public override void Update(GameTime gameTime)

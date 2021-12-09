@@ -45,8 +45,8 @@ namespace EksamensProjekt2021
 
 
         public static Vector2 screenSize;
-        
 
+        
 
         public GameWorld()
         {
