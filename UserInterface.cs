@@ -27,9 +27,12 @@ namespace EksamensProjekt2021
                 for (int x = 0; x < RoomManager.roomLayout.GetLength(0); x++)
                 {
                     if (RoomManager.playerInRoom[0] == x && RoomManager.playerInRoom[1] == y) color = Color.Green;
+                    else if (RoomManager.roomLayout[x, y] == 5) color = Color.Black;
+                    else if (RoomManager.roomLayout[x, y] == 4) color = Color.Cyan;
                     else if (RoomManager.roomLayout[x, y] >= 2) color = Color.Red;
                     else color = Color.White;
-                    if (RoomManager.revealedRoom[x, y])
+
+                    if (RoomManager.revealedRoom[x, y] || RoomManager.roomLayout[x, y] == 5)
                     {
                         spriteBatch.Draw(sprite, new Vector2(offsetX + (sprite.Width * x + dist * x), offsetY + (sprite.Height * y + dist * y)), color);
                     }

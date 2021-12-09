@@ -121,6 +121,7 @@ namespace EksamensProjekt2021
                 go.LoadContent(this.Content);
             }
             ui.LoadContent(Content);
+            roomManager.LoadContent(Content);
 
 
 
@@ -154,6 +155,7 @@ namespace EksamensProjekt2021
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             _spriteBatch.Begin();
+            roomManager.DrawRoom(_spriteBatch);
 
             foreach (GameObject go in gameObjects)
             {
