@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework.Content;
 
 namespace EksamensProjekt2021
 {
@@ -19,6 +20,8 @@ namespace EksamensProjekt2021
         public static int roomsCleared; //----------------------------------------------------------------------------------------------------IMPLEMENT
         public static int levelsCleared;
         public static byte mapReruns = 0; //See how many times the RoomsGenerator needed to run
+        private Texture2D[] floor = new Texture2D[3];
+        private Texture2D wall;
 
         private byte filledRooms = 0;
         private byte failSafe = 0;
@@ -114,6 +117,8 @@ namespace EksamensProjekt2021
             if (t == 0) t += 2; //failsafe
             if (t > 2) roomStyle[x, y] = (byte)rnd.Next(0 + (t - 1), 10); //The harder or rarer the room, the prettier it should be. Higher values returned.
             else roomStyle[x, y] = (byte)rnd.Next(0, 10 - (t + 1)); //The easier the room, the lower the value returned.
+
+            roomStyle[x,y] = (byte)rnd.Next(0, 3);
         }
 
         /// <summary>
@@ -189,18 +194,34 @@ namespace EksamensProjekt2021
                     break;
             }
         }
+        public void LoadContent(ContentManager content)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                floor[i] = content.Load<Texture2D>($"Floor{i}");
+            }
+            wall = content.Load<Texture2D>("Wall1");
+        }
         /// <summary>
         /// Draw the rooms walls & floor using this method
         /// </summary>
         /// <param name="indexX"></param>
         /// <param name="indexY"></param>
-        public void DrawRoom(byte indexX, byte indexY)
+        public void DrawRoom(SpriteBatch spriteBatch)
         {
-            switch (roomStyle[indexX, indexY])
+            switch (roomStyle[playerInRoom[0], playerInRoom[1]])
             {
-                case 0:
+                case 2:
+                    spriteBatch.Draw(floor[2], Vector2.Zero, Color.White);
+                    spriteBatch.Draw(wall, Vector2.Zero, Color.White);
+                    break;
+                case 1:
+                    spriteBatch.Draw(floor[1], Vector2.Zero, Color.White);
+                    spriteBatch.Draw(wall, Vector2.Zero, Color.White);
                     break;
                 default:
+                    spriteBatch.Draw(floor[0], Vector2.Zero, Color.White);
+                    spriteBatch.Draw(wall, Vector2.Zero, Color.White);
                     break;
             }
         }

@@ -19,22 +19,22 @@ namespace EksamensProjekt2021
         private MouseState mState;
         private Vector2 mousePosition;
         private bool mLeftReleased = true;
-
-
+        public int currentArmor;
+        public int currentHealth;
         private int speed = 250;
-
+        public Weapon currentWeapon = new AK47();
         //en værdi vi bare kan ændre til at passe med hvor hurtigt vi vil ha ham. bliver brugt i udregninen af når han bevæger sig
         private bool isMoving = false;
         //forklaret hvor den er relevant
         private Dir direction = Dir.Right;
         // enum'en som vi lavede ude i gameworld
-       
+
         //ska vi bruger senere til shoot-funktion. trust me boiis.
         static public bool isAlive = true;
 
         public SpriteAnimation anim;
         public SpriteAnimation[] animations = new SpriteAnimation[4];
-
+        private bool changeweapontorevolver = false;
         private Texture2D trumpWalkRight;
         private Texture2D trumpWalkLeft;
         private Texture2D trumpWalkUp;
@@ -71,17 +71,23 @@ namespace EksamensProjekt2021
 
         }
 
+
         public Vector2 MousePosition { get => mousePosition; set => mousePosition = value; }
 
-        public Player() 
+
+        public Player()
         {
             Position = new Vector2(500, 500);
 
-
-
-
-            this.weapon = new M16();
-           // this.weapon = new Revolver();
+            Health = 100;
+            Armor = 50;
+            currentHealth = Health;
+            currentArmor = Armor;
+            
+            
+            
+            currentWeapon = this.weapon;
+            // this.weapon = new Revolver();
 
 
             //  this.weapon = new Hitscan();
@@ -89,14 +95,22 @@ namespace EksamensProjekt2021
             // this.weapon = new Throwable();
 
 
-            PlayerPosition = position;
-            Health = 100;
 
-         
+
+
+            this.weapon = new AK47();
+
+
+            
+
+            PlayerPosition = position;
+
+
+
 
         }
 
-        
+
 
         public override void Update(GameTime gameTime)
         {
@@ -106,7 +120,7 @@ namespace EksamensProjekt2021
             HandeInput(gameTime);
             
             PlayerAnimation(gameTime);
-            
+
 
 
         }
@@ -116,10 +130,10 @@ namespace EksamensProjekt2021
         /// </summary>
         public void UpdateWeapon()
         {
-
+            
 
             //set weapon position so it knows where to draw it
-            weapon.Position = Position;
+            weapon.Position = new Vector2(Position.X , Position.Y);
 
             //mstate to create mouse position
             mState = Mouse.GetState();
@@ -132,19 +146,20 @@ namespace EksamensProjekt2021
             weapon.Rotation = (float)Math.Atan2(wRotate.Y, wRotate.X);
            
 
-            if (MousePosition.X > 550)
+            if (MousePosition.X > GameWorld.screenSize.X / 2)
             {
                 weapon.WeaponMirror = SpriteEffects.None;
+                direction = Dir.Right;
+                weapon.Position = new Vector2(Position.X + 10, Position.Y);
             }
             else
             {
                 weapon.WeaponMirror = SpriteEffects.FlipVertically;
-                
-
-
-
+                direction = Dir.Left;
+                weapon.Position = new Vector2(Position.X - 10, Position.Y);
 
             }
+          
 
         }
 
@@ -154,16 +169,19 @@ namespace EksamensProjekt2021
         /// <param name="gameTime"></param>
         public void PlayerShoot(GameTime gameTime)
         {
-          
+
 
             if (mState.LeftButton == ButtonState.Pressed && mLeftReleased == true && Vector2.Distance(Position, mousePosition) < weapon.Range)
             {
-                
+
                 mLeftReleased = false;
                 weapon.ShootWeapon(mousePosition);
+
+                weapon.GunFire.Play();
                 
+
             }
-           
+
 
             if (mState.LeftButton == ButtonState.Released)
             {
@@ -213,7 +231,7 @@ namespace EksamensProjekt2021
 
         }
 
-        
+
         public void SetX(float newX)
         {
             position.X = newX;
@@ -222,7 +240,7 @@ namespace EksamensProjekt2021
         {
             position.Y = newY;
         }
-        
+
 
         //er her fordi ellers så kommer der en error med den ikke kan finde ud af vector fordi det en data-type og ik en værdi
 
@@ -235,10 +253,13 @@ namespace EksamensProjekt2021
             KeyboardState kState = Keyboard.GetState();
             //keyboard.getstate() ved statusen på vores keyboard (om vi har trykket på en knap eller givet slip for eksempel). kstate gemmer det til en variabel, sårn vi kan benytte os af den
 
+
+            
+
             float dt = (float)gameTime.ElapsedGameTime.TotalSeconds; //delta-time fordi ellers så afhænger tiden af performance
 
             isMoving = false; // relevant fordi vi kun vil kører igennem vores animationer når vi bevæger os, så han ikke løber på stedet
-
+            
             if (kState.IsKeyDown(Keys.D)) //IsKeyDown ser om en knap er trykket på vores kState. 
             {
                 direction = Dir.Right; // ændre direction, sårn vi ka brugedet til at vælge hvilken animation vi vil bruge
@@ -322,14 +343,15 @@ namespace EksamensProjekt2021
             }
         }
 
-       
+
 
 
         public override void LoadContent(ContentManager content)
         {
             weapon.LoadContent(content);
             
-             weapon.Origin = new Vector2(20,20);
+           //  weapon.Origin = new Vector2(20,20);
+            
 
 
 
@@ -355,7 +377,7 @@ namespace EksamensProjekt2021
         }
 
 
-       
+
 
     }
 }
