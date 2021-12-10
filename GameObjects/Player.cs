@@ -80,14 +80,9 @@ namespace EksamensProjekt2021
 
 
 
-            this.weapon = new M16();
-           // this.weapon = new Revolver();
+            this.weapon = new AK47();
 
-
-            //  this.weapon = new Hitscan();
-
-            // this.weapon = new Throwable();
-
+            
 
             PlayerPosition = position;
             Health = 100;
@@ -116,10 +111,10 @@ namespace EksamensProjekt2021
         /// </summary>
         public void UpdateWeapon()
         {
-
+            
 
             //set weapon position so it knows where to draw it
-            weapon.Position = new Vector2(Position.X + 10, Position.Y);
+            weapon.Position = new Vector2(Position.X , Position.Y);
 
             //mstate to create mouse position
             mState = Mouse.GetState();
@@ -136,13 +131,16 @@ namespace EksamensProjekt2021
             {
                 weapon.WeaponMirror = SpriteEffects.None;
                 direction = Dir.Right;
+                weapon.Position = new Vector2(Position.X + 10, Position.Y);
             }
             else
             {
                 weapon.WeaponMirror = SpriteEffects.FlipVertically;
                 direction = Dir.Left;
-                
+                weapon.Position = new Vector2(Position.X - 10, Position.Y);
+
             }
+          
 
         }
 
@@ -328,7 +326,8 @@ namespace EksamensProjekt2021
         {
             weapon.LoadContent(content);
             
-             weapon.Origin = new Vector2(20,20);
+           //  weapon.Origin = new Vector2(20,20);
+            
 
 
 

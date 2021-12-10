@@ -62,6 +62,7 @@ namespace EksamensProjekt2021
         }
 
 
+   
 
         public void RemoveObject(GameObject go)
         {
@@ -90,12 +91,13 @@ namespace EksamensProjekt2021
             gameObjects = new List<GameObject>();
             newObjects = new List<GameObject>();
             projectiles = new List<GameObject>();
-            enemies = new List<Enemy>();
+           // enemies = new List<Enemy>();
 
             deleteObjects = new List<GameObject>();
             gameObjects.Add(player);
-            AddEnemy();
+            AddGameObject(new Enemy());
 
+      
             //gameObjects.Add(new Revolver());
 
             for (byte i = 0; i < 4; i++) // Create the 4 doors. GameObject will handle LoadContent() and Update().
@@ -181,6 +183,10 @@ namespace EksamensProjekt2021
 
         }
 
+        /// <summary>
+        /// Initializes game object by loading its contents and adding to the list
+        /// </summary>
+        /// <param name="gameObject"></param>
         private void AddGameObject(GameObject gameObject)
         {
 
@@ -188,35 +194,34 @@ namespace EksamensProjekt2021
                 throw new System.ArgumentNullException($"{nameof(gameObject)} cannot be null.");
 
             gameObject.LoadContent(this.Content);
-            gameObjects.Add(gameObject);
-
-
-        }
-        private void AddPlayer(GameObject gameObject)
-        {
-            //måske ikke nødvendig
-            if (gameObject is null)
-                throw new System.ArgumentNullException($"{nameof(gameObject)} cannot be null.");
-
-            gameObject.LoadContent(this.Content);
-
+            newObjects.Add(gameObject);
 
 
         }
 
-
-
+        /// <summary>
+        /// Instantiates GameObjects by adding them to the newObjects list.
+        /// </summary>
+        /// <param name="go"></param>
         public static void Instantiate(GameObject go)
         {
 
             newObjects.Add(go);
         }
 
+        /// <summary>
+        /// Despawns objects by adding them to the deleteObjects list.
+        /// </summary>
+        /// <param name="go"></param>
         public static void Despawn(GameObject go)
         {
             deleteObjects.Add(go);
         }
 
+        /// <summary>
+        /// is here only to make the real Update more readable, so updates about GameObjects goes here.
+        /// </summary>
+        /// <param name="gameTime"></param>
         public void UpdateGameObjects(GameTime gameTime)
         {
 
