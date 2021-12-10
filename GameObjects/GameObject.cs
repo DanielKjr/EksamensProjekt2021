@@ -25,7 +25,7 @@ namespace EksamensProjekt2021
         public Vector2 playerPosition;
         public Vector2 PlayerPosition { get => playerPosition; set => playerPosition = value; }
 
-
+        public int Health { get => health; set => health = value; }
 
         //get rectangle
         public virtual Rectangle Collision
@@ -48,11 +48,15 @@ namespace EksamensProjekt2021
        
         public Vector2 Position { get => position; set => position = value; }
 
-        protected int Health { get => health; set => health = value; }
+       
 
         //Target er så våbnet kan finde positionen 
         public Vector2 Target { get => target; set => target = value; }
+
         protected int Armor { get => armor; set => armor = value; }
+
+        public Vector2 Origin { get => origin; set => origin = value; }
+
 
         public abstract void LoadContent(ContentManager content);
         

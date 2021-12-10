@@ -17,7 +17,7 @@ namespace EksamensProjekt2021
 
         private MouseState mStateOld = Mouse.GetState();
         private MouseState mState;
-        public Vector2 mousePosition;
+        private Vector2 mousePosition;
         private bool mLeftReleased = true;
         public int currentArmor;
         public int currentHealth;
@@ -71,17 +71,20 @@ namespace EksamensProjekt2021
 
         }
 
-        
+
+        public Vector2 MousePosition { get => mousePosition; set => mousePosition = value; }
+
 
         public Player()
         {
             Position = new Vector2(500, 500);
+
             Health = 100;
             Armor = 50;
             currentHealth = Health;
             currentArmor = Armor;
             
-            this.weapon = new Revolver();
+            
             
             currentWeapon = this.weapon;
             // this.weapon = new Revolver();
@@ -91,6 +94,14 @@ namespace EksamensProjekt2021
 
             // this.weapon = new Throwable();
 
+
+
+
+
+            this.weapon = new AK47();
+
+
+            
 
             PlayerPosition = position;
 
@@ -107,7 +118,7 @@ namespace EksamensProjekt2021
             UpdateWeapon();
             PlayerShoot(gameTime);
             HandeInput(gameTime);
-
+            
             PlayerAnimation(gameTime);
 
 
@@ -119,16 +130,37 @@ namespace EksamensProjekt2021
         /// </summary>
         public void UpdateWeapon()
         {
+            
+
             //set weapon position so it knows where to draw it
-            weapon.Position = new Vector2(Position.X - 20, Position.Y - 35);
+            weapon.Position = new Vector2(Position.X , Position.Y);
 
             //mstate to create mouse position
             mState = Mouse.GetState();
-            mousePosition = new Vector2(mState.X + 15, mState.Y + 20);
+            mousePosition = new Vector2(mState.X -20 , mState.Y  -20);
+
+            
 
             //weapon rotation, gets passed on to weapon.Rotation which is then drawn
             Vector2 wRotate = mousePosition - weapon.Position;
             weapon.Rotation = (float)Math.Atan2(wRotate.Y, wRotate.X);
+           
+
+            if (MousePosition.X > GameWorld.screenSize.X / 2)
+            {
+                weapon.WeaponMirror = SpriteEffects.None;
+                direction = Dir.Right;
+                weapon.Position = new Vector2(Position.X + 10, Position.Y);
+            }
+            else
+            {
+                weapon.WeaponMirror = SpriteEffects.FlipVertically;
+                direction = Dir.Left;
+                weapon.Position = new Vector2(Position.X - 10, Position.Y);
+
+            }
+          
+
         }
 
         /// <summary>
@@ -145,6 +177,9 @@ namespace EksamensProjekt2021
                 mLeftReleased = false;
                 weapon.ShootWeapon(mousePosition);
 
+                weapon.GunFire.Play();
+                
+
             }
 
 
@@ -158,8 +193,8 @@ namespace EksamensProjekt2021
 
         public void Damage(int damage)
         {
-            Health -= damage;
-            if (Health <= 0)
+            health -= damage;
+            if (health <= 0)
             {
 
                 GameWorld.Despawn(this);
@@ -170,7 +205,10 @@ namespace EksamensProjekt2021
         }
         public override void OnCollision(GameObject other)
         {
-
+            if (other is Projectile)
+            {
+                Damage(weapon.Damage);
+            }
         }
 
 
@@ -188,7 +226,7 @@ namespace EksamensProjekt2021
         public override void Draw(SpriteBatch spriteBatch)
         {
             anim.Draw(spriteBatch);
-
+            
             weapon.Draw(spriteBatch);
 
         }
@@ -311,6 +349,9 @@ namespace EksamensProjekt2021
         public override void LoadContent(ContentManager content)
         {
             weapon.LoadContent(content);
+            
+           //  weapon.Origin = new Vector2(20,20);
+            
 
 
 

@@ -13,7 +13,7 @@ namespace EksamensProjekt2021
             //insert damage, armor, magazine or what not here
             Name = "Revolver";
             range = 500;
-            
+
         }
 
 

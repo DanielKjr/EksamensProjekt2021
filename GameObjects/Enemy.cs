@@ -13,23 +13,46 @@ namespace EksamensProjekt2021
     {
         private Vector2 moveDir;        
         private Weapon weapon;
-        GameObject playerPos;        
+        bool isAlive = true;
+        GameObject playerPos = GameWorld.player;
+        
         private double timer = 2;
 
         public Enemy() : base()
         {
+            //enemy skal have et våben, lige nu er det bare Throwable men når vi får ting ind som en tomahawk ville det være new Tomahawk()
             this.weapon = new Throwable();
 
-            this.playerPos = GameWorld.player;
-
+            //positionen som enemien spawner på
             Position = new Vector2(50, 900);
 
+            //target, hvad enemien prøver at skyde efter og følger efter (den følger spilleren der er instantieret i GameWorld)
             target = playerPos.Position;
             
             this.origin = Vector2.Zero;
+
+            //Movespeed, hvor hurtig de skal bevæge sig
             moveSpeed = 100;
+
+            //hvor meget liv de har 
+            health = 10;
         }
 
+        //Den her constructor gør det nemt at tilføje enemies, ved brug af GameWorlds AddGameObject skal man bare give den en position man vile have
+        //den position kan være en random, og et våben som så skal være et eller andet throwable våben.
+        //man kan fint tilføje flere parametre til at sætte moveSpeed eller health hvis man har lyst til det
+        //Men for at tilføje Enemien mens spillet kører skal vi bruge AddGameObject i GameWorld
+        //Fordi den tilføjer Enemien til newObjects og kører dens LoadContent for at give sprite osv.
+        //Eksempel på hvordan det kan bruges:
+        //AddGameObject(new Enemy(new Vector2(200, 100), new Throwable()));
+        public Enemy(Vector2 Position, Weapon weapon)
+        {
+            this.Position = Position;
+            this.weapon = weapon;
+            target = playerPos.Position;
+            moveSpeed = 50;
+            health = 10;
+        }
 
 
 
@@ -44,10 +67,10 @@ namespace EksamensProjekt2021
 
         public override void Update(GameTime gameTime)
         {
-
+            
             EnemyTargeting(gameTime);
             Movement(gameTime);
-           
+            
         }
 
        
@@ -69,17 +92,18 @@ namespace EksamensProjekt2021
 
                 if (timer <= 0)
                 {
+                    //bruger våbnets ShootWeapon, på samme måde som med Player går det an på hvad våben de har, men de burde kun have throwable
                     weapon.ShootWeapon(target);
-
+                    //sætter timeren til at være lig med våbnets FireRate
                     timer = weapon.FireRate;
                 }
                        
-                        
-                   
-               
+              
             }
 
         }
+
+        
 
         /// <summary>
         /// Moves the enemy towards the Player
@@ -90,7 +114,7 @@ namespace EksamensProjekt2021
         {
            
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            moveDir = playerPos.Position - this.Position;
+            moveDir = playerPos.Position - new Vector2(Position.X + 50, Position.Y - 40);
             moveDir.Normalize();
             Position += moveDir * moveSpeed * deltaTime;
 
@@ -101,14 +125,19 @@ namespace EksamensProjekt2021
 
         }
 
-
+ 
 
 
         public override void OnCollision(GameObject other)
         {
-            if (other is Hitscan)
+            if (other is HitscanShoot)
             {
-                GameWorld.Despawn(this);
+                if (health <= 0)
+                {
+                    GameWorld.Despawn(this);
+                }
+               
+                GameWorld.Despawn(other);
             }
 
         }

@@ -25,6 +25,18 @@
 /processorParam:TextureFormat=Color
 /build:CollisionTexture .png
 
+#begin crosshair.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:crosshair.png
+
 #begin DoorSides.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -73,11 +85,41 @@
 /processorParam:TextureFormat=Color
 /build:Enemy2.png
 
-#begin File.fx
-/importer:EffectImporter
-/processor:EffectProcessor
-/processorParam:DebugMode=Auto
-/build:File.fx
+#begin Floor0.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Floor0.png
+
+#begin Floor1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Floor1.png
+
+#begin Floor2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Floor2.png
 
 #begin HUDFont.spritefont
 /importer:FontDescriptionImporter
@@ -109,6 +151,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:repairkit.png
+
+#begin SoundEffects/SingleShot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/SingleShot.wav
 
 #begin SpritePlaceHolder2.png
 /importer:TextureImporter
@@ -170,7 +218,11 @@
 /processorParam:TextureFormat=Color
 /build:trumpWalkUp.png
 
+
 #begin UIBox1280.png
+
+#begin Wall1.png
+
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -180,6 +232,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
+
 /build:UIBox1280.png
 
 #begin UIBox680.png
@@ -205,6 +258,9 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:UIBox680360.png
+
+/build:Wall1.png
+
 
 #begin Weapons/AK-47.png
 /importer:TextureImporter
