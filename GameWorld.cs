@@ -28,7 +28,7 @@ namespace EksamensProjekt2021
         public static List<GameObject> projectiles;
 
         public static Player player;
-        private User_Interface user_Interface;
+        
         public static Enemy enemy;
 
         public static RoomManager roomManager;
@@ -88,7 +88,7 @@ namespace EksamensProjekt2021
 
             player = new Player();
 
-            user_Interface = new User_Interface();
+            
 
             ui = new UserInterface();
 
@@ -103,7 +103,7 @@ namespace EksamensProjekt2021
             deleteObjects = new List<GameObject>();
             gameObjects.Add(player);
 
-            gameObjects.Add(user_Interface);
+            
 
             AddGameObject(new Enemy());
 
@@ -155,7 +155,7 @@ namespace EksamensProjekt2021
             UpdateGameObjects(gameTime);
 
             player.Update(gameTime);
-
+            ui.Update(gameTime);
 
             base.Update(gameTime);
             foreach (GameObject go in gameObjects)
@@ -190,7 +190,7 @@ namespace EksamensProjekt2021
             _spriteBatch.DrawString(HUDFont, $"Armor:   {player.currentHealth}/50", new Vector2(15, 32), Color.White);
 
             ui.mapDisplay(_spriteBatch);
-
+            ui.Draw(_spriteBatch);
 
 
 
