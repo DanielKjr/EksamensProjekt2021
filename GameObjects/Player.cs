@@ -83,25 +83,10 @@ namespace EksamensProjekt2021
             Armor = 50;
             currentHealth = Health;
             currentArmor = Armor;
-            
-            
-            
-            currentWeapon = this.weapon;
-            // this.weapon = new Revolver();
-
-
-            //  this.weapon = new Hitscan();
-
-            // this.weapon = new Throwable();
-
-
-
 
 
             this.weapon = new AK47();
-
-
-            
+            currentWeapon = this.weapon;
 
             PlayerPosition = position;
 
@@ -349,6 +334,7 @@ namespace EksamensProjekt2021
         public override void LoadContent(ContentManager content)
         {
             weapon.LoadContent(content);
+            
             
            //  weapon.Origin = new Vector2(20,20);
             
