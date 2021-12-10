@@ -34,7 +34,7 @@ namespace EksamensProjekt2021
 
         public SpriteAnimation anim;
         public SpriteAnimation[] animations = new SpriteAnimation[4];
-        private bool changeweapontorevolver = false;
+        
         private Texture2D trumpWalkRight;
         private Texture2D trumpWalkLeft;
         private Texture2D trumpWalkUp;
@@ -82,16 +82,15 @@ namespace EksamensProjekt2021
             Health = 100;
             Armor = 50;
             currentHealth = Health;
+
             currentArmor = Armor;
 
 
             this.weapon = new AK47();
             currentWeapon = this.weapon;
 
+
             PlayerPosition = position;
-
-
-
 
         }
 
@@ -106,8 +105,6 @@ namespace EksamensProjekt2021
             
             PlayerAnimation(gameTime);
 
-
-
         }
 
         /// <summary>
@@ -116,7 +113,6 @@ namespace EksamensProjekt2021
         public void UpdateWeapon()
         {
             
-
             //set weapon position so it knows where to draw it
             weapon.Position = new Vector2(Position.X , Position.Y);
 
@@ -125,7 +121,6 @@ namespace EksamensProjekt2021
             mousePosition = new Vector2(mState.X -20 , mState.Y  -20);
 
             
-
             //weapon rotation, gets passed on to weapon.Rotation which is then drawn
             Vector2 wRotate = mousePosition - weapon.Position;
             weapon.Rotation = (float)Math.Atan2(wRotate.Y, wRotate.X);
@@ -144,8 +139,7 @@ namespace EksamensProjekt2021
                 weapon.Position = new Vector2(Position.X - 10, Position.Y);
 
             }
-          
-
+         
         }
 
         /// <summary>
@@ -154,8 +148,6 @@ namespace EksamensProjekt2021
         /// <param name="gameTime"></param>
         public void PlayerShoot(GameTime gameTime)
         {
-
-
             if (mState.LeftButton == ButtonState.Pressed && mLeftReleased == true && Vector2.Distance(Position, mousePosition) < weapon.Range)
             {
 
@@ -164,16 +156,12 @@ namespace EksamensProjekt2021
 
                 weapon.GunFire.Play();
                 
-
             }
-
 
             if (mState.LeftButton == ButtonState.Released)
             {
                 mLeftReleased = true;
             }
-
-
         }
 
         public void Damage(int damage)
@@ -186,7 +174,6 @@ namespace EksamensProjekt2021
 
                 isAlive = false;
             }
-
         }
         public override void OnCollision(GameObject other)
         {
@@ -196,16 +183,9 @@ namespace EksamensProjekt2021
             }
         }
 
-
         public void MedkitHeal(int Healthplus)
         {
             Health += Healthplus;
-        }
-
-
-        public Player(Vector2 position)
-        {
-
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -216,30 +196,10 @@ namespace EksamensProjekt2021
 
         }
 
-
-        public void SetX(float newX)
-        {
-            position.X = newX;
-        }
-        public void SetY(float newY)
-        {
-            position.Y = newY;
-        }
-
-
-        //er her fordi ellers så kommer der en error med den ikke kan finde ud af vector fordi det en data-type og ik en værdi
-
-
-
         public void HandeInput(GameTime gameTime)
         {
-
-
             KeyboardState kState = Keyboard.GetState();
             //keyboard.getstate() ved statusen på vores keyboard (om vi har trykket på en knap eller givet slip for eksempel). kstate gemmer det til en variabel, sårn vi kan benytte os af den
-
-
-            
 
             float dt = (float)gameTime.ElapsedGameTime.TotalSeconds; //delta-time fordi ellers så afhænger tiden af performance
 
@@ -251,7 +211,6 @@ namespace EksamensProjekt2021
                                        //if (position.X < 1920) ska finde en anden måde at begrænse det på
                 position.X += speed * dt; //sådan at den bevæger sig
                 isMoving = true; //forklaret ovenover
-
             }
             if (kState.IsKeyDown(Keys.A))
             {
@@ -259,7 +218,6 @@ namespace EksamensProjekt2021
                 if (position.X > 0)
                     position.X -= speed * dt;
                 isMoving = true;
-
             }
             if (kState.IsKeyDown(Keys.W))
             {
@@ -267,7 +225,6 @@ namespace EksamensProjekt2021
                 if (position.Y > 0)
                     position.Y -= speed * dt;
                 isMoving = true;
-
             }
             if (kState.IsKeyDown(Keys.S))
             {
@@ -275,38 +232,11 @@ namespace EksamensProjekt2021
                 if (position.Y < 1080)
                     position.Y += speed * dt;
                 isMoving = true;
-
             }
-            //det burde ændre hvilken animation man bruger efter en prioritet der tilsvare hvornår man skrev den ind, men dette virker da fuck fuk fuck min fucking pik fuck det lort her fuck.
-            /*
-            if (isMoving)
-            {
-                switch (direction)
-                {
-                    case Dir.Right:
-                        anim = animations[0];
-                        break;
-                    case Dir.Left:
-                        anim = animations[1];
-                        break;
-                    case Dir.Up:
-                        anim = animations[2];
-                        break;
-                    case Dir.Down:
-                        anim = animations[3];
-                        break;
-                }
+    }
 
-            } 
-            unødvendig kode, fordi enums faktisk er brugbart after all. vi typecaster vores dir til en int, som vi ka bruge i vores array med vores retninger.
-            det nedenunder gør essentielt det samme, men ser kloger ud. der må ikke fuckes med rækkefølgen af værdierne der hvor vi laver vores enum i gameWorld
-            */
-
-        }
-
-        public void PlayerAnimation(GameTime gameTime)
+    public void PlayerAnimation(GameTime gameTime)
         {
-
             anim = animations[(int)direction];
             anim.Position = new Vector2(Position.X - 20, Position.Y - 48); // ska ændres til at passe spriten
 
@@ -327,43 +257,25 @@ namespace EksamensProjekt2021
                 // dette gør at hvis man ik bevæger sig, så sætter den animation til at være den bestemte frame tilsvarende på retning's spritesheet. synes de her er de bedste som idle frames. kan diskuteres
             }
         }
-
-
-
-
         public override void LoadContent(ContentManager content)
         {
-            weapon.LoadContent(content);
-            
-            
+
+            weapon.LoadContent(content);         
+
            //  weapon.Origin = new Vector2(20,20);
-            
-
-
 
             trumpWalkRight = content.Load<Texture2D>("trumpWalkRight");
             trumpWalkLeft = content.Load<Texture2D>("trumpWalkLeft");
             trumpWalkUp = content.Load<Texture2D>("trumpWalkUp");
             trumpWalkDown = content.Load<Texture2D>("trumpWalkDown");
 
-
-
-
-
-
             animations[0] = new SpriteAnimation(trumpWalkRight, 6, 8); // SpriteAnimation(texture2D texture, int frames, int fps) forklaret hvad de gør i SpriteAnimation.cs
             animations[1] = new SpriteAnimation(trumpWalkLeft, 6, 8);
             animations[2] = new SpriteAnimation(trumpWalkUp, 6, 8);
             animations[3] = new SpriteAnimation(trumpWalkDown, 6, 8);
-
             //enum kan castes til int, så derfor kan vi bruge et array til at skife imellem dem. forklaret i player og hvor det relevant
-
             anim = animations[0]; //ændre sig afhængig af direction i player
 
         }
-
-
-
-
     }
 }
