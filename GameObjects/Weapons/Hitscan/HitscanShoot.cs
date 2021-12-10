@@ -6,11 +6,11 @@ namespace EksamensProjekt2021
 {
     class HitscanShoot : Hitscan
     {
-        
-        
-        public HitscanShoot(Vector2 Position, Vector2 target) 
+
+
+        public HitscanShoot(Vector2 Position, Vector2 target, byte damage)
         {
-                                
+            this.damage = damage;
             position = Position;
             this.target = target;
             this.origin = Vector2.Zero;
@@ -29,17 +29,23 @@ namespace EksamensProjekt2021
             shootDir.Normalize();
             Position += shootDir * moveSpeed * deltaTime;
 
-            if (Vector2.Distance(Position, target) < 15)
+            /*
+            if (Vector2.Distance(Position, target) < 10)
             {
                 GameWorld.Despawn(this);
             }
-
+            */
         }
 
         public override void Update(GameTime gameTime)
         {
-            
+
             HitScanShooting(gameTime, target);
+
+            if (Vector2.Distance(Position, target) < 15 )
+            {
+                GameWorld.Despawn(this);
+            }
         }
 
         public override void LoadContent(ContentManager content)
@@ -48,6 +54,15 @@ namespace EksamensProjekt2021
             sprite = content.Load<Texture2D>("CollisionTexture ");
         }
 
+        public override void OnCollision(GameObject other)
+        {
+            if (other is Enemy)
+            {
+                GameWorld.Despawn(this);
+                other.Health -= damage;
+               
+            }
+        }
 
     }
 }

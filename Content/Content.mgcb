@@ -25,6 +25,18 @@
 /processorParam:TextureFormat=Color
 /build:CollisionTexture .png
 
+#begin crosshair.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:crosshair.png
+
 #begin DoorSides.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -36,6 +48,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:DoorSides.png
+
+#begin DoorSides2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:DoorSides2.png
 
 #begin DoorTop.png
 /importer:TextureImporter
@@ -72,19 +96,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Enemy2.png
-
-#begin File.fx
-/importer:EffectImporter
-/processor:EffectProcessor
-/processorParam:DebugMode=Auto
-/build:File.fx
-
-#begin HUDFont.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:HUDFont.spritefont
 
 #begin medkit.png
 /importer:TextureImporter
@@ -169,42 +180,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:trumpWalkUp.png
-
-#begin UIBox1280.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:UIBox1280.png
-
-#begin UIBox680.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:UIBox680.png
-
-#begin UIBox680360.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:UIBox680360.png
 
 #begin Weapons/AK-47.png
 /importer:TextureImporter

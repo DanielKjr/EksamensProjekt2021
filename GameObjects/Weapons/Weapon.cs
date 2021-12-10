@@ -8,25 +8,28 @@ using System.Text;
 
 namespace EksamensProjekt2021
 {
-
+  
     public abstract class Weapon : GameObject
     {
-        private string name;
+
         protected int range;
+        protected byte damage;
         protected int fireRate;
         protected float rotation;
         protected SpriteEffects weaponMirror;
-        public Texture2D Sprite;
+
         
         public int Range { get => range; set => range = value; }
         public int FireRate { get => fireRate; set => fireRate = value; }
         public float Rotation { get => rotation; set => rotation = value; }
-        public string Name { get => name; set => name = value; }
+        public byte Damage { get => damage; set => damage = value; }
+
+        public SpriteEffects WeaponMirror { get => weaponMirror; set => weaponMirror = value; }
+        public Vector2 Origin { get => origin; set => origin = value; }
 
         public Weapon()
         {
-
-
+           
         }
 
 
@@ -47,6 +50,8 @@ namespace EksamensProjekt2021
 
         }
 
+
+
         /// <summary>
         /// The shoot function depends on the weapon type, the Player/Enemy needs a weapon to access this function
         /// and is then used by weapon.ShootWeapon(target);
@@ -58,7 +63,7 @@ namespace EksamensProjekt2021
 
         public override void Update(GameTime gameTime)
         {
-
+            
 
         }
     }

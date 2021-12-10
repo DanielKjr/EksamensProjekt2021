@@ -8,7 +8,7 @@ namespace EksamensProjekt2021
         public M16()
         {
             range = 500;
-            Name = "M16";
+            damage = 5;
         }
 
 
@@ -16,7 +16,6 @@ namespace EksamensProjekt2021
         public override void LoadContent(ContentManager content)
         {
             sprite = content.Load<Texture2D>("Weapons/M16");
-            Sprite = sprite;
         }
     }
 }
