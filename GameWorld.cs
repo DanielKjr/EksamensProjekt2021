@@ -134,7 +134,7 @@ namespace EksamensProjekt2021
             cursor = Content.Load<Texture2D>("crosshair");
 
             collisionTexture = Content.Load<Texture2D>("CollisionTexture ");
-
+           
             foreach (GameObject go in gameObjects)
             {
                 go.LoadContent(this.Content);

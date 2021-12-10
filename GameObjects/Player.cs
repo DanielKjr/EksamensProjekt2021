@@ -82,13 +82,12 @@ namespace EksamensProjekt2021
             Health = 100;
             Armor = 50;
             currentHealth = Health;
-            currentArmor = Armor;                    
-            // this.weapon = new Revolver();
-            //  this.weapon = new Hitscan();
-            // this.weapon = new Throwable();
+
+            currentArmor = Armor;
+
+
             this.weapon = new AK47();
             currentWeapon = this.weapon;
-
 
 
             PlayerPosition = position;
@@ -260,7 +259,9 @@ namespace EksamensProjekt2021
         }
         public override void LoadContent(ContentManager content)
         {
+
             weapon.LoadContent(content);         
+
            //  weapon.Origin = new Vector2(20,20);
 
             trumpWalkRight = content.Load<Texture2D>("trumpWalkRight");
