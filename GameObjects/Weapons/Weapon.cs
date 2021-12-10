@@ -12,12 +12,16 @@ namespace EksamensProjekt2021
   
     public abstract class Weapon : GameObject
     {
-
+        private string name;
         protected int range;
         protected byte damage;
         protected int fireRate;
         protected float rotation;
         protected SpriteEffects weaponMirror;
+
+        public Texture2D Sprite;        
+        public string Name { get => name; set => name = value; }
+
         protected SoundEffect gunFire;
 
         public int Range { get => range; set => range = value; }
@@ -27,6 +31,7 @@ namespace EksamensProjekt2021
 
         public SpriteEffects WeaponMirror { get => weaponMirror; set => weaponMirror = value; }
         public SoundEffect GunFire { get => gunFire; set => gunFire = value; }
+
 
         public Weapon()
         {
