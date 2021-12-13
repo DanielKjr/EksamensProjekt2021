@@ -17,7 +17,7 @@ namespace EksamensProjekt2021
         public static byte[,] roomStyle = new byte[5, 5]; //0-3
         public static bool[,] revealedRoom = new bool[5, 5];
         public static byte[] playerInRoom = new byte[2]; //See which room the player is in. (X, Y)
-        public static int roomsCleared; //----------------------------------------------------------------------------------------------------IMPLEMENT
+        public static int roomsCleared;
         public static int levelsCleared;
         public static byte mapReruns = 0; //See how many times the RoomsGenerator needed to run
         private Texture2D[] floor = new Texture2D[3];
@@ -28,6 +28,9 @@ namespace EksamensProjekt2021
         private int[] index = new int[2];
         private Random rnd = new Random();
 
+        /// <summary>
+        /// Checks if the player has cleared a room
+        /// </summary>
         public void Update()
         {
             if (GameWorld.EnemyCount <= 0)
@@ -134,7 +137,6 @@ namespace EksamensProjekt2021
         {
             roomStyle[x, y] = (byte)rnd.Next(0, 3);
         }
-
         /// <summary>
         /// Console.WriteLine debug method
         /// To view: Right click EksamensProjekt2021.crsproj -> properties.
@@ -192,6 +194,10 @@ namespace EksamensProjekt2021
             playerInRoom[0] = rndX; //Set new player coords.
             playerInRoom[1] = rndY;
         }
+        /// <summary>
+        /// Loads Wall & Door sprites
+        /// </summary>
+        /// <param name="content"></param>
         public void LoadContent(ContentManager content)
         {
             for (int i = 0; i < 3; i++)
@@ -223,6 +229,10 @@ namespace EksamensProjekt2021
                     break;
             }
         }
+        /// <summary>
+        /// Checks what rooms are visible to the player.
+        /// Needed for displayMap() in UserInterface
+        /// </summary>
         public void RevealRooms()
         {
             byte x = playerInRoom[0];
