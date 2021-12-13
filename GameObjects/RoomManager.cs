@@ -48,7 +48,6 @@ namespace EksamensProjekt2021
                 }
                 GameWorld.EnemyCount = 0;
             }
-            Console.WriteLine(GameWorld.EnemyCount);
         }
         /// <summary>
         /// Generates the map based on amount of rooms desired.
