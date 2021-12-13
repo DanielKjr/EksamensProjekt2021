@@ -15,13 +15,13 @@ namespace EksamensProjekt2021
         private Weapon weapon;
         bool isAlive = true;
         GameObject playerPos = GameWorld.player;
-        
+        Enemy myOwnProjectile;
         private double timer = 2;
 
         public Enemy() : base()
         {
             //enemy skal have et våben, lige nu er det bare Throwable men når vi får ting ind som en tomahawk ville det være new Tomahawk()
-            this.weapon = new Throwable();
+            this.weapon = new Tomahawk();
 
             //positionen som enemien spawner på
             Position = new Vector2(50, 900);
@@ -130,7 +130,7 @@ namespace EksamensProjekt2021
 
         public override void OnCollision(GameObject other)
         {
-            if (other is HitscanShoot)
+            if (other is HitscanShoot || other is Projectile)
             {
                 if (health <= 0)
                 {
