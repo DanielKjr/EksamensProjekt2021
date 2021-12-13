@@ -19,6 +19,7 @@ namespace EksamensProjekt2021
         private MouseState mState;
         private Vector2 mousePosition;
         private bool mLeftReleased = true;
+        
 
 
         private int speed = 250;
@@ -30,7 +31,7 @@ namespace EksamensProjekt2021
         // enum'en som vi lavede ude i gameworld
 
         //ska vi bruger senere til shoot-funktion. trust me boiis.
-        static public bool isAlive = true;
+       
 
         public SpriteAnimation anim;
         public SpriteAnimation[] animations = new SpriteAnimation[4];
@@ -84,7 +85,7 @@ namespace EksamensProjekt2021
             armor = 50;
 
             weapon = new AK47();
-
+            isAlive = true;
 
             PlayerPosition = position;
 
@@ -94,11 +95,18 @@ namespace EksamensProjekt2021
 
         public override void Update(GameTime gameTime)
         {
-            UpdateWeapon();
-            PlayerShoot(gameTime);
-            HandeInput(gameTime);
 
-            PlayerAnimation(gameTime);
+
+            
+                UpdateWeapon();
+                PlayerShoot(gameTime);
+                HandeInput(gameTime);
+
+                PlayerAnimation(gameTime);
+            
+
+
+           
 
         }
 
@@ -174,7 +182,7 @@ namespace EksamensProjekt2021
                 {
 
                     GameWorld.Despawn(this);
-
+                    
                     isAlive = false;
                 }
             }
@@ -185,6 +193,7 @@ namespace EksamensProjekt2021
             if (other is Projectile)
             {
                 Damage(weapon.Damage);
+                GameWorld.Despawn(other);
             }
         }
 

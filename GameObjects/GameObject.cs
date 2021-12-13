@@ -21,9 +21,13 @@ namespace EksamensProjekt2021
         protected float moveSpeed;
         protected int health;
         protected int armor;
+        protected bool isAlive;
+
 
         public Vector2 playerPosition;
         public Vector2 PlayerPosition { get => playerPosition; set => playerPosition = value; }
+
+        public bool IsAlive { get => isAlive; }
 
         public int Health { get => health; set => health = value; }
 

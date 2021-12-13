@@ -53,9 +53,9 @@ namespace EksamensProjekt2021
         {
             if (other is Enemy)
             {
-                GameWorld.Despawn(this);
-                other.Health -= damage;
                
+                other.Health -= damage;
+                GameWorld.Despawn(this);
             }
         }
 
