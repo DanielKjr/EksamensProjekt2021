@@ -17,7 +17,7 @@ namespace EksamensProjekt2021
         public static byte[,] roomStyle = new byte[5, 5]; //0-3
         public static bool[,] revealedRoom = new bool[5, 5];
         public static byte[] playerInRoom = new byte[2]; //See which room the player is in. (X, Y)
-        public static int roomsCleared; //----------------------------------------------------------------------------------------------------IMPLEMENT
+        public static int roomsCleared;
         public static int levelsCleared;
         public static byte mapReruns = 0; //See how many times the RoomsGenerator needed to run
         private Texture2D[] floor = new Texture2D[3];
@@ -137,7 +137,6 @@ namespace EksamensProjekt2021
         {
             roomStyle[x, y] = (byte)rnd.Next(0, 3);
         }
-
         /// <summary>
         /// Console.WriteLine debug method
         /// To view: Right click EksamensProjekt2021.crsproj -> properties.
