@@ -15,8 +15,6 @@ namespace EksamensProjekt2021
         {
 
 
-          
-
 
 
             range = 700;
@@ -28,6 +26,8 @@ namespace EksamensProjekt2021
         public override void LoadContent(ContentManager content)
         {
             sprite = content.Load<Texture2D>("Weapons/lilleTomahawk");
+
+
 
 
 
