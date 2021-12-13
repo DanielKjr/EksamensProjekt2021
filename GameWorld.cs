@@ -28,7 +28,7 @@ namespace EksamensProjekt2021
         public static List<GameObject> projectiles;
 
         public static Player player;
-
+       
         public static Enemy enemy;
         public static GameFlow gameFlow;
 
@@ -94,7 +94,7 @@ namespace EksamensProjekt2021
             player = new Player();
 
 
-
+            
             ui = new UserInterface();
             gameFlow = new GameFlow();
 
@@ -110,7 +110,7 @@ namespace EksamensProjekt2021
             gameObjects.Add(player);
 
 
-
+            //AddGameObject(new Biden());
             AddGameObject(new Enemy());
 
 
