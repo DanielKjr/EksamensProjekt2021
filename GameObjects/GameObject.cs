@@ -51,8 +51,12 @@ namespace EksamensProjekt2021
        
 
         //Target er så våbnet kan finde positionen 
-        public Vector2 Target { get => target; set => target = value; }
+        public Vector2 Target { get => target; }
+
+        public int Armor { get => armor; set => armor = value; }
+
         public Vector2 Origin { get => origin; set => origin = value; }
+
 
         public abstract void LoadContent(ContentManager content);
         
