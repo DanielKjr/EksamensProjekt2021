@@ -42,6 +42,7 @@ namespace EksamensProjekt2021
 
 
         public static SpriteFont HUDFont;
+        public static Texture2D trumpSad;
 
         private Texture2D cursor;
 
@@ -138,6 +139,8 @@ namespace EksamensProjekt2021
 
             cursor = Content.Load<Texture2D>("crosshair");
 
+            trumpSad = Content.Load<Texture2D>("trumpSad");
+
             collisionTexture = Content.Load<Texture2D>("CollisionTexture ");
 
             foreach (GameObject go in gameObjects)
@@ -156,15 +159,17 @@ namespace EksamensProjekt2021
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            if (player.IsAlive)
+            {
+                roomManager.Update();
+                player.Update(gameTime);
+                UpdateGameObjects(gameTime);
+            }
 
-            roomManager.Update();
-            player.Update(gameTime);
             ui.Update(gameTime);
-            UpdateGameObjects(gameTime);
 
-           
 
-            
+
 
 
             //base.Update(gameTime);
@@ -193,6 +198,8 @@ namespace EksamensProjekt2021
 
             ui.mapDisplay(_spriteBatch);
             ui.Draw(_spriteBatch);
+
+            
 
 
 

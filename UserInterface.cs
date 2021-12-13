@@ -14,9 +14,11 @@ namespace EksamensProjekt2021
         private Texture2D wSprite;
         private Texture2D UIBox276;
         private Texture2D trumpGraph;
+        private Texture2D trumpSad;
         private Vector2 boxPosition = new Vector2((GameWorld.screenSize.X / 4), GameWorld.screenSize.Y);
-        
-        
+        private Vector2 trumpVector = new Vector2((GameWorld.screenSize.X / 2+30), GameWorld.screenSize.Y);
+
+
 
         Color color;
         byte dist = 10;
@@ -27,6 +29,7 @@ namespace EksamensProjekt2021
         {
             sprite = content.Load<Texture2D>("CollisionTexture ");
             trumpGraph = content.Load<Texture2D>("trumpGraph");
+            trumpSad = content.Load<Texture2D>("trumpSad");
             offsetX = (int)GameWorld.screenSize.X - RoomManager.roomLayout.GetLength(0) * sprite.Width - RoomManager.roomLayout.GetLength(0) * dist;
             offsetY = (int)GameWorld.screenSize.Y - RoomManager.roomLayout.GetLength(1) * sprite.Width - RoomManager.roomLayout.GetLength(0) * dist;
 
@@ -48,6 +51,10 @@ namespace EksamensProjekt2021
             if (kState.IsKeyUp(Keys.Tab) && boxPosition.Y <= GameWorld.screenSize.Y)
             {
                 boxPosition.Y += 650 * dt;
+            }
+            if (GameWorld.player.IsAlive == false)
+            {
+                trumpVector.Y -= 465 * dt;
             }
         }
 
@@ -71,7 +78,12 @@ namespace EksamensProjekt2021
             }
             spriteBatch.DrawString(GameWorld.HUDFont, $"Level:{RoomManager.levelsCleared}", new Vector2(boxPosition.X + 375, boxPosition.Y + 5), Color.White);
             spriteBatch.DrawString(GameWorld.HUDFont, $"Rooms Cleared:{RoomManager.roomsCleared}", new Vector2(boxPosition.X + 375, boxPosition.Y + 30), Color.White);
-            
+
+            if (GameWorld.player.IsAlive == false)
+            {
+                spriteBatch.Draw(trumpSad, new Vector2(trumpVector.X, trumpVector.Y), Color.White);
+            }
+
         } 
 
         public void mapDisplay(SpriteBatch spriteBatch)
