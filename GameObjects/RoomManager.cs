@@ -255,5 +255,32 @@ namespace EksamensProjekt2021
                 }
             }
         }
+        /// <summary>
+        /// Called when the player changes rooms. Called in Door OnCollision.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public void ChangeRoom(sbyte x, sbyte y)
+        {
+            //Change player pos to match entering new room from that door
+            if (x == -1) GameWorld.player.Position = new Vector2(GameWorld.screenSize.X - 146, GameWorld.screenSize.Y / 2);
+            if (x == 1) GameWorld.player.Position = new Vector2(146, GameWorld.screenSize.Y / 2);
+            if (y == -1) GameWorld.player.Position = new Vector2(GameWorld.screenSize.X / 2, GameWorld.screenSize.Y - 144);
+            if (y== 1) GameWorld.player.Position = new Vector2(GameWorld.screenSize.X / 2, 144);
+            playerInRoom[0] += (byte)x; //Sets player room pos to new room
+            playerInRoom[1] += (byte)y;
+            Debug(0, 0);
+            RevealRooms();
+            if (roomLayout[playerInRoom[0], playerInRoom[1]] == 2 && roomLayout[playerInRoom[0], playerInRoom[1]] == 3)
+            {
+                GameWorld.gameFlow.EnemySpawner(); //Only spawn enemies if the next room is a fighting room.
+            }
+            if (roomLayout[playerInRoom[0], playerInRoom[1]] == 5)
+            {
+                //SPAWN BOSS HERE -------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                GameWorld.gameFlow.EnemySpawner();
+                GameWorld.gameFlow.EnemySpawner();
+            }
+        }
     }
 }
