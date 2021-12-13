@@ -7,23 +7,24 @@ namespace EksamensProjekt2021
 {
     public class GameFlow
     {
+        Random rnd = new Random();
         /// <summary>
         /// adds enemies
         /// </summary>
         public void EnemySpawner()
         {
-                addEnemy();
-                addEnemy();
-                addEnemy();
-                addEnemy();
+            for (int i = 0; i < rnd.Next(2,RoomManager.levelsCleared+3); i++)
+            {
+                AddEnemy();
+            }
         }
 
         /// <summary>
         /// adds enemies with random position and weapon
         /// </summary>
-        public void addEnemy()
+        public void AddEnemy()
         {
-            Random rnd = new Random();
+            
 
 
             var EXPos = rnd.Next(0, (int)GameWorld.screenSize.X); //sets a random X value
