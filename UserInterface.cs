@@ -17,7 +17,7 @@ namespace EksamensProjekt2021
         private Texture2D trumpSad;
         private Vector2 boxPosition = new Vector2((GameWorld.screenSize.X / 4), GameWorld.screenSize.Y);
 
-        private Vector2 trumpVector = new Vector2((GameWorld.screenSize.X / 2+30), GameWorld.screenSize.Y);
+        private Vector2 trumpVector = new Vector2((GameWorld.screenSize.X / 2 + 30), GameWorld.screenSize.Y);
 
 
 
@@ -91,11 +91,11 @@ namespace EksamensProjekt2021
             {
                 spriteBatch.Draw(trumpSad, new Vector2(trumpVector.X, trumpVector.Y), Color.White);
             }
-
-        } 
-
             mapDisplay(spriteBatch);
         }
+
+       
+
 
 
         public void mapDisplay(SpriteBatch spriteBatch)

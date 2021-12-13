@@ -85,7 +85,7 @@ namespace EksamensProjekt2021
 
         protected override void Initialize()
         {
-            _graphics.IsFullScreen = true;
+            _graphics.IsFullScreen = false;
             _graphics.PreferredBackBufferWidth = 1920;
             _graphics.PreferredBackBufferHeight = 1080;
             _graphics.ApplyChanges();
