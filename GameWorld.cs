@@ -38,6 +38,9 @@ namespace EksamensProjekt2021
         public static UserInterface ui;
 
 
+        public static int aaa;
+
+
         public static SpriteFont HUDFont;
 
         private Texture2D cursor;
@@ -153,6 +156,7 @@ namespace EksamensProjekt2021
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            roomManager.Update();
 
             UpdateGameObjects(gameTime);
 
@@ -206,6 +210,7 @@ namespace EksamensProjekt2021
 
 
         }
+
 
         /// <summary>
         /// Initializes game object by loading its contents and adding to the list
