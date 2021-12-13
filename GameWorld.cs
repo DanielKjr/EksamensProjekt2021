@@ -28,14 +28,17 @@ namespace EksamensProjekt2021
         public static List<GameObject> projectiles;
 
         public static Player player;
+        
         public static Enemy enemy;
         public static GameFlow gameFlow;
 
         public static RoomManager roomManager;
         public static Door door;
+
         public static UserInterface ui;
 
 
+        public static SpriteFont HUDFont;
 
         private Texture2D cursor;
 
@@ -85,8 +88,12 @@ namespace EksamensProjekt2021
             screenSize = new Vector2(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
             player = new Player();
+
+            
+
             ui = new UserInterface();
             gameFlow = new GameFlow();
+
 
             player.Position = new Vector2(500, 500);
 
@@ -97,7 +104,11 @@ namespace EksamensProjekt2021
 
             deleteObjects = new List<GameObject>();
             gameObjects.Add(player);
+
+            
+
             AddGameObject(new Enemy());
+
 
       
             //gameObjects.Add(new Revolver());
@@ -119,9 +130,13 @@ namespace EksamensProjekt2021
         {
             
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            cursor = Content.Load<Texture2D>("crosshair");
-            collisionTexture = Content.Load<Texture2D>("CollisionTexture ");
 
+            HUDFont = Content.Load<SpriteFont>("HUDFont");
+
+            cursor = Content.Load<Texture2D>("crosshair");
+
+            collisionTexture = Content.Load<Texture2D>("CollisionTexture ");
+           
             foreach (GameObject go in gameObjects)
             {
                 go.LoadContent(this.Content);
@@ -142,6 +157,9 @@ namespace EksamensProjekt2021
             UpdateGameObjects(gameTime);
 
             player.Update(gameTime);
+
+            ui.Update(gameTime);
+
 
             base.Update(gameTime);
             foreach (GameObject go in gameObjects)
@@ -170,8 +188,13 @@ namespace EksamensProjekt2021
                 DrawCollisionBox(go);
 
             }
-            ui.mapDisplay(_spriteBatch);
 
+            
+            _spriteBatch.DrawString(HUDFont, $"Health:  {player.currentHealth}/100", new Vector2(15, 10), Color.White);
+            _spriteBatch.DrawString(HUDFont, $"Armor:   {player.currentArmor}/50", new Vector2(15, 32), Color.White);
+
+            ui.mapDisplay(_spriteBatch);
+            ui.Draw(_spriteBatch);
 
 
 

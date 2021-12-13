@@ -121,6 +121,13 @@
 /processorParam:TextureFormat=Color
 /build:Floor2.png
 
+#begin HUDFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:HUDFont.spritefont
+
 #begin medkit.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -211,6 +218,42 @@
 /processorParam:TextureFormat=Color
 /build:trumpWalkUp.png
 
+#begin UIBox1280.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:UIBox1280.png
+
+#begin UIBox680.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:UIBox680.png
+
+#begin UIBox680360.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:UIBox680360.png
+
 #begin Wall1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -235,6 +278,18 @@
 /processorParam:TextureFormat=Color
 /build:Weapons/AK-47.png
 
+#begin Weapons/lilleTomahawk.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Weapons/lilleTomahawk.png
+
 #begin Weapons/M16.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -246,6 +301,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Weapons/M16.png
+
+#begin Weapons/Molotov.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Weapons/Molotov.png
 
 #begin Weapons/MP5.png
 /importer:TextureImporter

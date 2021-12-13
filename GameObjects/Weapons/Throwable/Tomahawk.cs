@@ -2,27 +2,30 @@
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace EksamensProjekt2021
 {
-    class M16 : Hitscan
+    class Tomahawk : Throwable
     {
-        public M16()
+        
+        public Tomahawk()
         {
+            Name = "Tomahawk";
 
             range = 700;
             damage = 5;
-           
-
+            throwRotationSpeed = 3f;
+            fireRate = 1;
         }
-
-
-
+        
         public override void LoadContent(ContentManager content)
         {
-            sprite = content.Load<Texture2D>("Weapons/M16");
+            sprite = content.Load<Texture2D>("Weapons/lilleTomahawk");
 
-
+            Sprite = sprite;
 
             origin = new Vector2(this.sprite.Width / 2, this.sprite.Height / 2);
             gunFire = content.Load<SoundEffect>("SoundEffects/SingleShot");

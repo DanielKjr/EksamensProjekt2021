@@ -12,14 +12,18 @@ namespace EksamensProjekt2021
             range = 500;
             damage = 5;
             
+
         }
 
 
         public override void LoadContent(ContentManager content)
         {
             sprite = content.Load<Texture2D>("Weapons/MP5");
+
+
             origin = new Vector2(this.sprite.Width / 2, this.sprite.Height / 2);
             gunFire = content.Load<SoundEffect>("SoundEffects/SingleShot");
+
         }
     }
 }
