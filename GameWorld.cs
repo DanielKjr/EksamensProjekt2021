@@ -38,7 +38,7 @@ namespace EksamensProjekt2021
         public static UserInterface ui;
 
 
-        public static int aaa;
+        public static int EnemyCount;
 
 
         public static SpriteFont HUDFont;
