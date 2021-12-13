@@ -28,6 +28,9 @@ namespace EksamensProjekt2021
         private int[] index = new int[2];
         private Random rnd = new Random();
 
+        /// <summary>
+        /// Checks if the player has cleared a room
+        /// </summary>
         public void Update()
         {
             if (GameWorld.EnemyCount <= 0)
@@ -192,6 +195,10 @@ namespace EksamensProjekt2021
             playerInRoom[0] = rndX; //Set new player coords.
             playerInRoom[1] = rndY;
         }
+        /// <summary>
+        /// Loads Wall & Door sprites
+        /// </summary>
+        /// <param name="content"></param>
         public void LoadContent(ContentManager content)
         {
             for (int i = 0; i < 3; i++)
@@ -223,6 +230,10 @@ namespace EksamensProjekt2021
                     break;
             }
         }
+        /// <summary>
+        /// Checks what rooms are visible to the player.
+        /// Needed for displayMap() in UserInterface
+        /// </summary>
         public void RevealRooms()
         {
             byte x = playerInRoom[0];
