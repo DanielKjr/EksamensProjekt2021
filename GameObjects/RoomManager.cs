@@ -14,7 +14,7 @@ namespace EksamensProjekt2021
         private enum RoomType { Empty, Cleared, Normal, Hard, Loot, Boss }
         private List<string> indexList = new List<string>(20);
         public static byte[,] roomLayout = new byte[5, 5];
-        public static byte[,] roomStyle = new byte[5, 5]; //0-9
+        public static byte[,] roomStyle = new byte[5, 5]; //0-3
         public static bool[,] revealedRoom = new bool[5, 5];
         public static byte[] playerInRoom = new byte[2]; //See which room the player is in. (X, Y)
         public static int roomsCleared; //----------------------------------------------------------------------------------------------------IMPLEMENT
@@ -28,6 +28,15 @@ namespace EksamensProjekt2021
         private int[] index = new int[2];
         private Random rnd = new Random();
 
+        public void Update()
+        {
+            /*int count = 0;
+            foreach(GameObject go in GameWorld.gameObjects)
+            {
+                if(go is Enemy) count++;
+            }
+            Console.WriteLine(count);*/
+        }
         /// <summary>
         /// Generates the map based on amount of rooms desired.
         /// Will auto retry if it fails (Never fails tho)
@@ -80,6 +89,7 @@ namespace EksamensProjekt2021
                     if ((byte)rnd.Next(0, 2) == 1) //Randomizes if there should be a room
                     {
                         roomLayout[ix + x, iy + y] = (byte)Chance();
+                        CreateStyle(ix +x, iy + y);
                         indexList.Add($"{ix + x}{iy + y}");
                         filledRooms++;
                     }
@@ -101,9 +111,7 @@ namespace EksamensProjekt2021
                     return RoomType.Hard;
                 default:                       //60% chance for normal room
                     return RoomType.Normal;
-
             }
-
         }
         /// <summary>
         /// Chances for a room to have the style it has.
@@ -112,13 +120,9 @@ namespace EksamensProjekt2021
         /// <param name="roomType"></param>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        private void CreateStyle(byte t, byte x, byte y)
+        private void CreateStyle(int x, int y)
         {
-            if (t == 0) t += 2; //failsafe
-            if (t > 2) roomStyle[x, y] = (byte)rnd.Next(0 + (t - 1), 10); //The harder or rarer the room, the prettier it should be. Higher values returned.
-            else roomStyle[x, y] = (byte)rnd.Next(0, 10 - (t + 1)); //The easier the room, the lower the value returned.
-
-            roomStyle[x,y] = (byte)rnd.Next(0, 3);
+            roomStyle[x, y] = (byte)rnd.Next(0, 3);
         }
 
         /// <summary>
@@ -173,26 +177,10 @@ namespace EksamensProjekt2021
             byte rndX = (byte)rnd.Next(1, 4);
             byte rndY = (byte)rnd.Next(1, 4);
             roomLayout[rndX, rndY] = 1;  //Sets inital spawn room
-            CreateStyle(1, rndX, rndY); //Create style for inital room
+            CreateStyle(rndX, rndY); //Create style for inital room
             index = new int[2] { rndX, rndY, }; //Sets index to spawn room.
             playerInRoom[0] = rndX; //Set new player coords.
             playerInRoom[1] = rndY;
-        }
-
-        /// <summary>
-        /// Fill in walls and object using this method.
-        /// </summary>
-        /// <param name="indexX"></param>
-        /// <param name="indexY"></param>
-        public void InitialiseRoom(byte indexX, byte indexY)
-        {
-
-            switch (roomStyle[indexX, indexY])
-
-            {
-                default:
-                    break;
-            }
         }
         public void LoadContent(ContentManager content)
         {
@@ -237,7 +225,6 @@ namespace EksamensProjekt2021
                     if (roomLayout[x + i, y] >= 1)
                     {
                         revealedRoom[x + i, y] = true; //Reveal rooms left and right
-                        Console.Write($"x{i} true");
                     }
                 }
                 if (y + i > -1 && y + i < 5)
@@ -245,7 +232,6 @@ namespace EksamensProjekt2021
                     if (roomLayout[x, y + i] >= 1)
                     {
                         revealedRoom[x, y + i] = true; //Reveal room up and down
-                        Console.Write($"y{i} true");
                     }
                 }
             }

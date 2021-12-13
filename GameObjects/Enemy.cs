@@ -20,8 +20,10 @@ namespace EksamensProjekt2021
 
         public Enemy() : base()
         {
+
             //enemy skal have et våben, lige nu er det bare Throwable men når vi får ting ind som en tomahawk ville det være new Tomahawk()
             this.weapon = new Tomahawk();
+
 
             //positionen som enemien spawner på
             Position = new Vector2(50, 900);

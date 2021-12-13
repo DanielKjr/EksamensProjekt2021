@@ -30,11 +30,15 @@ namespace EksamensProjekt2021
         public static Player player;
         
         public static Enemy enemy;
+        public static GameFlow gameFlow;
 
         public static RoomManager roomManager;
         public static Door door;
 
         public static UserInterface ui;
+
+
+        public static int aaa;
 
 
         public static SpriteFont HUDFont;
@@ -91,6 +95,7 @@ namespace EksamensProjekt2021
             
 
             ui = new UserInterface();
+            gameFlow = new GameFlow();
 
 
             player.Position = new Vector2(500, 500);
@@ -151,11 +156,14 @@ namespace EksamensProjekt2021
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            roomManager.Update();
 
             UpdateGameObjects(gameTime);
 
             player.Update(gameTime);
+
             ui.Update(gameTime);
+
 
             base.Update(gameTime);
             foreach (GameObject go in gameObjects)
@@ -202,6 +210,7 @@ namespace EksamensProjekt2021
 
 
         }
+
 
         /// <summary>
         /// Initializes game object by loading its contents and adding to the list
