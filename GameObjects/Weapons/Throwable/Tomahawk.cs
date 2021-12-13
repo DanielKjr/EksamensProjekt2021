@@ -13,7 +13,9 @@ namespace EksamensProjekt2021
         
         public Tomahawk()
         {
+
           
+
 
             range = 700;
             damage = 5;

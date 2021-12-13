@@ -19,7 +19,7 @@ namespace EksamensProjekt2021
 
         public Enemy() : base()
         {
-
+            GameWorld.EnemyCount++;
             //enemy skal have et våben, lige nu er det bare Throwable men når vi får ting ind som en tomahawk ville det være new Tomahawk()
             this.weapon = new Tomahawk();
 
@@ -48,6 +48,7 @@ namespace EksamensProjekt2021
         //AddGameObject(new Enemy(new Vector2(200, 100), new Throwable()));
         public Enemy(Vector2 Position, Weapon weapon)
         {
+            GameWorld.EnemyCount++;
             this.Position = Position;
             this.weapon = weapon;
             target = playerPos.Position;
@@ -137,6 +138,7 @@ namespace EksamensProjekt2021
                 
                 if (health <= 0)
                 {
+                    GameWorld.EnemyCount--;
                     GameWorld.Despawn(this);
                 }
                

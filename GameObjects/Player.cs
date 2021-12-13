@@ -96,6 +96,7 @@ namespace EksamensProjekt2021
         public override void Update(GameTime gameTime)
         {
 
+
             
                 UpdateWeapon();
                 PlayerShoot(gameTime);
@@ -103,6 +104,7 @@ namespace EksamensProjekt2021
 
                 PlayerAnimation(gameTime);
             
+
 
            
 
