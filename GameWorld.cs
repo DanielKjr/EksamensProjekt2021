@@ -28,7 +28,7 @@ namespace EksamensProjekt2021
         public static List<GameObject> projectiles;
 
         public static Player player;
-        
+
         public static Enemy enemy;
         public static GameFlow gameFlow;
 
@@ -53,7 +53,7 @@ namespace EksamensProjekt2021
 
         public static Vector2 screenSize;
 
-        
+
 
         public GameWorld()
         {
@@ -69,7 +69,7 @@ namespace EksamensProjekt2021
         }
 
 
-   
+
 
         public void RemoveObject(GameObject go)
         {
@@ -92,7 +92,7 @@ namespace EksamensProjekt2021
 
             player = new Player();
 
-            
+
 
             ui = new UserInterface();
             gameFlow = new GameFlow();
@@ -103,17 +103,17 @@ namespace EksamensProjekt2021
             gameObjects = new List<GameObject>();
             newObjects = new List<GameObject>();
             projectiles = new List<GameObject>();
-           // enemies = new List<Enemy>();
+            // enemies = new List<Enemy>();
 
             deleteObjects = new List<GameObject>();
             gameObjects.Add(player);
 
-            
+
 
             AddGameObject(new Enemy());
 
 
-      
+
             //gameObjects.Add(new Revolver());
 
             for (byte i = 0; i < 4; i++) // Create the 4 doors. GameObject will handle LoadContent() and Update().
@@ -131,7 +131,7 @@ namespace EksamensProjekt2021
 
         protected override void LoadContent()
         {
-            
+
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             HUDFont = Content.Load<SpriteFont>("HUDFont");
@@ -139,7 +139,7 @@ namespace EksamensProjekt2021
             cursor = Content.Load<Texture2D>("crosshair");
 
             collisionTexture = Content.Load<Texture2D>("CollisionTexture ");
-           
+
             foreach (GameObject go in gameObjects)
             {
                 go.LoadContent(this.Content);
@@ -156,25 +156,19 @@ namespace EksamensProjekt2021
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            roomManager.Update();
 
+            roomManager.Update();
+            player.Update(gameTime);
+            ui.Update(gameTime);
             UpdateGameObjects(gameTime);
 
-            player.Update(gameTime);
+           
 
-            ui.Update(gameTime);
+            
 
 
-            base.Update(gameTime);
-            foreach (GameObject go in gameObjects)
-            {
-                go.Update(gameTime);
+            //base.Update(gameTime);
 
-                foreach (GameObject other in gameObjects)
-                {
-                    go.CheckCollision(other);
-                }
-            }
             //ui.mapDisplay();
         }
 
@@ -183,7 +177,7 @@ namespace EksamensProjekt2021
             GraphicsDevice.Clear(Color.CornflowerBlue);
             _spriteBatch.Begin();
             roomManager.DrawRoom(_spriteBatch);
-            _spriteBatch.Draw(cursor, new Vector2(player.MousePosition.X , player.MousePosition.Y ), null, Color.Red);
+            _spriteBatch.Draw(cursor, new Vector2(player.MousePosition.X, player.MousePosition.Y), null, Color.Red);
 
             foreach (GameObject go in gameObjects)
             {
@@ -193,7 +187,7 @@ namespace EksamensProjekt2021
 
             }
 
-            
+
             _spriteBatch.DrawString(HUDFont, $"Health:  {player.currentHealth}/100", new Vector2(15, 10), Color.White);
             _spriteBatch.DrawString(HUDFont, $"Armor:   {player.currentArmor}/50", new Vector2(15, 32), Color.White);
 
@@ -261,7 +255,7 @@ namespace EksamensProjekt2021
 
             gameObjects.AddRange(newObjects);
             newObjects.Clear();
-            
+
 
             foreach (GameObject go in gameObjects)
             {

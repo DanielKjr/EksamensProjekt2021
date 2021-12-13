@@ -46,16 +46,16 @@ namespace EksamensProjekt2021
         public override void LoadContent(ContentManager content)
         {
             //this is the texture used for ALL hitscan projectiles
-            sprite = content.Load<Texture2D>("CollisionTexture");
+            sprite = content.Load<Texture2D>("CollisionTexture ");
         }
 
         public override void OnCollision(GameObject other)
         {
             if (other is Enemy)
             {
-                GameWorld.Despawn(this);
-                other.Health -= damage;
                
+                other.Health -= damage;
+                GameWorld.Despawn(this);
             }
         }
 

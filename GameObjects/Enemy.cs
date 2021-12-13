@@ -13,9 +13,8 @@ namespace EksamensProjekt2021
     {
         private Vector2 moveDir;        
         private Weapon weapon;
-        bool isAlive = true;
+       
         GameObject playerPos = GameWorld.player;
-        Enemy myOwnProjectile;
         private double timer = 2;
 
         public Enemy() : base()
@@ -132,13 +131,16 @@ namespace EksamensProjekt2021
 
         public override void OnCollision(GameObject other)
         {
-            if (other is HitscanShoot || other is Projectile)
+            if (other is HitscanShoot)
             {
+                
+                
                 if (health <= 0)
                 {
                     GameWorld.Despawn(this);
                 }
                
+
                 GameWorld.Despawn(other);
             }
 
