@@ -29,7 +29,8 @@ namespace EksamensProjekt2021
             offsetX = (int)GameWorld.screenSize.X - RoomManager.roomLayout.GetLength(0) * sprite.Width - RoomManager.roomLayout.GetLength(0) * dist;
             offsetY = (int)GameWorld.screenSize.Y - RoomManager.roomLayout.GetLength(1) * sprite.Width - RoomManager.roomLayout.GetLength(0) * dist;
 
-            wSprite = GameWorld.player.currentWeapon.Sprite;
+
+            wSprite = GameWorld.player.currentWeapon.UISprite;
             UIBox1280 = content.Load<Texture2D>("UIBox1280");
             UIBox680 = content.Load<Texture2D>("UIBox680");
             UIBox680360 = content.Load<Texture2D>("UIBox680360");
@@ -57,7 +58,7 @@ namespace EksamensProjekt2021
             if (wSprite != null)
             {
                 spriteBatch.Draw(wSprite, new Rectangle((int)boxPosition.X + 70, (int)boxPosition.Y + 36, 65, 40), Color.White);
-                spriteBatch.DrawString(GameWorld.HUDFont, $"{GameWorld.player.currentWeapon.Name}", new Vector2(boxPosition.X + 70, boxPosition.Y + 8), Color.White);
+                spriteBatch.DrawString(GameWorld.HUDFont, $"{GameWorld.player.currentWeapon.WName}", new Vector2(boxPosition.X + 70, boxPosition.Y + 8), Color.White);
             }
             spriteBatch.DrawString(GameWorld.HUDFont, $"Rooms Cleared:{roomsCleared}", new Vector2(boxPosition.X + 375, boxPosition.Y + 5), Color.White);
         }
