@@ -20,6 +20,7 @@ namespace EksamensProjekt2021
 
         public Enemy() : base()
         {
+            GameWorld.aaa++;
             this.weapon = new Throwable();
 
             this.playerPos = GameWorld.player;
