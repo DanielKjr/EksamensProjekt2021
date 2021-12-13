@@ -79,14 +79,14 @@ namespace EksamensProjekt2021
         {
             Position = new Vector2(500, 500);
 
-            Health = 100;
+            Health = 8000000;
             Armor = 50;
-            currentHealth = Health;
+            currentHealth = health;
 
             currentArmor = Armor;
 
 
-            this.weapon = new AK47();
+            this.weapon = new Tomahawk();
             currentWeapon = this.weapon;
 
 
