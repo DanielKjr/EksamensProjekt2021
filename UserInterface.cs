@@ -15,7 +15,7 @@ namespace EksamensProjekt2021
         private Texture2D UIBox276;
         private Texture2D trumpGraph;
         private Texture2D trumpSad;
-        private Vector2 boxPosition = new Vector2((GameWorld.screenSize.X / 4), GameWorld.screenSize.Y);
+        private Vector2 boxPosition;
 
         private Vector2 trumpVector = new Vector2((GameWorld.screenSize.X / 2 + 30), GameWorld.screenSize.Y);
 
@@ -44,6 +44,7 @@ namespace EksamensProjekt2021
             wSprite = GameWorld.player.currentWeapon.UISprite;
 
             UIBox276 = content.Load<Texture2D>("UIBox276");
+            boxPosition = new Vector2((GameWorld.screenSize.X / 2) - (UIBox276.Width/2), GameWorld.screenSize.Y);
         }
 
         public void Update(GameTime gameTime)
@@ -51,7 +52,7 @@ namespace EksamensProjekt2021
             float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
             KeyboardState kState = Keyboard.GetState();
             weapon = GameWorld.player.currentWeapon;
-            if (kState.IsKeyDown(Keys.Tab) && boxPosition.Y >= 455)
+            if (kState.IsKeyDown(Keys.Tab) && boxPosition.Y >= GameWorld.screenSize.Y - UIBox276.Height)
             {
                 boxPosition.Y -= 650 * dt;
             }
