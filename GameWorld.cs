@@ -157,14 +157,19 @@ namespace EksamensProjekt2021
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            roomManager.Update();
-            player.Update(gameTime);
-            ui.Update(gameTime);
-            UpdateGameObjects(gameTime);
 
-           
+            if (player.IsAlive)
+            {
+                roomManager.Update();
+                player.Update(gameTime);
+                ui.Update(gameTime);
+                UpdateGameObjects(gameTime);
 
-            
+            }
+
+
+
+
 
 
             //base.Update(gameTime);

@@ -37,6 +37,7 @@ namespace EksamensProjekt2021
 
             //hvor meget liv de har 
             health = 10;
+
         }
 
         //Den her constructor gør det nemt at tilføje enemies, ved brug af GameWorlds AddGameObject skal man bare give den en position man vile have
@@ -85,13 +86,12 @@ namespace EksamensProjekt2021
         public void EnemyTargeting(GameTime gameTime)
         {
             target = new Vector2(playerPos.Position.X - 20, playerPos.Position.Y - 20);
-
             weapon.Position = Position;
+            timer -= gameTime.ElapsedGameTime.TotalSeconds;
 
             if (Vector2.Distance(Position, playerPos.Position) < weapon.Range)
             {
-                timer -= gameTime.ElapsedGameTime.TotalSeconds;
-
+               
                 if (timer <= 0)
                 {
                     //bruger våbnets ShootWeapon, på samme måde som med Player går det an på hvad våben de har, men de burde kun have throwable
@@ -127,15 +127,12 @@ namespace EksamensProjekt2021
 
         }
 
- 
-
 
         public override void OnCollision(GameObject other)
         {
             if (other is HitscanShoot)
             {
-                
-                
+                                
                 if (health <= 0)
                 {
                     GameWorld.EnemyCount--;

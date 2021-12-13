@@ -55,7 +55,7 @@ namespace EksamensProjekt2021
             {
                
                 other.Health -= damage;
-                GameWorld.Despawn(this);
+                
             }
         }
 
