@@ -84,9 +84,9 @@ namespace EksamensProjekt2021
 
         protected override void Initialize()
         {
-            // _graphics.IsFullScreen = true;
-            _graphics.PreferredBackBufferWidth = 1280;
-            _graphics.PreferredBackBufferHeight = 720;
+            _graphics.IsFullScreen = true;
+            _graphics.PreferredBackBufferWidth = 1920;
+            _graphics.PreferredBackBufferHeight = 1080;
             _graphics.ApplyChanges();
             screenSize = new Vector2(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
@@ -162,9 +162,9 @@ namespace EksamensProjekt2021
             ui.Update(gameTime);
             UpdateGameObjects(gameTime);
 
-           
 
-            
+
+
 
 
             //base.Update(gameTime);
@@ -191,7 +191,6 @@ namespace EksamensProjekt2021
             _spriteBatch.DrawString(HUDFont, $"Health:  {player.currentHealth}/100", new Vector2(15, 10), Color.White);
             _spriteBatch.DrawString(HUDFont, $"Armor:   {player.currentArmor}/50", new Vector2(15, 32), Color.White);
 
-            ui.mapDisplay(_spriteBatch);
             ui.Draw(_spriteBatch);
 
 
