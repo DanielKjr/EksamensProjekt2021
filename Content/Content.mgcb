@@ -170,6 +170,30 @@
 /processorParam:TextureFormat=Color
 /build:SpritePlaceHolder2.png
 
+#begin trumpgraph.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:trumpgraph.png
+
+#begin trumpsad.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:trumpsad.png
+
 #begin trumpWalkDown.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -229,6 +253,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:UIBox1280.png
+
+#begin UIBox276.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:UIBox276.png
 
 #begin UIBox680.png
 /importer:TextureImporter

@@ -25,6 +25,7 @@ namespace EksamensProjekt2021
         {
             Random rnd = new Random();
 
+
             var EXPos = rnd.Next(0, (int)GameWorld.screenSize.X); //sets a random X value
             var EYPOS = rnd.Next(0, (int)GameWorld.screenSize.Y); //sets a random Y value
 
@@ -38,6 +39,7 @@ namespace EksamensProjekt2021
             {
                 //GameWorld.Instantiate(new Enemy(new Vector2(EXPos, EYPOS), new Molotov()));
             }
+
 
         }
 
