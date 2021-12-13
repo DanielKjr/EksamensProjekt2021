@@ -30,12 +30,22 @@ namespace EksamensProjekt2021
 
         public void Update()
         {
-            /*int count = 0;
-            foreach(GameObject go in GameWorld.gameObjects)
+            if (GameWorld.EnemyCount <= 0)
             {
-                if(go is Enemy) count++;
+                if(roomLayout[playerInRoom[0], playerInRoom[1]] == 5) //Next level
+                {
+                    roomsCleared++;
+                    levelsCleared++;
+                    CreateMap(9);
+                }
+                else if (roomLayout[playerInRoom[0], playerInRoom[1]] >= 2) //Clear room in level
+                {
+                    roomLayout[playerInRoom[0], playerInRoom[1]] = (byte)RoomType.Cleared;
+                    roomsCleared++;
+                }
+                GameWorld.EnemyCount = 0;
             }
-            Console.WriteLine(count);*/
+            Console.WriteLine(GameWorld.EnemyCount);
         }
         /// <summary>
         /// Generates the map based on amount of rooms desired.

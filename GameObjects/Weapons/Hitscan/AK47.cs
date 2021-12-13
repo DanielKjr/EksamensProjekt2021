@@ -26,7 +26,7 @@ namespace EksamensProjekt2021
 
             origin = new Vector2(this.sprite.Width / 2, this.sprite.Height / 2);
             gunFire = content.Load<SoundEffect>("SoundEffects/SingleShot");
-
+            
         }
 
     }

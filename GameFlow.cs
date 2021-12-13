@@ -21,7 +21,7 @@ namespace EksamensProjekt2021
 
             var EXPos = rnd.Next(0, (int)GameWorld.screenSize.X);
             var EYPOS = rnd.Next(0, (int)GameWorld.screenSize.Y);
-            GameWorld.Instantiate(new Enemy(new Vector2(EXPos, EYPOS), new Throwable()));
+            GameWorld.Instantiate(new Enemy(new Vector2(EXPos, EYPOS), new Tomahawk()));
         }
 
     }
