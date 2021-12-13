@@ -166,11 +166,21 @@ namespace EksamensProjekt2021
                 UpdateGameObjects(gameTime);
             }
 
+
+            if (player.IsAlive)
+            {
+                roomManager.Update();
+                player.Update(gameTime);
+                ui.Update(gameTime);
+                UpdateGameObjects(gameTime);
+
+            }
+
+
+
+
+
             ui.Update(gameTime);
-
-
-
-
 
 
 

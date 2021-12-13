@@ -68,7 +68,8 @@ namespace EksamensProjekt2021
         {
             if (other is Enemy)
             {
-                    other.Health -= damage;
+              
+
   
             }
             
