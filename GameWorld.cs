@@ -29,6 +29,7 @@ namespace EksamensProjekt2021
 
         public static Player player;
         public static Enemy enemy;
+        public static GameFlow gameFlow;
 
         public static RoomManager roomManager;
         public static Door door;
@@ -85,6 +86,7 @@ namespace EksamensProjekt2021
 
             player = new Player();
             ui = new UserInterface();
+            gameFlow = new GameFlow();
 
             player.Position = new Vector2(500, 500);
 
@@ -140,7 +142,6 @@ namespace EksamensProjekt2021
             UpdateGameObjects(gameTime);
 
             player.Update(gameTime);
-
 
             base.Update(gameTime);
             foreach (GameObject go in gameObjects)

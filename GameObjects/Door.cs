@@ -136,6 +136,7 @@ namespace EksamensProjekt2021
                 RoomManager.playerInRoom[1] += (byte)placementDir.Y;
                 GameWorld.roomManager.Debug(0, 0);
                 GameWorld.roomManager.RevealRooms();
+                GameWorld.gameFlow.EnemySpawner();
             }
         }
         /// <summary>
