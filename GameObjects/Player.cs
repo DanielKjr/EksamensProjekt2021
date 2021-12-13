@@ -42,10 +42,10 @@ namespace EksamensProjekt2021
         private Texture2D trumpWalkDown;
 
 
-        public Weapon currentWeapon { get => weapon; }
-        public int currentArmor { get => armor; }
+        public Weapon CurrentWeapon { get => weapon; }
+        public int CurrentArmor { get => armor; }
 
-        public int currentHealth { get => health; }
+        public int CurrentHealth { get => health; }
 
         public override Rectangle Collision
         {
