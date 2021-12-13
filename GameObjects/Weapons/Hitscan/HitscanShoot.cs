@@ -14,7 +14,7 @@ namespace EksamensProjekt2021
             position = Position;
             this.target = target;
             this.origin = Vector2.Zero;
-            moveSpeed = 1900;
+            moveSpeed = 1700;
         }
 
         /// <summary>
@@ -29,12 +29,10 @@ namespace EksamensProjekt2021
             shootDir.Normalize();
             Position += shootDir * moveSpeed * deltaTime;
 
-            /*
-            if (Vector2.Distance(Position, target) < 10)
+            if (Vector2.Distance(Position, target) < 20)
             {
                 GameWorld.Despawn(this);
             }
-            */
         }
 
         public override void Update(GameTime gameTime)
@@ -42,16 +40,13 @@ namespace EksamensProjekt2021
 
             HitScanShooting(gameTime, target);
 
-            if (Vector2.Distance(Position, target) < 15 )
-            {
-                GameWorld.Despawn(this);
-            }
+           
         }
 
         public override void LoadContent(ContentManager content)
         {
             //this is the texture used for ALL hitscan projectiles
-            sprite = content.Load<Texture2D>("CollisionTexture ");
+            sprite = content.Load<Texture2D>("CollisionTexture");
         }
 
         public override void OnCollision(GameObject other)
