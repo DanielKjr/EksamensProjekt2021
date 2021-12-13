@@ -12,11 +12,11 @@ namespace EksamensProjekt2021
     {
         private Weapon weapon;
         private Texture2D wSprite;
-        private Texture2D UIBox1280;
-        private Texture2D UIBox680;
-        private Texture2D UIBox680360;
+        private Texture2D UIBox276;
+        private Texture2D trumpGraph;
         private Vector2 boxPosition = new Vector2((GameWorld.screenSize.X / 4), GameWorld.screenSize.Y);
-        private int roomsCleared = 4;
+        
+        
 
         Color color;
         byte dist = 10;
@@ -26,14 +26,14 @@ namespace EksamensProjekt2021
         public void LoadContent(ContentManager content)
         {
             sprite = content.Load<Texture2D>("CollisionTexture ");
+            trumpGraph = content.Load<Texture2D>("trumpGraph");
             offsetX = (int)GameWorld.screenSize.X - RoomManager.roomLayout.GetLength(0) * sprite.Width - RoomManager.roomLayout.GetLength(0) * dist;
             offsetY = (int)GameWorld.screenSize.Y - RoomManager.roomLayout.GetLength(1) * sprite.Width - RoomManager.roomLayout.GetLength(0) * dist;
 
 
             wSprite = GameWorld.player.currentWeapon.UISprite;
-            UIBox1280 = content.Load<Texture2D>("UIBox1280");
-            UIBox680 = content.Load<Texture2D>("UIBox680");
-            UIBox680360 = content.Load<Texture2D>("UIBox680360");
+            
+            UIBox276 = content.Load<Texture2D>("UIBox276");
         }
 
         public void Update(GameTime gameTime)
@@ -41,7 +41,7 @@ namespace EksamensProjekt2021
             float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
             KeyboardState kState = Keyboard.GetState();
             weapon = GameWorld.player.currentWeapon;
-            if (kState.IsKeyDown(Keys.Tab) && boxPosition.Y >= 370)
+            if (kState.IsKeyDown(Keys.Tab) && boxPosition.Y >= 455)
             {
                 boxPosition.Y -= 650 * dt;
             }
@@ -54,14 +54,26 @@ namespace EksamensProjekt2021
         public void Draw(SpriteBatch spriteBatch)
         {
 
-            spriteBatch.Draw(UIBox680360, new Vector2(boxPosition.X, boxPosition.Y), Color.White);
+            spriteBatch.Draw(UIBox276, new Vector2(boxPosition.X, boxPosition.Y), Color.White);
+            spriteBatch.Draw(trumpGraph, new Rectangle((int)boxPosition.X - 10, (int)boxPosition.Y + 140, 300, 300), Color.White);
             if (wSprite != null)
             {
-                spriteBatch.Draw(wSprite, new Rectangle((int)boxPosition.X + 70, (int)boxPosition.Y + 36, 65, 40), Color.White);
+                if (GameWorld.player.currentWeapon is Throwable)
+                {
+                    spriteBatch.Draw(wSprite, new Rectangle((int)boxPosition.X + 70, (int)boxPosition.Y + 42, 30, 70), Color.White);
+                }
+                if (GameWorld.player.currentWeapon is Hitscan)
+                {
+                    spriteBatch.Draw(wSprite, new Rectangle((int)boxPosition.X + 70, (int)boxPosition.Y + 42, 70, 35), Color.White);
+                }
+
                 spriteBatch.DrawString(GameWorld.HUDFont, $"{GameWorld.player.currentWeapon.WName}", new Vector2(boxPosition.X + 70, boxPosition.Y + 8), Color.White);
             }
-            spriteBatch.DrawString(GameWorld.HUDFont, $"Rooms Cleared:{roomsCleared}", new Vector2(boxPosition.X + 375, boxPosition.Y + 5), Color.White);
-        }
+            spriteBatch.DrawString(GameWorld.HUDFont, $"Level:{RoomManager.levelsCleared}", new Vector2(boxPosition.X + 375, boxPosition.Y + 5), Color.White);
+            spriteBatch.DrawString(GameWorld.HUDFont, $"Rooms Cleared:{RoomManager.roomsCleared}", new Vector2(boxPosition.X + 375, boxPosition.Y + 30), Color.White);
+            
+        } 
+
         public void mapDisplay(SpriteBatch spriteBatch)
         {
             for (int y = 0; y < RoomManager.roomLayout.GetLength(1); y++)

@@ -14,7 +14,9 @@ namespace EksamensProjekt2021
         public Tomahawk()
         {
 
+
           
+
 
 
             range = 700;
@@ -26,6 +28,7 @@ namespace EksamensProjekt2021
         public override void LoadContent(ContentManager content)
         {
             sprite = content.Load<Texture2D>("Weapons/lilleTomahawk");
+
 
 
             origin = new Vector2(this.sprite.Width / 2, this.sprite.Height / 2);
