@@ -11,7 +11,8 @@ namespace EksamensProjekt2021
         public Revolver()
         {
             //insert damage, armor, magazine or what not here
-            Name = "Revolver";
+
+            damage = 5;
             range = 500;
 
         }
@@ -23,7 +24,6 @@ namespace EksamensProjekt2021
         {
             //the weapon sprite has to be loaded within the specific weapon class.
             sprite = content.Load<Texture2D>("medkit");
-            Sprite = sprite;
 
         }
 

@@ -10,9 +10,6 @@ namespace EksamensProjekt2021
         public MP5()
         {
             range = 500;
-
-            Name = "MP5";
-
             damage = 5;
             
 
@@ -23,7 +20,6 @@ namespace EksamensProjekt2021
         {
             sprite = content.Load<Texture2D>("Weapons/MP5");
 
-            Sprite = sprite;
 
             origin = new Vector2(this.sprite.Width / 2, this.sprite.Height / 2);
             gunFire = content.Load<SoundEffect>("SoundEffects/SingleShot");
