@@ -130,7 +130,7 @@ namespace EksamensProjekt2021
 
         public override void OnCollision(GameObject other)
         {
-            if (other is HitscanShoot || other is Projectile)
+            if (other is HitscanShoot)
             {
                 if (health <= 0)
                 {
