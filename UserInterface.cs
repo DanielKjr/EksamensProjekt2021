@@ -14,12 +14,16 @@ namespace EksamensProjekt2021
         private Texture2D wSprite;
         private Texture2D UIBox276;
         private Texture2D trumpGraph;
+        private Texture2D trumpSad;
         private Vector2 boxPosition = new Vector2((GameWorld.screenSize.X / 4), GameWorld.screenSize.Y);
-        
-        
+
+        private Vector2 trumpVector = new Vector2((GameWorld.screenSize.X / 2+30), GameWorld.screenSize.Y);
+
+
+
 
         Color color;
-        byte dist = 10;
+        byte dist = 12;
         int offsetX;
         int offsetY;
         private Texture2D sprite;
@@ -27,12 +31,18 @@ namespace EksamensProjekt2021
         {
             sprite = content.Load<Texture2D>("CollisionTexture ");
             trumpGraph = content.Load<Texture2D>("trumpGraph");
-            offsetX = (int)GameWorld.screenSize.X - RoomManager.roomLayout.GetLength(0) * sprite.Width - RoomManager.roomLayout.GetLength(0) * dist;
-            offsetY = (int)GameWorld.screenSize.Y - RoomManager.roomLayout.GetLength(1) * sprite.Width - RoomManager.roomLayout.GetLength(0) * dist;
+
+            trumpSad = content.Load<Texture2D>("trumpSad");
+
+            //offsetX = (int)GameWorld.screenSize.X - RoomManager.roomLayout.GetLength(0) * sprite.Width - RoomManager.roomLayout.GetLength(0) * dist;
+            //offsetY = (int)GameWorld.screenSize.Y - RoomManager.roomLayout.GetLength(1) * sprite.Width - RoomManager.roomLayout.GetLength(0) * dist;
+            offsetX = 450;
+            offsetY = 110;
+
 
 
             wSprite = GameWorld.player.currentWeapon.UISprite;
-            
+
             UIBox276 = content.Load<Texture2D>("UIBox276");
         }
 
@@ -48,6 +58,10 @@ namespace EksamensProjekt2021
             if (kState.IsKeyUp(Keys.Tab) && boxPosition.Y <= GameWorld.screenSize.Y)
             {
                 boxPosition.Y += 650 * dt;
+            }
+            if (GameWorld.player.IsAlive == false)
+            {
+                trumpVector.Y -= 465 * dt;
             }
         }
 
@@ -71,8 +85,18 @@ namespace EksamensProjekt2021
             }
             spriteBatch.DrawString(GameWorld.HUDFont, $"Level:{RoomManager.levelsCleared}", new Vector2(boxPosition.X + 375, boxPosition.Y + 5), Color.White);
             spriteBatch.DrawString(GameWorld.HUDFont, $"Rooms Cleared:{RoomManager.roomsCleared}", new Vector2(boxPosition.X + 375, boxPosition.Y + 30), Color.White);
-            
+
+
+            if (GameWorld.player.IsAlive == false)
+            {
+                spriteBatch.Draw(trumpSad, new Vector2(trumpVector.X, trumpVector.Y), Color.White);
+            }
+
         } 
+
+            mapDisplay(spriteBatch);
+        }
+
 
         public void mapDisplay(SpriteBatch spriteBatch)
         {
@@ -82,13 +106,12 @@ namespace EksamensProjekt2021
                 {
                     if (RoomManager.playerInRoom[0] == x && RoomManager.playerInRoom[1] == y) color = Color.Green;
                     else if (RoomManager.roomLayout[x, y] == 5) color = Color.Black;
-                    else if (RoomManager.roomLayout[x, y] == 4) color = Color.Cyan;
                     else if (RoomManager.roomLayout[x, y] >= 2) color = Color.Red;
                     else color = Color.White;
 
                     if (RoomManager.revealedRoom[x, y] || RoomManager.roomLayout[x, y] == 5)
                     {
-                        spriteBatch.Draw(sprite, new Vector2(offsetX + (sprite.Width * x + dist * x), offsetY + (sprite.Height * y + dist * y)), color);
+                        spriteBatch.Draw(sprite, new Vector2((int)boxPosition.X + offsetX + (sprite.Width * x + dist * x), (int)boxPosition.Y + offsetY + (sprite.Height * y + dist * y)), color);
                     }
                 }
             }
