@@ -112,6 +112,8 @@ namespace EksamensProjekt2021
                     if (RoomManager.revealedRoom[x, y] || RoomManager.roomLayout[x, y] == 5)
                     {
                         spriteBatch.Draw(sprite, new Vector2((int)boxPosition.X + offsetX + (sprite.Width * x + dist * x), (int)boxPosition.Y + offsetY + (sprite.Height * y + dist * y)), color);
+                        //boxPosition is the whereabouts of the TAB MENU. offset shifts the map to the correct place of the TAB MENU
+                        //Next the sprite dimensions is multiplied by the index position of the map tile and dist for spacing inbetween.
                     }
                 }
             }
