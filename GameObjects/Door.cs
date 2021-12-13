@@ -136,9 +136,16 @@ namespace EksamensProjekt2021
                 RoomManager.playerInRoom[1] += (byte)placementDir.Y;
                 GameWorld.roomManager.Debug(0, 0);
                 GameWorld.roomManager.RevealRooms();
-                if (RoomManager.roomLayout[RoomManager.playerInRoom[0], RoomManager.playerInRoom[1]] >= 2)
+                if (RoomManager.roomLayout[RoomManager.playerInRoom[0], RoomManager.playerInRoom[1]] == 2
+                    && RoomManager.roomLayout[RoomManager.playerInRoom[0], RoomManager.playerInRoom[1]] == 3)
                 {
                     GameWorld.gameFlow.EnemySpawner(); //Only spawn enemies if the next room is a fighting room.
+                }
+                if (RoomManager.roomLayout[RoomManager.playerInRoom[0], RoomManager.playerInRoom[1]] == 5)
+                {
+                    //SPAWN BOSS HERE -------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                    GameWorld.gameFlow.EnemySpawner();
+                    GameWorld.gameFlow.EnemySpawner();
                 }
             }
         }
