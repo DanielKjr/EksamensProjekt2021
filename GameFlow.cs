@@ -7,13 +7,14 @@ namespace EksamensProjekt2021
 {
     public class GameFlow
     {
-        Random rnd = new Random();
+
+
         protected int nextWeapon;
 
         public int NextWeapon { get => nextWeapon; }
 
-        //protected int nextWeapon = 0;
 
+        private Random rnd = new Random();
 
         /// <summary>
         /// adds enemies

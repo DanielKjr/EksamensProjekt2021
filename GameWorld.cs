@@ -71,7 +71,6 @@ namespace EksamensProjekt2021
 
 
 
-
         protected override void Initialize()
         {
             _graphics.IsFullScreen = false;

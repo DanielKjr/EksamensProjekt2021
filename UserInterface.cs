@@ -22,10 +22,10 @@ namespace EksamensProjekt2021
 
 
 
-        Color color;
-        byte dist = 12;
-        int offsetX;
-        int offsetY;
+        private Color color;
+        private byte dist = 12;
+        private int offsetX;
+        private int offsetY;
         private Texture2D sprite;
         public void LoadContent(ContentManager content)
         {
@@ -55,10 +55,9 @@ namespace EksamensProjekt2021
             float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
             KeyboardState kState = Keyboard.GetState();
 
+
             
             if (kState.IsKeyDown(Keys.Tab) && boxPosition.Y >= 455)
-
-
             {
                 boxPosition.Y -= 650 * dt;
             }
@@ -94,21 +93,18 @@ namespace EksamensProjekt2021
             spriteBatch.DrawString(GameWorld.HUDFont, $"Level:{RoomManager.levelsCleared}", new Vector2(boxPosition.X + 375, boxPosition.Y + 5), Color.White);
             spriteBatch.DrawString(GameWorld.HUDFont, $"Rooms Cleared:{RoomManager.roomsCleared}", new Vector2(boxPosition.X + 375, boxPosition.Y + 30), Color.White);
 
-            spriteBatch.DrawString(GameWorld.HUDFont, $"Enemies:{GameWorld.EnemyCount}", new Vector2(10, 30), Color.White);
-
 
 
             if (GameWorld.player.IsAlive == false)
             {
                 spriteBatch.Draw(trumpSad, new Vector2(trumpVector.X, trumpVector.Y), Color.White);
             }
+
+            spriteBatch.DrawString(GameWorld.HUDFont, $"HP   :{GameWorld.player.Health}/100", new Vector2(10, 5), Color.White);
+            spriteBatch.DrawString(GameWorld.HUDFont, $"Armor:{GameWorld.player.Armor}/50", new Vector2(10, 30), Color.White);
+
             mapDisplay(spriteBatch);
         }
-
-       
-
-
-
         public void mapDisplay(SpriteBatch spriteBatch)
         {
             for (int y = 0; y < RoomManager.roomLayout.GetLength(1); y++)
@@ -129,8 +125,6 @@ namespace EksamensProjekt2021
                 }
             }
         }
-
-
 
         /// <summary>
         /// Displays the current health and armor values of the player
