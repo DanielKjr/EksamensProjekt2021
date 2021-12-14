@@ -11,10 +11,10 @@ namespace EksamensProjekt2021
 
     public class Enemy : GameObject
     {
-        private Vector2 moveDir;        
+        protected Vector2 moveDir;        
         private Weapon weapon;
        
-        GameObject playerPos = GameWorld.player;
+        protected GameObject playerPos = GameWorld.player;
         private double timer = 2;
 
         public Enemy() : base()
@@ -83,7 +83,7 @@ namespace EksamensProjekt2021
         /// if the player is within the weapons range it will start the timer, then fire and reset the timer to the weapons fireRate.
         /// </summary>
         /// <param name="gameTime"></param>
-        public void EnemyTargeting(GameTime gameTime)
+        public virtual void EnemyTargeting(GameTime gameTime)
         {
             target = new Vector2(playerPos.Position.X - 20, playerPos.Position.Y - 20);
             weapon.Position = Position;
@@ -112,7 +112,7 @@ namespace EksamensProjekt2021
         /// </summary>
         /// <param name="gameTime"></param>
         /// <param name="PlayerPosition"></param>
-        public void Movement(GameTime gameTime)
+        public virtual void Movement(GameTime gameTime)
         {
            
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;

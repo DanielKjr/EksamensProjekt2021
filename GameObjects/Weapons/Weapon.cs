@@ -12,7 +12,6 @@ namespace EksamensProjekt2021
   
     public abstract class Weapon : GameObject
     {
-        private string wName;
         protected int range;
         protected byte damage;
         protected int fireRate;
