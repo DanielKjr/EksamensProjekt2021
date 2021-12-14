@@ -91,6 +91,12 @@ namespace EksamensProjekt2021
             EnemyTargeting(gameTime);
             Movement(gameTime);
 
+            if (health <= 0)
+            {
+                GameWorld.EnemyCount--;
+                GameWorld.Despawn(this);
+            }
+
         }
 
 
@@ -150,31 +156,6 @@ namespace EksamensProjekt2021
 
         public override void OnCollision(GameObject other)
         {
-            if (other is HitscanShoot)
-            {
-                if (health <= 0)
-                {
-                    GameWorld.EnemyCount--;
-                    GameWorld.Despawn(this);
-                }
-
-
-
-                GameWorld.Despawn(other);
-            }
-            else if (other is Projectile && weapon.CanHurtPlayer)
-            {
-                
-                if (health <= 0)
-                {
-                    GameWorld.EnemyCount--;
-                    GameWorld.Despawn(this);
-                }
-             
-               
-            }
-            
-          
 
 
         }
