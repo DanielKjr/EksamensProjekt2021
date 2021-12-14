@@ -28,7 +28,7 @@ namespace EksamensProjekt2021
         public static List<GameObject> projectiles;
 
         public static Player player;
-
+       
         public static Enemy enemy;
         public static GameFlow gameFlow;
 
@@ -94,7 +94,7 @@ namespace EksamensProjekt2021
             player = new Player();
 
 
-
+            
             ui = new UserInterface();
             gameFlow = new GameFlow();
 
@@ -110,7 +110,7 @@ namespace EksamensProjekt2021
             gameObjects.Add(player);
 
 
-
+            //AddGameObject(new Biden());
             AddGameObject(new Enemy());
 
 
@@ -159,19 +159,13 @@ namespace EksamensProjekt2021
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            if (player.IsAlive)
-            {
-                roomManager.Update();
-                player.Update(gameTime);
-                UpdateGameObjects(gameTime);
-            }
+
 
 
             if (player.IsAlive)
             {
                 roomManager.Update();
                 player.Update(gameTime);
-                ui.Update(gameTime);
                 UpdateGameObjects(gameTime);
 
             }
@@ -195,7 +189,7 @@ namespace EksamensProjekt2021
             _spriteBatch.Begin();
             roomManager.DrawRoom(_spriteBatch);
             _spriteBatch.Draw(cursor, new Vector2(player.MousePosition.X, player.MousePosition.Y), null, Color.Red);
-
+            ui.Draw(_spriteBatch);
             foreach (GameObject go in gameObjects)
             {
                 go.Draw(_spriteBatch);
@@ -204,14 +198,13 @@ namespace EksamensProjekt2021
 
             }
 
-            
 
-            ui.Draw(_spriteBatch);
-
-            
+           
 
 
 
+
+           
             _spriteBatch.End();
 
 
@@ -264,6 +257,7 @@ namespace EksamensProjekt2021
         public void UpdateGameObjects(GameTime gameTime)
         {
 
+
             foreach (var go in newObjects)
             {//has to be here to give projectiles a sprite before they are added to gameObjects and then drawn.
                 go.LoadContent(this.Content);
@@ -282,10 +276,7 @@ namespace EksamensProjekt2021
                     go.CheckCollision(other);
                 }
 
-
             }
-
-
 
 
             foreach (GameObject go in deleteObjects)
@@ -310,6 +301,9 @@ namespace EksamensProjekt2021
             _spriteBatch.Draw(collisionTexture, rightLine, Color.Red);
             _spriteBatch.Draw(collisionTexture, leftLine, Color.Red);
         }
+
+
+       
 
 
     }
