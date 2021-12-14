@@ -7,7 +7,7 @@ namespace EksamensProjekt2021
 {
     public class GameFlow
     {
-        Random rnd = new Random();
+        private Random rnd = new Random();
         /// <summary>
         /// adds enemies
         /// </summary>

@@ -6,19 +6,19 @@ namespace EksamensProjekt2021
 {
     public class Door : GameObject //Conjoined with RoomManager
     {
-        byte dir;
-        Vector2 placementDir;
-        bool activeDoor;
-        SpriteEffects effect = SpriteEffects.None; //Needed for right door
-        Texture2D storedSprite;
+        private byte dir;
+        private Vector2 placementDir;
+        private bool activeDoor;
+        private SpriteEffects effect = SpriteEffects.None; //Needed for right door
+        private Texture2D storedSprite;
 
-        int width;
-        byte height;
+        private int width;
+        private int height;
 
-        float animTimer;
-        float fpsThreshold = 0.33f; //Seconds between frames
-        Rectangle[] source = new Rectangle[4];
-        byte frameIndex = 0;
+        private float animTimer;
+        private float fpsThreshold = 0.33f; //Seconds between frames
+        private Rectangle[] source = new Rectangle[4];
+        private byte frameIndex = 0;
 
 
 
@@ -70,7 +70,7 @@ namespace EksamensProjekt2021
         /// <summary>
         /// Create all data needed for spriteSheet
         /// </summary>
-        void animSetup()
+        private void animSetup()
         {
             width = storedSprite.Width / 4;
             height = (byte)storedSprite.Height;
