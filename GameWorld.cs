@@ -154,7 +154,6 @@ namespace EksamensProjekt2021
             if (player.IsAlive)
             {
                 
-                player.LoadContent(Content);
                 roomManager.Update();
                 player.Update(gameTime);
                 UpdateGameObjects(gameTime);
