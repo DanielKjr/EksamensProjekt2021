@@ -22,10 +22,10 @@ namespace EksamensProjekt2021
 
 
 
-        Color color;
-        byte dist = 12;
-        int offsetX;
-        int offsetY;
+        private Color color;
+        private byte dist = 12;
+        private int offsetX;
+        private int offsetY;
         private Texture2D sprite;
         public void LoadContent(ContentManager content)
         {
@@ -53,9 +53,7 @@ namespace EksamensProjekt2021
             KeyboardState kState = Keyboard.GetState();
 
             weapon = GameWorld.player.CurrentWeapon;
-            if (kState.IsKeyDown(Keys.Tab) && boxPosition.Y >= 455)
-
-
+            if (kState.IsKeyDown(Keys.Tab) && boxPosition.Y >= GameWorld.screenSize.Y-UIBox276.Height)
             {
                 boxPosition.Y -= 650 * dt;
             }
@@ -103,11 +101,6 @@ namespace EksamensProjekt2021
 
             mapDisplay(spriteBatch);
         }
-
-       
-
-
-
         public void mapDisplay(SpriteBatch spriteBatch)
         {
             for (int y = 0; y < RoomManager.roomLayout.GetLength(1); y++)
@@ -128,8 +121,6 @@ namespace EksamensProjekt2021
                 }
             }
         }
-
-
 
         /// <summary>
         /// Displays the current health and armor values of the player
