@@ -17,6 +17,13 @@ namespace EksamensProjekt2021
 
         }
 
+        public AK47(Vector2 Position)
+        {
+            this.Position = Position;
+            range = 700;
+            damage = 5;
+        }
+
 
         public override void LoadContent(ContentManager content)
         {

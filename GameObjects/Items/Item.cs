@@ -10,7 +10,9 @@ namespace EksamensProjekt2021
     {
         public List<Item> items = new List<Item>();
 
+        protected int nextWeapon;
 
+        public int NextWeapon { get => nextWeapon; set => nextWeapon = value; }
 
 
 

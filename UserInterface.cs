@@ -41,7 +41,7 @@ namespace EksamensProjekt2021
 
 
 
-            wSprite = GameWorld.player.CurrentWeapon.UISprite;
+           
 
             UIBox276 = content.Load<Texture2D>("UIBox276");
             boxPosition = new Vector2((GameWorld.screenSize.X / 2) - (UIBox276.Width/2), GameWorld.screenSize.Y);
@@ -49,10 +49,13 @@ namespace EksamensProjekt2021
 
         public void Update(GameTime gameTime)
         {
+            wSprite = GameWorld.player.CurrentWeapon.UISprite;
+            weapon = GameWorld.player.CurrentWeapon;
+
             float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
             KeyboardState kState = Keyboard.GetState();
 
-            weapon = GameWorld.player.CurrentWeapon;
+            
             if (kState.IsKeyDown(Keys.Tab) && boxPosition.Y >= 455)
 
 
@@ -135,9 +138,9 @@ namespace EksamensProjekt2021
         /// <param name="spriteBatch"></param>
         private void StatusBar(SpriteBatch spriteBatch)
         {
-            Rectangle bar = new Rectangle(20, (int)GameWorld.screenSize.Y - 120, GameWorld.player.CurrentHealth, 20);
+            Rectangle bar = new Rectangle(20, (int)GameWorld.screenSize.Y - 120, GameWorld.player.CurrentHealth *2, 20);
             Rectangle backDrop = new Rectangle(20, (int)GameWorld.screenSize.Y - 120, 100, 20);
-            Rectangle armorBar = new Rectangle(20, (int)GameWorld.screenSize.Y - 100, GameWorld.player.CurrentArmor, 20);
+            Rectangle armorBar = new Rectangle(20, (int)GameWorld.screenSize.Y - 100, GameWorld.player.CurrentArmor * 2, 20);
 
 
             spriteBatch.Draw(sprite, backDrop, Color.Red);
