@@ -9,8 +9,6 @@ namespace EksamensProjekt2021
 {
      class Projectile : Throwable
     {
-
-
         public Projectile(Texture2D sprite, Vector2 position, Vector2 target, byte damage, float throwRotationSpeed)
         {
             this.damage = damage;
@@ -21,7 +19,6 @@ namespace EksamensProjekt2021
             this.throwRotationSpeed = throwRotationSpeed;
             throwRotation -= throwRotationSpeed;
             moveSpeed = 400;
-
             
         }
 
@@ -66,13 +63,14 @@ namespace EksamensProjekt2021
 
         public override void OnCollision(GameObject other)
         {
-            if (other is Enemy)
+            //if (other is Enemy)
+            //{
+            //    other.Health -= damage;
+            //}
+            if(other is Player)
             {
-              
-
-  
+                other.Health -= damage;
             }
-            
         }
         public override void Draw(SpriteBatch spriteBatch)
         {

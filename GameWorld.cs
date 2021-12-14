@@ -204,9 +204,7 @@ namespace EksamensProjekt2021
 
             }
 
-
-            _spriteBatch.DrawString(HUDFont, $"Health:  {player.currentHealth}/100", new Vector2(15, 10), Color.White);
-            _spriteBatch.DrawString(HUDFont, $"Armor:   {player.currentArmor}/50", new Vector2(15, 32), Color.White);
+            
 
             ui.Draw(_spriteBatch);
 

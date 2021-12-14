@@ -16,7 +16,7 @@ namespace EksamensProjekt2021
         byte height;
 
         float animTimer;
-        int fpsThreshold = 1; //Seconds between frames
+        float fpsThreshold = 0.33f; //Seconds between frames
         Rectangle[] source = new Rectangle[4];
         byte frameIndex = 0;
 
