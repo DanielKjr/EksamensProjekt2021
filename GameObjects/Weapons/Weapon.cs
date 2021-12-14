@@ -17,8 +17,10 @@ namespace EksamensProjekt2021
         protected int fireRate;
         protected float rotation;
         protected SpriteEffects weaponMirror;
+        protected bool canHurtPlayer;
 
-       
+        public bool CanHurtPlayer { get => canHurtPlayer; set => canHurtPlayer = value; }
+
 
         protected SoundEffect gunFire;
 

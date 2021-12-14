@@ -45,7 +45,7 @@ namespace EksamensProjekt2021
 
             if (weapon == 0)                                      //50/50 chance that enemy has a tomahowk or molotov
             {
-                GameWorld.Instantiate(new Enemy(new Vector2(EXPos, EYPOS), new Tomahawk())); 
+                GameWorld.Instantiate(new Enemy(new Vector2(EXPos, EYPOS), new Tomahawk(true))); 
             }
             else
             {

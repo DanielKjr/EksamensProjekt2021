@@ -84,7 +84,7 @@ namespace EksamensProjekt2021
             health = 100;
             armor = 50;
 
-            weapon = new AK47();
+            weapon = new M16();
             isAlive = true;
 
             PlayerPosition = position;
@@ -119,6 +119,7 @@ namespace EksamensProjekt2021
             //set weapon position so it knows where to draw it
             weapon.Position = new Vector2(Position.X, Position.Y);
 
+
             //mstate to create mouse position
             mState = Mouse.GetState();
             mousePosition = new Vector2(mState.X - 20, mState.Y - 20);
@@ -134,6 +135,7 @@ namespace EksamensProjekt2021
                 weapon.WeaponMirror = SpriteEffects.None;
                 direction = Dir.Right;
                 weapon.Position = new Vector2(Position.X + 10, Position.Y);
+
             }
             else
             {
@@ -158,6 +160,7 @@ namespace EksamensProjekt2021
                 weapon.ShootWeapon(mousePosition);
 
                 weapon.GunFire.Play();
+              
 
             }
 
@@ -167,7 +170,7 @@ namespace EksamensProjekt2021
             }
         }
 
-        private void Damage(int damage)
+        public void Damage(int damage)
         {
             if (armor != 0)
             {
@@ -190,11 +193,7 @@ namespace EksamensProjekt2021
         }
         public override void OnCollision(GameObject other)
         {
-            if (other is Projectile)
-            {
-                Damage(weapon.Damage);
-                GameWorld.Despawn(other);
-            }
+            
         }
 
         public void MedkitHeal(int Healthplus)
@@ -276,7 +275,7 @@ namespace EksamensProjekt2021
 
             weapon.LoadContent(content);
 
-            //  weapon.Origin = new Vector2(20,20);
+
 
             trumpWalkRight = content.Load<Texture2D>("trumpWalkRight");
             trumpWalkLeft = content.Load<Texture2D>("trumpWalkLeft");
