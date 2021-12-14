@@ -61,8 +61,20 @@ namespace EksamensProjekt2021
 
         public override void LoadContent(ContentManager content)
         {
+            Random rnd = new Random();
+            sprites = new Texture2D[7];
 
-            sprite = content.Load<Texture2D>("Enemy2");
+            sprites[0] = content.Load<Texture2D>("Enemies/Ninja");
+            sprites[1] = content.Load<Texture2D>("Enemies/Police");
+            sprites[2] = content.Load<Texture2D>("Enemies/Karen");
+            sprites[3] = content.Load<Texture2D>("Enemies/Biden2");
+            sprites[4] = content.Load<Texture2D>("Enemies/American");
+            sprites[5] = content.Load<Texture2D>("Enemies/Gangster");
+            sprites[6] = content.Load<Texture2D>("Enemies/Chinese");
+
+            int i = rnd.Next(0, 6);
+            sprite = sprites[i];
+
             //skal have en Weapon.LoadContent(Content); for at kunne loade våbnets sprite, samme går for spilleren når vi når dertil
             weapon.LoadContent(content);
 
