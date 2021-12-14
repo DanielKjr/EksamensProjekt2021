@@ -75,12 +75,6 @@ namespace EksamensProjekt2021
 
         public abstract void Update(GameTime gameTime);
 
-        //måske abstract? ikke sikker ud fra uml
-        protected void Animate(GameTime gameTIme)
-        {
-
-        }
-
         public abstract void OnCollision(GameObject other);
 
         public void CheckCollision(GameObject other)

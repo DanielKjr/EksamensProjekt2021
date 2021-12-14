@@ -69,20 +69,6 @@ namespace EksamensProjekt2021
 
         }
 
-
-
-
-        public void RemoveObject(GameObject go)
-        {
-
-        }
-
-        private void AddEnemy()
-        {
-            Enemy enemy = new Enemy();
-            gameObjects.Add(enemy);
-        }
-
         protected override void Initialize()
         {
             _graphics.IsFullScreen = false;
