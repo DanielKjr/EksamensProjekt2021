@@ -18,6 +18,17 @@ namespace EksamensProjekt2021
                 AddEnemy();
             }
         }
+        public void LootSpawner()
+        {
+            for (int i = 0; i < rnd.Next(1,3); i++) //Spawns 1-2 medkits
+            {
+                GameWorld.Instantiate(new Medkit(new Vector2(rnd.Next(0, (int)GameWorld.screenSize.X), rnd.Next(0, (int)GameWorld.screenSize.Y)),
+                    (byte)RoomManager.playerInRoom[0], (byte)RoomManager.playerInRoom[1]));
+            }
+
+            //Add weapon spawner here.
+
+        }
 
         /// <summary>
         /// adds enemies with random position and weapon

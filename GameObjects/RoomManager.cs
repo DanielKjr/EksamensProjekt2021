@@ -16,7 +16,7 @@ namespace EksamensProjekt2021
         public static byte[,] roomLayout = new byte[5, 5];
         public static byte[,] roomStyle = new byte[5, 5]; //0-3
         public static bool[,] revealedRoom = new bool[5, 5];
-        public static byte[] playerInRoom = new byte[2]; //See which room the player is in. (X, Y)
+        public static sbyte[] playerInRoom = new sbyte[2]; //See which room the player is in. (X, Y)
         public static int roomsCleared;
         public static int levelsCleared;
         public static byte mapReruns = 0; //See how many times the RoomsGenerator needed to run
@@ -39,6 +39,13 @@ namespace EksamensProjekt2021
                 {
                     roomsCleared++;
                     levelsCleared++;
+                    foreach (var item in GameWorld.gameObjects) //Deletes all leftover items
+                    {
+                        if(item is Item)
+                        {
+                            GameWorld.Despawn(item);
+                        }
+                    }
                     CreateMap(9);
                 }
                 else if (roomLayout[playerInRoom[0], playerInRoom[1]] >= 2) //Clear room in level
@@ -190,8 +197,8 @@ namespace EksamensProjekt2021
             roomLayout[rndX, rndY] = 1;  //Sets inital spawn room
             CreateStyle(rndX, rndY); //Create style for inital room
             index = new int[2] { rndX, rndY, }; //Sets index to spawn room.
-            playerInRoom[0] = rndX; //Set new player coords.
-            playerInRoom[1] = rndY;
+            playerInRoom[0] = (sbyte)rndX; //Set new player coords.
+            playerInRoom[1] = (sbyte)rndY;
         }
         /// <summary>
         /// Loads Wall & Door sprites
@@ -234,8 +241,8 @@ namespace EksamensProjekt2021
         /// </summary>
         public void RevealRooms()
         {
-            byte x = playerInRoom[0];
-            byte y = playerInRoom[1];
+            sbyte x = playerInRoom[0];
+            sbyte y = playerInRoom[1];
             revealedRoom[x, y] = true;
             for (int i = -1; i < 2; i += 2)
             {
@@ -253,6 +260,42 @@ namespace EksamensProjekt2021
                         revealedRoom[x, y + i] = true; //Reveal room up and down
                     }
                 }
+            }
+        }
+        /// <summary>
+        /// Called when the player changes rooms. Called in Door OnCollision.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public void ChangeRoom(sbyte x, sbyte y)
+        {
+            //Change player pos to match entering new room from that door
+            if (x == -1) GameWorld.player.Position = new Vector2(GameWorld.screenSize.X - 146, GameWorld.screenSize.Y / 2);
+            if (x == 1) GameWorld.player.Position = new Vector2(146, GameWorld.screenSize.Y / 2);
+            if (y == -1) GameWorld.player.Position = new Vector2(GameWorld.screenSize.X / 2, GameWorld.screenSize.Y - 144);
+            if (y== 1) GameWorld.player.Position = new Vector2(GameWorld.screenSize.X / 2, 144);
+            playerInRoom[0] += x; //Sets player room pos to new room
+            playerInRoom[1] += y;
+            Debug(0, 0);
+            RevealRooms();
+            switch (roomLayout[playerInRoom[0], playerInRoom[1]])
+            {
+                case 2:
+                    GameWorld.gameFlow.EnemySpawner();
+                    break;
+                case 3:
+                    GameWorld.gameFlow.EnemySpawner();
+                    GameWorld.gameFlow.EnemySpawner();
+                    break;
+                case 4:
+                    GameWorld.gameFlow.LootSpawner();
+                    break;
+                case 5:
+                    GameWorld.gameFlow.EnemySpawner();
+                    GameWorld.gameFlow.EnemySpawner();
+                    GameWorld.gameFlow.EnemySpawner();
+                    GameWorld.gameFlow.EnemySpawner();
+                    break;
             }
         }
     }
