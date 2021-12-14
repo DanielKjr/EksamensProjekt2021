@@ -91,6 +91,8 @@ namespace EksamensProjekt2021
             spriteBatch.DrawString(GameWorld.HUDFont, $"Level:{RoomManager.levelsCleared}", new Vector2(boxPosition.X + 375, boxPosition.Y + 5), Color.White);
             spriteBatch.DrawString(GameWorld.HUDFont, $"Rooms Cleared:{RoomManager.roomsCleared}", new Vector2(boxPosition.X + 375, boxPosition.Y + 30), Color.White);
 
+            spriteBatch.DrawString(GameWorld.HUDFont, $"Enemies:{GameWorld.EnemyCount}", new Vector2(10, 30), Color.White);
+
 
 
             if (GameWorld.player.IsAlive == false)

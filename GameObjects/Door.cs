@@ -16,7 +16,7 @@ namespace EksamensProjekt2021
         byte height;
 
         float animTimer;
-        int fpsThreshold = 1; //Seconds between frames
+        float fpsThreshold = 0.33f; //Seconds between frames
         Rectangle[] source = new Rectangle[4];
         byte frameIndex = 0;
 
@@ -127,26 +127,7 @@ namespace EksamensProjekt2021
         {
             if (other is Player && activeDoor) // Only allow collision if the door is active
             {
-                //Change player pos to match entering new room from that door
-                if (placementDir.X == -1) GameWorld.player.Position = new Vector2(GameWorld.screenSize.X - width * 2, GameWorld.screenSize.Y / 2);
-                if (placementDir.X == 1) GameWorld.player.Position = new Vector2(width * 2, GameWorld.screenSize.Y / 2);
-                if (placementDir.Y == -1) GameWorld.player.Position = new Vector2(GameWorld.screenSize.X / 2, GameWorld.screenSize.Y - height * 2);
-                if (placementDir.Y == 1) GameWorld.player.Position = new Vector2(GameWorld.screenSize.X / 2, height * 2);
-                RoomManager.playerInRoom[0] += (byte)placementDir.X; //Sets player room pos to new room
-                RoomManager.playerInRoom[1] += (byte)placementDir.Y;
-                GameWorld.roomManager.Debug(0, 0);
-                GameWorld.roomManager.RevealRooms();
-                if (RoomManager.roomLayout[RoomManager.playerInRoom[0], RoomManager.playerInRoom[1]] == 2
-                    && RoomManager.roomLayout[RoomManager.playerInRoom[0], RoomManager.playerInRoom[1]] == 3)
-                {
-                    GameWorld.gameFlow.EnemySpawner(); //Only spawn enemies if the next room is a fighting room.
-                }
-                if (RoomManager.roomLayout[RoomManager.playerInRoom[0], RoomManager.playerInRoom[1]] == 5)
-                {
-                    //SPAWN BOSS HERE -------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                    GameWorld.gameFlow.EnemySpawner();
-                    GameWorld.gameFlow.EnemySpawner();
-                }
+                GameWorld.roomManager.ChangeRoom((sbyte)placementDir.X, (sbyte)placementDir.Y);
             }
         }
         /// <summary>
