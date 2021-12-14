@@ -11,7 +11,7 @@ namespace EksamensProjekt2021
     {
 
 
-        public Projectile(Texture2D sprite, Vector2 position, Vector2 target, byte damage, float throwRotationSpeed)
+        public Projectile(Texture2D sprite, Vector2 position, Vector2 target, byte damage, float throwRotationSpeed, Vector2 origin)
         {
             this.damage = damage;
             this.sprite = sprite;
@@ -21,10 +21,11 @@ namespace EksamensProjekt2021
             this.throwRotationSpeed = throwRotationSpeed;
             throwRotation -= throwRotationSpeed;
             moveSpeed = 400;
+            this.origin = origin;
             
         }
 
-        public Projectile(Texture2D sprite, Vector2 position, Vector2 target, byte damage, float throwRotationSpeed, bool canHurtPlayer)
+        public Projectile(Texture2D sprite, Vector2 position, Vector2 target, byte damage, float throwRotationSpeed, bool canHurtPlayer, Vector2 origin)
         {
             this.damage = damage;
             this.sprite = sprite;
@@ -35,6 +36,7 @@ namespace EksamensProjekt2021
             throwRotation -= throwRotationSpeed;
             moveSpeed = 400;
             this.canHurtPlayer = canHurtPlayer;
+            this.origin = origin;
 
 
         }

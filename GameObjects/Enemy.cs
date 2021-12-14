@@ -87,7 +87,7 @@ namespace EksamensProjekt2021
 
         public override void Update(GameTime gameTime)
         {
-
+            
             EnemyTargeting(gameTime);
             Movement(gameTime);
 
@@ -152,7 +152,6 @@ namespace EksamensProjekt2021
         {
             if (other is HitscanShoot)
             {
-
                 if (health <= 0)
                 {
                     GameWorld.EnemyCount--;
@@ -160,10 +159,12 @@ namespace EksamensProjekt2021
                 }
 
 
+
                 GameWorld.Despawn(other);
             }
             else if (other is Projectile && weapon.CanHurtPlayer)
             {
+                
                 if (health <= 0)
                 {
                     GameWorld.EnemyCount--;

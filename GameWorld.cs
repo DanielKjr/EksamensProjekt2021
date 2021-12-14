@@ -28,7 +28,7 @@ namespace EksamensProjekt2021
         public static List<GameObject> projectiles;
 
         public static Player player;
-       
+
         public static Enemy enemy;
         public static GameFlow gameFlow;
 
@@ -69,6 +69,8 @@ namespace EksamensProjekt2021
 
         }
 
+
+
         protected override void Initialize()
         {
             _graphics.IsFullScreen = false;
@@ -78,7 +80,7 @@ namespace EksamensProjekt2021
             screenSize = new Vector2(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
             player = new Player();
-
+           
 
             
             ui = new UserInterface();
@@ -150,6 +152,7 @@ namespace EksamensProjekt2021
 
             if (player.IsAlive)
             {
+                
                 roomManager.Update();
                 player.Update(gameTime);
                 UpdateGameObjects(gameTime);
@@ -176,6 +179,7 @@ namespace EksamensProjekt2021
             roomManager.DrawRoom(_spriteBatch);
             _spriteBatch.Draw(cursor, new Vector2(player.MousePosition.X, player.MousePosition.Y), null, Color.Red);
             ui.Draw(_spriteBatch);
+
             foreach (GameObject go in gameObjects)
             {
                 go.Draw(_spriteBatch);

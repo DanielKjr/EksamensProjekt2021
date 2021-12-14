@@ -19,6 +19,7 @@ namespace EksamensProjekt2021
         protected SpriteEffects weaponMirror;
         protected bool canHurtPlayer;
 
+
         public bool CanHurtPlayer { get => canHurtPlayer; set => canHurtPlayer = value; }
 
 
@@ -37,14 +38,16 @@ namespace EksamensProjekt2021
 
         public Weapon()
         {
-           
+          
+            
+
         }
 
 
 
         public override void OnCollision(GameObject other)
         {
-
+            
 
         }
 
@@ -71,6 +74,7 @@ namespace EksamensProjekt2021
 
         public override void Update(GameTime gameTime)
         {
+            
             
 
         }

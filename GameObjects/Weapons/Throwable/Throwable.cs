@@ -13,7 +13,16 @@ namespace EksamensProjekt2021
         protected float throwRotation = 0f;
         protected float throwRotationSpeed;
 
-
+        public override Rectangle Collision
+        {
+            get {
+                return new Rectangle(
+              (int)(Position.X - 20 ),
+              (int)(Position.Y - 20),
+              sprite.Height,
+              sprite.Width);
+            }
+        }
 
         /// <summary>
         /// This version of the ShootWeapon function will instantiate a projectile from the current position towards the target.
@@ -24,11 +33,11 @@ namespace EksamensProjekt2021
 
             if (!canHurtPlayer)
             {
-                GameWorld.Instantiate(new Projectile(sprite, Position, target, damage, throwRotationSpeed));
+                GameWorld.Instantiate(new Projectile(sprite, Position, target, damage, throwRotationSpeed, origin));
             }
             else
             {
-                GameWorld.Instantiate(new Projectile(sprite, Position, target, damage, throwRotationSpeed, true));
+                GameWorld.Instantiate(new Projectile(sprite, Position, target, damage, throwRotationSpeed, true, origin));
             }
            
            
