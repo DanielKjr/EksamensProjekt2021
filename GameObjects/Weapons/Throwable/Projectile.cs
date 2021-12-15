@@ -34,7 +34,7 @@ namespace EksamensProjekt2021
             this.origin = Vector2.Zero;
             this.throwRotationSpeed = throwRotationSpeed;
             throwRotation -= throwRotationSpeed;
-            moveSpeed = 400;
+            moveSpeed = 600;
             this.canHurtPlayer = canHurtPlayer;
             this.origin = origin;
 

@@ -81,6 +81,7 @@ namespace EksamensProjekt2021
 
             player = new Player();
            
+           
 
             
             ui = new UserInterface();
@@ -177,14 +178,26 @@ namespace EksamensProjekt2021
             GraphicsDevice.Clear(Color.CornflowerBlue);
             _spriteBatch.Begin();
             roomManager.DrawRoom(_spriteBatch);
-            _spriteBatch.Draw(cursor, new Vector2(player.MousePosition.X, player.MousePosition.Y), null, Color.Red);
+
+            //skal måske flyttes
+            if (Vector2.Distance(player.MousePosition, player.Position) < player.CurrentWeapon.Range)
+            {
+                _spriteBatch.Draw(cursor, new Vector2(player.MousePosition.X, player.MousePosition.Y), null, Color.Red);
+            }
+            else
+            {
+                _spriteBatch.Draw(cursor, new Vector2(player.MousePosition.X, player.MousePosition.Y), null, Color.Green);
+            }
+           
+           
             ui.Draw(_spriteBatch);
 
             foreach (GameObject go in gameObjects)
             {
                 go.Draw(_spriteBatch);
-
+#if DEBUG
                 DrawCollisionBox(go);
+#endif
 
             }
 

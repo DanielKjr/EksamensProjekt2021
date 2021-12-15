@@ -31,7 +31,9 @@ namespace EksamensProjekt2021
             //target, hvad enemien prøver at skyde efter og følger efter (den følger spilleren der er instantieret i GameWorld)
             target = playerPos.Position;
 
-            this.origin = Vector2.Zero;
+
+            
+            origin = Vector2.Zero;
 
             //Movespeed, hvor hurtig de skal bevæge sig
             moveSpeed = 100;
@@ -90,6 +92,7 @@ namespace EksamensProjekt2021
             
             EnemyTargeting(gameTime);
             Movement(gameTime);
+           
 
             if (health <= 0)
             {
@@ -152,6 +155,8 @@ namespace EksamensProjekt2021
 
 
         }
+
+      
 
 
         public override void OnCollision(GameObject other)

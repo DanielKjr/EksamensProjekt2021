@@ -11,7 +11,9 @@ namespace EksamensProjekt2021
         public List<Item> items = new List<Item>();
 
         protected int nextWeapon;
-
+        protected bool show;
+        protected byte xByte;
+        protected byte yByte;
         public int NextWeapon { get => nextWeapon; set => nextWeapon = value; }
 
 
@@ -29,7 +31,11 @@ namespace EksamensProjekt2021
 
         public override void Update(GameTime gameTime)
         {
-            
+            if (RoomManager.playerInRoom[0] == xByte && RoomManager.playerInRoom[1] == yByte)
+            {
+                show = true;
+            }
+            else show = false;
         }
     }
 }

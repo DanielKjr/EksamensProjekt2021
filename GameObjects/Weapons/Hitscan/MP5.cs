@@ -10,9 +10,10 @@ namespace EksamensProjekt2021
         public MP5()
         {
             range = 500;
-            damage = 6;
+            damage = 2;
             
-
+            moveSpeed = 200;
+            fireRate = 1;
         }
 
 

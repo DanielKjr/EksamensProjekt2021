@@ -12,10 +12,10 @@ namespace EksamensProjekt2021
     {
 
         //if Hitscan has any unique attributes this is where they should be
-       
+
         public Hitscan()
         {
-           
+
         }
 
         public static void Shoot()
@@ -38,28 +38,33 @@ namespace EksamensProjekt2021
         public override void ShootWeapon(Vector2 target)
         {
 
+
             GameWorld.Instantiate(new HitscanShoot(Position, target, damage));
 
-           
+
+
+
 
         }
 
-       
+        
+
+
 
         public override void Update(GameTime gameTime)
         {
-            
-            
+
+
         }
         public override void LoadContent(ContentManager content)
         {
             //skal være her men tror ikke noget skal loades her
-            
 
-           
+
+
         }
 
-      
+
 
     }
 }
