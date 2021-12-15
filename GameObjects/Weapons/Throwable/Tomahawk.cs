@@ -14,15 +14,16 @@ namespace EksamensProjekt2021
         public Tomahawk()
         {
             range = 700;
-            damage = 5;
+            damage = 10;
             throwRotationSpeed = 6f;
-            fireRate = 1;
+            fireRate = 2;
+            moveSpeed = 250;
         }
 
         public Tomahawk(bool canHurtPlayer)
         {
             range = 700;
-            damage = 5;
+            damage = 15;
             throwRotationSpeed = 6f;
             fireRate = 1;
             this.canHurtPlayer = canHurtPlayer;

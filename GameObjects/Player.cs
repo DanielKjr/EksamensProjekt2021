@@ -21,9 +21,10 @@ namespace EksamensProjekt2021
         private Vector2 mousePosition;
         private bool mLeftReleased = true;
 
+        private double timer = 1;
 
-
-        private int speed = 250;
+        //  private int speed = 250;
+        private float speed;
 
         //en værdi vi bare kan ændre til at passe med hvor hurtigt vi vil ha ham. bliver brugt i udregninen af når han bevæger sig
         private bool isMoving = false;
@@ -85,7 +86,7 @@ namespace EksamensProjekt2021
             health = 100;
             armor = 50;
 
-            weapon = new MP5();
+            weapon = new M16();
             isAlive = true;
 
             PlayerPosition = position;
@@ -120,7 +121,7 @@ namespace EksamensProjekt2021
             //set weapon position so it knows where to draw it
             weapon.Position = new Vector2(Position.X, Position.Y);
 
-
+            speed = weapon.MoveSpeed;
 
 
             //mstate to create mouse position
@@ -156,14 +157,18 @@ namespace EksamensProjekt2021
         /// <param name="gameTime"></param>
         private void PlayerShoot(GameTime gameTime)
         {
+            timer -= gameTime.ElapsedGameTime.TotalSeconds;
             if (mState.LeftButton == ButtonState.Pressed && mLeftReleased == true && Vector2.Distance(Position, mousePosition) < weapon.Range)
             {
+                if (timer <= 0)
+                {
+                    mLeftReleased = false;
+                    weapon.ShootWeapon(mousePosition);
 
-                mLeftReleased = false;
-                weapon.ShootWeapon(mousePosition);
+                    weapon.GunFire.Play();
 
-                weapon.GunFire.Play();
-
+                    timer = weapon.FireRate;
+                }
 
             }
 
@@ -175,7 +180,7 @@ namespace EksamensProjekt2021
 
         public void Damage(int damage)
         {
-            if (armor != 0)
+            if (armor != 0 && armor >= 0)
             {
                 armor -= damage;
 
@@ -196,10 +201,7 @@ namespace EksamensProjekt2021
         }
         public override void OnCollision(GameObject other)
         {
-            if (other is WeaponPickup)
-            {
-
-            }
+           
 
         }
 
@@ -222,7 +224,10 @@ namespace EksamensProjekt2021
 
         public void MedkitHeal(int Healthplus)
         {
-            Health += Healthplus;
+            
+                health += Healthplus;
+            
+            
         }
 
         public override void Draw(SpriteBatch spriteBatch)

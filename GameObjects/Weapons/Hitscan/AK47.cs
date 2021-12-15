@@ -14,6 +14,8 @@ namespace EksamensProjekt2021
 
             range = 700;
             damage = 5;
+            moveSpeed = 150;
+            fireRate = 1.7d;
 
         }
 

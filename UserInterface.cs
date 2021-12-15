@@ -20,6 +20,7 @@ namespace EksamensProjekt2021
         private Vector2 trumpVector = new Vector2((GameWorld.screenSize.X / 2 + 30), GameWorld.screenSize.Y);
 
 
+    
 
 
         private Color color;
@@ -52,8 +53,14 @@ namespace EksamensProjekt2021
             wSprite = GameWorld.player.CurrentWeapon.UISprite;
             weapon = GameWorld.player.CurrentWeapon;
 
+           
+           
+
+
             float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
             KeyboardState kState = Keyboard.GetState();
+
+            
 
 
             
@@ -74,6 +81,7 @@ namespace EksamensProjekt2021
         public void Draw(SpriteBatch spriteBatch)
         {
             StatusBar(spriteBatch);
+
 
             spriteBatch.Draw(UIBox276, new Vector2(boxPosition.X, boxPosition.Y), Color.White);
             spriteBatch.Draw(trumpGraph, new Rectangle((int)boxPosition.X - 10, (int)boxPosition.Y + 140, 300, 300), Color.White);
@@ -100,9 +108,11 @@ namespace EksamensProjekt2021
                 spriteBatch.Draw(trumpSad, new Vector2(trumpVector.X, trumpVector.Y), Color.White);
             }
 
+#if DEBUG
             spriteBatch.DrawString(GameWorld.HUDFont, $"HP   :{GameWorld.player.Health}/100", new Vector2(10, 5), Color.White);
             spriteBatch.DrawString(GameWorld.HUDFont, $"Armor:{GameWorld.player.Armor}/50", new Vector2(10, 30), Color.White);
-
+            spriteBatch.DrawString(GameWorld.HUDFont, $"Enemies:{GameWorld.EnemyCount}", new Vector2(100, 100), Color.White);
+#endif
             mapDisplay(spriteBatch);
         }
         public void mapDisplay(SpriteBatch spriteBatch)
@@ -141,5 +151,7 @@ namespace EksamensProjekt2021
             spriteBatch.Draw(sprite, bar, Color.Green);
             spriteBatch.Draw(sprite, armorBar, Color.Blue);
         }
+
+
     }
 }

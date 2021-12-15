@@ -32,6 +32,8 @@ namespace EksamensProjekt2021
         {
             nextWeapon = rnd.Next(0, 3);
             this.position = Position;
+            xByte = (byte)this.position.X;
+            yByte = (byte)this.position.Y;
 
         }
 
