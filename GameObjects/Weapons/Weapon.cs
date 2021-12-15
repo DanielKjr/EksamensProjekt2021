@@ -14,16 +14,20 @@ namespace EksamensProjekt2021
     {
         protected int range;
         protected byte damage;
-        protected int fireRate;
+        protected double fireRate;
         protected float rotation;
         protected SpriteEffects weaponMirror;
-
-       
-
+        protected bool canHurtPlayer;
         protected SoundEffect gunFire;
 
+
+        public bool CanHurtPlayer { get => canHurtPlayer; set => canHurtPlayer = value; }
+
+
+        public float MoveSpeed { get => moveSpeed; }
+
         public int Range { get => range;  }
-        public int FireRate { get => fireRate;  }
+        public double FireRate { get => fireRate;  }
         public float Rotation { get => rotation; set => rotation = value; }
         public byte Damage { get => damage; }
 
@@ -33,16 +37,12 @@ namespace EksamensProjekt2021
         public Texture2D UISprite { get => sprite; }
         public string WName { get => GetType().Name;  }
 
-        public Weapon()
-        {
-           
-        }
-
+  
 
 
         public override void OnCollision(GameObject other)
         {
-
+            
 
         }
 
@@ -69,6 +69,7 @@ namespace EksamensProjekt2021
 
         public override void Update(GameTime gameTime)
         {
+            
             
 
         }

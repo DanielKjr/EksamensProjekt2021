@@ -11,17 +11,18 @@ namespace EksamensProjekt2021
 
     public class Enemy : GameObject
     {
-        protected Vector2 moveDir;        
+        protected Vector2 moveDir;
         private Weapon weapon;
-       
+
         protected GameObject playerPos = GameWorld.player;
         private double timer = 2;
+
 
         public Enemy() : base()
         {
             GameWorld.EnemyCount++;
             //enemy skal have et våben, lige nu er det bare Throwable men når vi får ting ind som en tomahawk ville det være new Tomahawk()
-            this.weapon = new Tomahawk();
+            this.weapon = new Tomahawk(true);
 
 
             //positionen som enemien spawner på
@@ -29,14 +30,19 @@ namespace EksamensProjekt2021
 
             //target, hvad enemien prøver at skyde efter og følger efter (den følger spilleren der er instantieret i GameWorld)
             target = playerPos.Position;
+
+
             
-            this.origin = Vector2.Zero;
+            origin = Vector2.Zero;
 
             //Movespeed, hvor hurtig de skal bevæge sig
             moveSpeed = 100;
 
             //hvor meget liv de har 
             health = 10;
+
+            weapon.CanHurtPlayer = true;
+           
 
         }
 
@@ -55,14 +61,27 @@ namespace EksamensProjekt2021
             target = playerPos.Position;
             moveSpeed = 50;
             health = 10;
+            weapon.CanHurtPlayer = true;
         }
 
 
 
         public override void LoadContent(ContentManager content)
         {
+            Random rnd = new Random();
+            sprites = new Texture2D[7];
 
-            sprite = content.Load<Texture2D>("Enemy2");
+            sprites[0] = content.Load<Texture2D>("Enemies/Ninja");
+            sprites[1] = content.Load<Texture2D>("Enemies/Police");
+            sprites[2] = content.Load<Texture2D>("Enemies/Karen");
+            sprites[3] = content.Load<Texture2D>("Enemies/Biden2");
+            sprites[4] = content.Load<Texture2D>("Enemies/American");
+            sprites[5] = content.Load<Texture2D>("Enemies/Gangster");
+            sprites[6] = content.Load<Texture2D>("Enemies/Chinese");
+
+            int i = rnd.Next(0, 6);
+            sprite = sprites[i];
+
             //skal have en Weapon.LoadContent(Content); for at kunne loade våbnets sprite, samme går for spilleren når vi når dertil
             weapon.LoadContent(content);
 
@@ -73,10 +92,18 @@ namespace EksamensProjekt2021
             
             EnemyTargeting(gameTime);
             Movement(gameTime);
-            
+           
+
+            if (health <= 0)
+            {
+                GameWorld.EnemyCount--;
+                GameWorld.Despawn(this);
+            }
+
         }
 
-       
+
+
 
         /// <summary>
         /// should only run in Update, updates the weapons position, which follows the Enemy, and the players position.
@@ -91,21 +118,23 @@ namespace EksamensProjekt2021
 
             if (Vector2.Distance(Position, playerPos.Position) < weapon.Range)
             {
-               
+
                 if (timer <= 0)
                 {
                     //bruger våbnets ShootWeapon, på samme måde som med Player går det an på hvad våben de har, men de burde kun have throwable
                     weapon.ShootWeapon(target);
                     //sætter timeren til at være lig med våbnets FireRate
                     timer = weapon.FireRate;
+
+
                 }
-                       
-              
+
+
             }
 
         }
 
-        
+     
 
         /// <summary>
         /// Moves the enemy towards the Player
@@ -114,7 +143,7 @@ namespace EksamensProjekt2021
         /// <param name="PlayerPosition"></param>
         public virtual void Movement(GameTime gameTime)
         {
-           
+
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             moveDir = playerPos.Position - new Vector2(Position.X + 50, Position.Y - 40);
             moveDir.Normalize();
@@ -127,24 +156,15 @@ namespace EksamensProjekt2021
 
         }
 
+      
+
 
         public override void OnCollision(GameObject other)
         {
-            if (other is HitscanShoot)
-            {
-                                
-                if (health <= 0)
-                {
-                    GameWorld.EnemyCount--;
-                    GameWorld.Despawn(this);
-                }
-               
 
-                GameWorld.Despawn(other);
-            }
 
         }
 
-       
+
     }
 }

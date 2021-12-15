@@ -20,12 +20,13 @@ namespace EksamensProjekt2021
         private Vector2 trumpVector = new Vector2((GameWorld.screenSize.X / 2 + 30), GameWorld.screenSize.Y);
 
 
+    
 
 
-        Color color;
-        byte dist = 12;
-        int offsetX;
-        int offsetY;
+        private Color color;
+        private byte dist = 12;
+        private int offsetX;
+        private int offsetY;
         private Texture2D sprite;
         public void LoadContent(ContentManager content)
         {
@@ -41,7 +42,7 @@ namespace EksamensProjekt2021
 
 
 
-            wSprite = GameWorld.player.CurrentWeapon.UISprite;
+           
 
             UIBox276 = content.Load<Texture2D>("UIBox276");
             boxPosition = new Vector2((GameWorld.screenSize.X / 2) - (UIBox276.Width/2), GameWorld.screenSize.Y);
@@ -49,13 +50,21 @@ namespace EksamensProjekt2021
 
         public void Update(GameTime gameTime)
         {
+            wSprite = GameWorld.player.CurrentWeapon.UISprite;
+            weapon = GameWorld.player.CurrentWeapon;
+
+           
+           
+
+
             float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
             KeyboardState kState = Keyboard.GetState();
 
-            weapon = GameWorld.player.CurrentWeapon;
+            
+
+
+            
             if (kState.IsKeyDown(Keys.Tab) && boxPosition.Y >= 455)
-
-
             {
                 boxPosition.Y -= 650 * dt;
             }
@@ -72,6 +81,7 @@ namespace EksamensProjekt2021
         public void Draw(SpriteBatch spriteBatch)
         {
             StatusBar(spriteBatch);
+
 
             spriteBatch.Draw(UIBox276, new Vector2(boxPosition.X, boxPosition.Y), Color.White);
             spriteBatch.Draw(trumpGraph, new Rectangle((int)boxPosition.X - 10, (int)boxPosition.Y + 140, 300, 300), Color.White);
@@ -97,13 +107,14 @@ namespace EksamensProjekt2021
             {
                 spriteBatch.Draw(trumpSad, new Vector2(trumpVector.X, trumpVector.Y), Color.White);
             }
+
+#if DEBUG
+            spriteBatch.DrawString(GameWorld.HUDFont, $"HP   :{GameWorld.player.Health}/100", new Vector2(10, 5), Color.White);
+            spriteBatch.DrawString(GameWorld.HUDFont, $"Armor:{GameWorld.player.Armor}/50", new Vector2(10, 30), Color.White);
+            spriteBatch.DrawString(GameWorld.HUDFont, $"Enemies:{GameWorld.EnemyCount}", new Vector2(100, 100), Color.White);
+#endif
             mapDisplay(spriteBatch);
         }
-
-       
-
-
-
         public void mapDisplay(SpriteBatch spriteBatch)
         {
             for (int y = 0; y < RoomManager.roomLayout.GetLength(1); y++)
@@ -125,22 +136,22 @@ namespace EksamensProjekt2021
             }
         }
 
-
-
         /// <summary>
         /// Displays the current health and armor values of the player
         /// </summary>
         /// <param name="spriteBatch"></param>
         private void StatusBar(SpriteBatch spriteBatch)
         {
-            Rectangle bar = new Rectangle(20, (int)GameWorld.screenSize.Y - 120, GameWorld.player.CurrentHealth, 20);
+            Rectangle bar = new Rectangle(20, (int)GameWorld.screenSize.Y - 120, GameWorld.player.CurrentHealth *2, 20);
             Rectangle backDrop = new Rectangle(20, (int)GameWorld.screenSize.Y - 120, 100, 20);
-            Rectangle armorBar = new Rectangle(20, (int)GameWorld.screenSize.Y - 100, GameWorld.player.CurrentArmor, 20);
+            Rectangle armorBar = new Rectangle(20, (int)GameWorld.screenSize.Y - 100, GameWorld.player.CurrentArmor * 2, 20);
 
 
             spriteBatch.Draw(sprite, backDrop, Color.Red);
             spriteBatch.Draw(sprite, bar, Color.Green);
             spriteBatch.Draw(sprite, armorBar, Color.Blue);
         }
+
+
     }
 }

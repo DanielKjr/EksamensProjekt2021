@@ -13,22 +13,25 @@ namespace EksamensProjekt2021
         
         public Tomahawk()
         {
-
-
-
-
             range = 700;
-            damage = 5;
+            damage = 10;
+            throwRotationSpeed = 6f;
+            fireRate = 2;
+            moveSpeed = 250;
+        }
+
+        public Tomahawk(bool canHurtPlayer)
+        {
+            range = 700;
+            damage = 15;
             throwRotationSpeed = 6f;
             fireRate = 1;
+            this.canHurtPlayer = canHurtPlayer;
         }
-        
+
         public override void LoadContent(ContentManager content)
         {
             sprite = content.Load<Texture2D>("Weapons/lilleTomahawk");
-
-
-
 
 
             origin = new Vector2(this.sprite.Width / 2, this.sprite.Height / 2);
