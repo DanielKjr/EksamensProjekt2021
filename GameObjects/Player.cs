@@ -216,9 +216,11 @@ namespace EksamensProjekt2021
 
             if (newWeapon != null)
             {
+
                 this.weapon = newWeapon;
 
             }
+
 
         }
 
