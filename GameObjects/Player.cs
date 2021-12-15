@@ -192,9 +192,21 @@ namespace EksamensProjekt2021
         {
             if (other is Projectile)
             {
+                
                 Damage(weapon.Damage);
                 GameWorld.Despawn(other);
             }
+            if (other is BidenBallot)
+            {
+                Damage(10);
+                GameWorld.Despawn(other);
+            }
+            if (other is BidenBox)
+            {
+                Damage(5);
+                GameWorld.Despawn(other);
+            }
+            
         }
 
         public void MedkitHeal(int Healthplus)
