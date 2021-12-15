@@ -99,7 +99,7 @@ namespace EksamensProjekt2021
             gameObjects.Add(player);
 
 
-            AddGameObject(new Biden());
+            //AddGameObject(new Biden());
             AddGameObject(new Enemy());
 
 
