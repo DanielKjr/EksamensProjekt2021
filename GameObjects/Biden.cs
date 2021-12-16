@@ -59,7 +59,7 @@ namespace EksamensProjekt2021
                 
                 bidenEnemyX = (rand.Next(150, (int)GameWorld.screenSize.X - 100));
                 bidenEnemyY = (rand.Next(150, (int)GameWorld.screenSize.Y - 100));
-                GameWorld.Instantiate(new Enemy(new Vector2(bidenEnemyX, bidenEnemyY), new Tomahawk()));
+                GameWorld.Instantiate(new Enemy(new Vector2(bidenEnemyX, bidenEnemyY), new Tomahawk(true)));
                 dontTouchTimer = 10;
                 dontTouchTextTimer = 1.5f;
                 

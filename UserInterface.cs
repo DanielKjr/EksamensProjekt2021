@@ -45,7 +45,7 @@ namespace EksamensProjekt2021
            
 
             UIBox276 = content.Load<Texture2D>("UIBox276");
-            boxPosition = new Vector2((GameWorld.screenSize.X / 2) - (UIBox276.Width/2), GameWorld.screenSize.Y);
+            boxPosition = new Vector2((GameWorld.screenSize.X / 2) - (UIBox276.Width/2), GameWorld.screenSize.Y );
         }
 
         public void Update(GameTime gameTime)
@@ -64,7 +64,7 @@ namespace EksamensProjekt2021
 
 
             
-            if (kState.IsKeyDown(Keys.Tab) && boxPosition.Y >= 455)
+            if (kState.IsKeyDown(Keys.Tab) && boxPosition.Y >= GameWorld.screenSize.Y - 250)
             {
                 boxPosition.Y -= 650 * dt;
             }
@@ -97,6 +97,12 @@ namespace EksamensProjekt2021
                 }
 
                 spriteBatch.DrawString(GameWorld.HUDFont, $"{GameWorld.player.CurrentWeapon.WName}", new Vector2(boxPosition.X + 70, boxPosition.Y + 8), Color.White);
+                spriteBatch.DrawString(GameWorld.HUDWFont,
+                    $"Range: {GameWorld.player.CurrentWeapon.Range}\n" +
+                    $"Damage: {GameWorld.player.CurrentWeapon.Damage}\n" +
+                    $"FireRate: {GameWorld.player.CurrentWeapon.FireRate}",
+                    new Vector2(boxPosition.X + 70, boxPosition.Y + 80), Color.White);
+                
             }
             spriteBatch.DrawString(GameWorld.HUDFont, $"Level:{RoomManager.levelsCleared}", new Vector2(boxPosition.X + 375, boxPosition.Y + 5), Color.White);
             spriteBatch.DrawString(GameWorld.HUDFont, $"Rooms Cleared:{RoomManager.roomsCleared}", new Vector2(boxPosition.X + 375, boxPosition.Y + 30), Color.White);
@@ -144,7 +150,7 @@ namespace EksamensProjekt2021
         private void StatusBar(SpriteBatch spriteBatch)
         {
             Rectangle bar = new Rectangle(20, (int)GameWorld.screenSize.Y - 120, GameWorld.player.CurrentHealth *2, 20);
-            Rectangle backDrop = new Rectangle(20, (int)GameWorld.screenSize.Y - 120, 100, 20);
+            Rectangle backDrop = new Rectangle(20, (int)GameWorld.screenSize.Y - 120, 200, 20);
             Rectangle armorBar = new Rectangle(20, (int)GameWorld.screenSize.Y - 100, GameWorld.player.CurrentArmor * 2, 20);
 
 

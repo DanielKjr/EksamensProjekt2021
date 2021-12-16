@@ -43,6 +43,7 @@ namespace EksamensProjekt2021
         public static bool bossSpawned = false;
 
         public static SpriteFont HUDFont;
+        public static SpriteFont HUDWFont;
         public static Texture2D trumpSad;
 
         private Texture2D cursor;
@@ -126,7 +127,7 @@ namespace EksamensProjekt2021
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             HUDFont = Content.Load<SpriteFont>("HUDFont");
-
+            HUDWFont = Content.Load<SpriteFont>("HUDWFont");
             cursor = Content.Load<Texture2D>("crosshair");
 
             trumpSad = Content.Load<Texture2D>("trumpSad");
