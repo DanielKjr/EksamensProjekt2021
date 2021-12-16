@@ -112,6 +112,7 @@ namespace EksamensProjekt2021
             spriteBatch.DrawString(GameWorld.HUDFont, $"HP   :{GameWorld.player.Health}/100", new Vector2(10, 5), Color.White);
             spriteBatch.DrawString(GameWorld.HUDFont, $"Armor:{GameWorld.player.Armor}/50", new Vector2(10, 30), Color.White);
             spriteBatch.DrawString(GameWorld.HUDFont, $"Enemies:{GameWorld.EnemyCount}", new Vector2(100, 100), Color.White);
+           
 #endif
             mapDisplay(spriteBatch);
         }
@@ -150,7 +151,21 @@ namespace EksamensProjekt2021
             spriteBatch.Draw(sprite, backDrop, Color.Red);
             spriteBatch.Draw(sprite, bar, Color.Green);
             spriteBatch.Draw(sprite, armorBar, Color.Blue);
+
+            if (GameWorld.bossSpawned)
+            {
+                Rectangle bossBar = new Rectangle(20, 120, GameWorld.BidenHealth * 3, 60);
+                Rectangle bossBackDrop = new Rectangle(20, 120, GameWorld.BidenHealth * 3, 60);
+
+
+
+                spriteBatch.Draw(sprite, bossBackDrop, Color.Red);
+                spriteBatch.Draw(sprite, bossBar, Color.Green);
+            }
+
         }
+
+      
 
 
     }

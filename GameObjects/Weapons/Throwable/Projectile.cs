@@ -83,7 +83,7 @@ namespace EksamensProjekt2021
         public override void OnCollision(GameObject other)
         {
 
-            if (other is Enemy && !canHurtPlayer)
+            if (other is Enemy && !canHurtPlayer || other is Biden && !canHurtPlayer)
             {
                 other.Health -= damage;
                 

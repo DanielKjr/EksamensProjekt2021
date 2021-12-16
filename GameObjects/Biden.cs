@@ -23,6 +23,7 @@ namespace EksamensProjekt2021
         private bool dontTouch = false;
         private float dontTouchTextTimer = 5;
         private float dontTouchTimer = 10;
+        
         public Biden()
         {
             Position = new Vector2(800, 500);
@@ -86,6 +87,11 @@ namespace EksamensProjekt2021
             Movement(gameTime);
             BidenShoot(gameTime);
             BidenEnemySpawn(gameTime);
+            if (health <= 0)
+            {
+                GameWorld.Despawn(this);
+                GameWorld.bossSpawned = false;
+            }
         }
 
         public void BidenShoot(GameTime gameTime)

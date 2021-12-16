@@ -11,11 +11,13 @@ namespace EksamensProjekt2021
     {
 
         protected Vector2 ballotTarget = new Vector2(-1, 0);
+
         
         protected SpriteEffects weaponMirror;
         
         private float ballotRotation;
         private Random rand;
+       
 
         public BidenBox(Vector2 position, Vector2 target, byte damage, float throwRotationSpeed)
         {
@@ -48,7 +50,7 @@ namespace EksamensProjekt2021
         }
         public override void Update(GameTime gameTime)
         {
-
+            GameWorld.BidenHealth = health;
             BidenBoxShoot(gameTime, target);
             
             if (Vector2.Distance(Position, target) < 10)
@@ -66,8 +68,8 @@ namespace EksamensProjekt2021
             if (other is Player)
             {
 
-
-
+                GameWorld.player.Damage(10);
+                GameWorld.Despawn(this);
             }
 
         }
@@ -79,7 +81,8 @@ namespace EksamensProjekt2021
                 ballotTarget = new Vector2(playerPos.Position.X + (int)rand.Next(-75, 75), playerPos.Position.Y + (int)rand.Next(-75, 75));
                 Vector2 bRotate = ballotTarget - position;
                 BallotRotation = (float)Math.Atan2(bRotate.Y, bRotate.X);
-                GameWorld.Instantiate(new BidenBallot(position, ballotTarget, damage, BallotRotation));                
+                GameWorld.Instantiate(new BidenBallot(position, ballotTarget, damage, BallotRotation));
+ 
             }
 
 
@@ -92,6 +95,8 @@ namespace EksamensProjekt2021
             spriteBatch.Draw(sprite, position, null, Color.White, throwRotation, origin, 1, weaponMirror, 0);
 
         }
+
+        
         public override Rectangle Collision
         {
             get

@@ -47,10 +47,10 @@ namespace EksamensProjekt2021
 
         public void SpawnNewWeapon()
         {
-            nextWeapon = rnd.Next(0, 3);
+            nextWeapon = rnd.Next(0,101);
             
 
-            if (nextWeapon <= 2)
+            if (nextWeapon <= 40)
             {
                 GameWorld.Instantiate(new WeaponPickup(new Vector2(rnd.Next(0, (int)GameWorld.screenSize.X), rnd.Next(0, (int)GameWorld.screenSize.Y))));
             }

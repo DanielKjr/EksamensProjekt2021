@@ -59,8 +59,8 @@ namespace EksamensProjekt2021
             if (other is Player)
             {
 
-
-
+                GameWorld.player.Damage(5);
+                GameWorld.Despawn(this);
             }
 
         }
@@ -70,6 +70,8 @@ namespace EksamensProjekt2021
             spriteBatch.Draw(sprite, position, null, Color.White, ballotRotation, origin, 1, weaponMirror, 0);
 
         }
+
+        
         public override Rectangle Collision
         {
             get
