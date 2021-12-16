@@ -23,6 +23,9 @@ namespace EksamensProjekt2021
         private bool dontTouch = false;
         private float dontTouchTextTimer = 5;
         private float dontTouchTimer = 10;
+        
+        //TODO biden kan ikke dø lige pt, fordi at hans projektiler er alle sammen enemies og det resetter hans liv hver gang han angriber og enemy counteren går op forevigt så man kan ikke "vinde" 
+        //så en af de to under klasser skal nok laves til at våben og så den anden en underklasse af det våben, ellers så er alle 3 dele en Enemy 
         public Biden()
         {
             Position = new Vector2(800, 500);
@@ -86,6 +89,11 @@ namespace EksamensProjekt2021
             Movement(gameTime);
             BidenShoot(gameTime);
             BidenEnemySpawn(gameTime);
+            if (health <= 0)
+            {
+                GameWorld.Despawn(this);
+                GameWorld.bossSpawned = false;
+            }
         }
 
         public void BidenShoot(GameTime gameTime)

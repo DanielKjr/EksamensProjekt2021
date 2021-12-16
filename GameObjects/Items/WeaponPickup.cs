@@ -30,7 +30,7 @@ namespace EksamensProjekt2021
         }
         public WeaponPickup(Vector2 Position)
         {
-            nextWeapon = rnd.Next(0, 3);
+            nextWeapon = rnd.Next(0, 4);
             this.position = Position;
             xByte = (byte)this.position.X;
             yByte = (byte)this.position.Y;
@@ -69,7 +69,11 @@ namespace EksamensProjekt2021
                         weapon.LoadContent(content);
                         break;
                     }
+                
                 default:
+                    sprite = content.Load<Texture2D>("Weapons/MP5");
+                    weapon = new MP5();
+                    weapon.LoadContent(content);
                     break;
             }
 

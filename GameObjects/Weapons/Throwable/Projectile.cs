@@ -75,7 +75,7 @@ namespace EksamensProjekt2021
             if (Vector2.Distance(Position, target) < 10)
             {
                 GameWorld.Despawn(this);
-                //TODO add damage to player
+              
             }
             throwRotation += throwRotationSpeed;
         }
@@ -83,7 +83,7 @@ namespace EksamensProjekt2021
         public override void OnCollision(GameObject other)
         {
 
-            if (other is Enemy && !canHurtPlayer)
+            if (other is Enemy && !canHurtPlayer || other is Biden && !canHurtPlayer)
             {
                 other.Health -= damage;
                 

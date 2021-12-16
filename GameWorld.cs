@@ -39,7 +39,8 @@ namespace EksamensProjekt2021
 
 
         public static int EnemyCount;
-
+        public static int BidenHealth;
+        public static bool bossSpawned = false;
 
         public static SpriteFont HUDFont;
         public static Texture2D trumpSad;
@@ -100,7 +101,7 @@ namespace EksamensProjekt2021
 
 
             //AddGameObject(new Biden());
-            AddGameObject(new Enemy());
+         //   AddGameObject(new Enemy());
 
 
 

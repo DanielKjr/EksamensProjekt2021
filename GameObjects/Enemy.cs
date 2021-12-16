@@ -18,9 +18,10 @@ namespace EksamensProjekt2021
         private double timer = 2;
 
 
-        public Enemy() : base()
+        public Enemy() 
         {
             GameWorld.EnemyCount++;
+            /*
             //enemy skal have et våben, lige nu er det bare Throwable men når vi får ting ind som en tomahawk ville det være new Tomahawk()
             this.weapon = new Tomahawk(true);
 
@@ -42,7 +43,7 @@ namespace EksamensProjekt2021
             health = 10;
 
             weapon.CanHurtPlayer = true;
-           
+           */
 
         }
 
