@@ -58,7 +58,7 @@ namespace EksamensProjekt2021
 
                 BallotShoot(gameTime, ballotTarget);
                 GameWorld.Despawn(this);
-                //TODO add damage to player
+               
             }
             throwRotation += throwRotationSpeed;
         }

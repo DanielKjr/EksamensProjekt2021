@@ -49,7 +49,7 @@ namespace EksamensProjekt2021
             if (Vector2.Distance(Position, target) < 10)
             {
                 GameWorld.Despawn(this);
-                //TODO add damage to player
+               
             }
             
         }
