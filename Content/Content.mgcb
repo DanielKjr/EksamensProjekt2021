@@ -248,6 +248,13 @@
 /processorParam:TextureFormat=Compressed
 /build:HUDFont.spritefont
 
+#begin HUDWFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:HUDWFont.spritefont
+
 #begin medkit.png
 /importer:TextureImporter
 /processor:TextureProcessor

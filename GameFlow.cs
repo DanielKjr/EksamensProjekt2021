@@ -50,9 +50,9 @@ namespace EksamensProjekt2021
             nextWeapon = rnd.Next(0,101);
             
 
-            if (nextWeapon <= 40)
+            if (nextWeapon >= 20)
             {
-                GameWorld.Instantiate(new WeaponPickup(new Vector2(rnd.Next(0, (int)GameWorld.screenSize.X), rnd.Next(0, (int)GameWorld.screenSize.Y))));
+                GameWorld.Instantiate(new WeaponPickup(new Vector2(GameWorld.screenSize.X / 2, GameWorld.screenSize.Y /2)));
             }
            
         }

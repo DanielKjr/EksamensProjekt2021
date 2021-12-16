@@ -185,7 +185,7 @@ namespace EksamensProjekt2021
                 armor -= damage;
 
             }
-            else
+            else 
             {
                 health -= damage;
 
