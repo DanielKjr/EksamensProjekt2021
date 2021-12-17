@@ -10,7 +10,6 @@ namespace EksamensProjekt2021
         private Vector2 placementDir;
         private bool activeDoor;
         private SpriteEffects effect = SpriteEffects.None; //Needed for right door
-        private Texture2D storedSprite;
 
         private int width;
         private int height;
@@ -37,29 +36,29 @@ namespace EksamensProjekt2021
         /// <param name="content"></param>
         public override void LoadContent(ContentManager content)
         {
-            switch (dir)
+            switch (dir)//For at sikre at alting loades i rigtige position kræver det texturens dimensioner. Derfor loades alting her istedet for constructoren.
             {
-                case 0:
-                    storedSprite = content.Load<Texture2D>("DoorTop"); //0
+                case 0: //Døren i toppen
+                    sprite = content.Load<Texture2D>("DoorTop"); //0
                     animSetup();
                     position = new Vector2(GameWorld.screenSize.X / 2 - width / 2, 0);
                     placementDir = new Vector2(0, -1);
                     break;
-                case 1:
-                    storedSprite = content.Load<Texture2D>("DoorTop"); //1
+                case 1: //Døren i bunden
+                    sprite = content.Load<Texture2D>("DoorTop"); //1
                     animSetup();
                     position = new Vector2(GameWorld.screenSize.X / 2 - width / 2, GameWorld.screenSize.Y - height);
                     placementDir = new Vector2(0, 1);
                     effect = SpriteEffects.FlipVertically;
                     break;
-                case 2:
-                    storedSprite = content.Load<Texture2D>("DoorSides"); //2
+                case 2: //Døren til venstre
+                    sprite = content.Load<Texture2D>("DoorSides"); //2
                     animSetup();
-                    position = new Vector2(0, GameWorld.screenSize.Y / 2 - storedSprite.Height / 2);
+                    position = new Vector2(0, GameWorld.screenSize.Y / 2 - sprite.Height / 2);
                     placementDir = new Vector2(-1, 0);
                     break;
-                case 3:
-                    storedSprite = content.Load<Texture2D>("DoorSides"); //3
+                case 3: //Døren til højre
+                    sprite = content.Load<Texture2D>("DoorSides"); //3
                     animSetup();
                     position = new Vector2(GameWorld.screenSize.X - width, GameWorld.screenSize.Y / 2 - height / 2);
                     placementDir = new Vector2(1, 0);
@@ -72,13 +71,12 @@ namespace EksamensProjekt2021
         /// </summary>
         private void animSetup()
         {
-            width = storedSprite.Width / 4;
-            height = (byte)storedSprite.Height;
-            for (int i = 0; i < 4; i++)
-            {
+            width = sprite.Width / 4;
+            height = (byte)sprite.Height;
+            for (int i = 0; i < 4; i++) //Laver en array af rectangles som indeholder den valgte del af spritesheetet.
+            {                           //Når kaldt vil Draw bruge denne Rectangle til at tegne KUN den frame som ønskes
                 source[i] = new Rectangle(width * i, 0, width, height);
             }
-            sprite = storedSprite; //DONT DO THIS---------------------------------------
         }
         /// <summary>
         /// Needs custom rect since its a spriteSheet
@@ -96,7 +94,7 @@ namespace EksamensProjekt2021
         /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
-            activeDoor = false;
+            activeDoor = false; //This checks if the door should open now. vvv
             if (RoomManager.roomLayout[RoomManager.playerInRoom[0], RoomManager.playerInRoom[1]] <= 1) //checks if the room the player is in is empty
             {
                 if (RoomManager.playerInRoom[0] + (int)placementDir.X > -1 && RoomManager.playerInRoom[0] + (int)placementDir.X < 5) //Out of bounds X check
@@ -117,7 +115,7 @@ namespace EksamensProjekt2021
                     animTimer = 0;
                 }
             }
-            if (!activeDoor) frameIndex = 0;
+            if (!activeDoor) frameIndex = 0; //Locked door. Keep closed.
         }
         /// <summary>
         /// When player hits the door, check if they should be moved to next room.
@@ -136,7 +134,7 @@ namespace EksamensProjekt2021
         /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(sprite, position, source[frameIndex], Color.White, 0, origin, 1, effect, 0);
+            spriteBatch.Draw(base.sprite, position, source[frameIndex], Color.White, 0, origin, 1, effect, 0);
         }
     }
 }

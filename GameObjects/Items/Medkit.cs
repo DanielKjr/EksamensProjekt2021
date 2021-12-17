@@ -10,7 +10,7 @@ namespace EksamensProjekt2021
     class Medkit : Item
     {
         private int healthplus = 20;
-        
+
         public int Healthplus { get => healthplus; set => healthplus = value; }
 
 
