@@ -23,6 +23,7 @@ namespace EksamensProjekt2021
         private Texture2D[] floor = new Texture2D[3];
         private Texture2D wall;
 
+    
         private byte filledRooms = 0;
         private byte failSafe = 0;
         private int[] index = new int[2];
@@ -298,12 +299,8 @@ namespace EksamensProjekt2021
                 case 5:
                     GameWorld.Instantiate(new Biden());
                     GameWorld.bossSpawned = true;
-                    /*
-                    GameWorld.gameFlow.EnemySpawner();
-                    GameWorld.gameFlow.EnemySpawner();
-                    GameWorld.gameFlow.EnemySpawner();
-                    GameWorld.gameFlow.EnemySpawner();
-                    */
+                    
+                    
                     break;
             }
         }

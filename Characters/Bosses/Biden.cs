@@ -14,8 +14,6 @@ namespace EksamensProjekt2021
         private Texture2D biden;
         private Vector2 bidenDestination = new Vector2(GameWorld.screenSize.X / 2, GameWorld.screenSize.Y / 2);
         private Random rand = new Random();
-        protected byte damage = 15;
-        protected float throwRotation = 0f;
         private float timer = 3;
         private int bidenEnemyX;
         private int bidenEnemyY;
