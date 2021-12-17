@@ -21,39 +21,11 @@ namespace EksamensProjekt2021
         public Enemy() 
         {
             GameWorld.EnemyCount++;
-            /*
-            //enemy skal have et våben, lige nu er det bare Throwable men når vi får ting ind som en tomahawk ville det være new Tomahawk()
-            this.weapon = new Tomahawk(true);
-
-
-            //positionen som enemien spawner på
-            Position = new Vector2(50, 900);
-
-            //target, hvad enemien prøver at skyde efter og følger efter (den følger spilleren der er instantieret i GameWorld)
-            target = playerPos.Position;
-
-
             
-            origin = Vector2.Zero;
-
-            //Movespeed, hvor hurtig de skal bevæge sig
-            moveSpeed = 100;
-
-            //hvor meget liv de har 
-            health = 10;
-
-            weapon.CanHurtPlayer = true;
-           */
 
         }
 
-        //Den her constructor gør det nemt at tilføje enemies, ved brug af GameWorlds AddGameObject skal man bare give den en position man vile have
-        //den position kan være en random, og et våben som så skal være et eller andet throwable våben.
-        //man kan fint tilføje flere parametre til at sætte moveSpeed eller health hvis man har lyst til det
-        //Men for at tilføje Enemien mens spillet kører skal vi bruge AddGameObject i GameWorld
-        //Fordi den tilføjer Enemien til newObjects og kører dens LoadContent for at give sprite osv.
-        //Eksempel på hvordan det kan bruges:
-        //AddGameObject(new Enemy(new Vector2(200, 100), new Throwable()));
+
         public Enemy(Vector2 Position, Weapon weapon)
         {
             GameWorld.EnemyCount++;

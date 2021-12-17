@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,7 +19,7 @@ namespace EksamensProjekt2021
 
 
 
-
+      
         public override void LoadContent(ContentManager content)
         {
            
@@ -29,13 +30,13 @@ namespace EksamensProjekt2021
             
         }
 
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+             if (show) spriteBatch.Draw(sprite, position, null, Color.White, 0, origin, 1, SpriteEffects.None, 0);
+        }
         public override void Update(GameTime gameTime)
         {
-            if (RoomManager.playerInRoom[0] == xByte && RoomManager.playerInRoom[1] == yByte)
-            {
-                show = true;
-            }
-            else show = false;
+            
         }
     }
 }

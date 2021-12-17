@@ -15,13 +15,6 @@ namespace EksamensProjekt2021
 
 
 
-        //public Item (string medkit)
-        //{
-        //    healthplus = 20;
-        //    type = medkit;
-        //    Position = new Vector2(400, 400);
-        //}
-
         public Medkit(Vector2 Position, byte x, byte y)
         {
             this.position = Position;
@@ -38,11 +31,15 @@ namespace EksamensProjekt2021
             sprite = content.Load<Texture2D>("medkit");
         }
 
-        
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Update(GameTime gameTime)
         {
-            if (show) spriteBatch.Draw(sprite, position, null, Color.White, 0, origin, 1, SpriteEffects.None, 0);
+            if (RoomManager.playerInRoom[0] == xByte && RoomManager.playerInRoom[1] == yByte)
+            {
+                show = true;
+            }
+            else show = false;
         }
+
 
         public override void OnCollision(GameObject other)
         {

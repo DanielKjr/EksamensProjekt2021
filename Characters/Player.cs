@@ -98,17 +98,10 @@ namespace EksamensProjekt2021
         public override void Update(GameTime gameTime)
         {
 
-
-
             UpdateWeapon();
             PlayerShoot(gameTime);
             HandeInput(gameTime);
             PlayerAnimation(gameTime);
-
-
-
-
-
 
         }
 
@@ -225,11 +218,9 @@ namespace EksamensProjekt2021
         }
 
         public void MedkitHeal(int Healthplus)
-        {
-            
+        {           
                 health += Healthplus;
-            
-            
+                     
         }
 
         public override void Draw(SpriteBatch spriteBatch)
