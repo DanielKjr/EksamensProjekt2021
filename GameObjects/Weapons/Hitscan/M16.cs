@@ -7,7 +7,7 @@ namespace EksamensProjekt2021
 {
     class M16 : Hitscan
     {
-        public double timer;
+
         public M16()
         {
 

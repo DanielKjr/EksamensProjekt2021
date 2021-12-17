@@ -17,7 +17,7 @@ namespace EksamensProjekt2021
         private Texture2D trumpSad;
         private Vector2 boxPosition;
 
-        private Vector2 trumpVector = new Vector2((GameWorld.screenSize.X / 2 + 30), GameWorld.screenSize.Y);
+        private Vector2 trumpVector = new Vector2((GameWorld.screenSize.X / 2 ), GameWorld.screenSize.Y);
 
 
     
@@ -72,9 +72,9 @@ namespace EksamensProjekt2021
             {
                 boxPosition.Y += 650 * dt;
             }
-            if (GameWorld.player.IsAlive == false)
+            if (GameWorld.player.IsAlive == false && trumpVector.Y >= GameWorld.screenSize.Y /2)
             {
-                trumpVector.Y -= 465 * dt;
+                    trumpVector.Y -= 465 * dt;              
             }
         }
 
@@ -112,6 +112,7 @@ namespace EksamensProjekt2021
             if (GameWorld.player.IsAlive == false)
             {
                 spriteBatch.Draw(trumpSad, new Vector2(trumpVector.X, trumpVector.Y), Color.White);
+                spriteBatch.DrawString(GameWorld.HUDFont, "YOU DIED", new Vector2(trumpVector.X, trumpVector.Y - 100), Color.Red);
             }
 
 #if DEBUG
@@ -160,10 +161,10 @@ namespace EksamensProjekt2021
 
             if (GameWorld.bossSpawned)
             {
-                Rectangle bossBar = new Rectangle(20, 120, GameWorld.BidenHealth * 3, 60);
-                Rectangle bossBackDrop = new Rectangle(20, 120, GameWorld.BidenHealth * 3, 60);
+                Rectangle bossBar = new Rectangle((int)GameWorld.screenSize.X /2 - 300 , 120, GameWorld.BidenHealth * 3, 60);
+                Rectangle bossBackDrop = new Rectangle((int)GameWorld.screenSize.X / 2 - 300, 120, 600, 60);
 
-
+                    
 
                 spriteBatch.Draw(sprite, bossBackDrop, Color.Red);
                 spriteBatch.Draw(sprite, bossBar, Color.Green);

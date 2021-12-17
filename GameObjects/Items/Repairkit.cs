@@ -10,20 +10,19 @@ namespace EksamensProjekt2021
 {
     class Repairkit : Item
     {
-        private int armorplus = 10;
+        private int armorPlus = 15;
 
 
-        public int Armorplus { get => armorplus; set => armorplus = value; }
+        public int Armorplus { get => armorPlus; set => armorPlus = value; }
 
 
 
-        //public Item (string medkit)
-        //{
-        //    healthplus = 20;
-        //    type = medkit;
-        //    Position = new Vector2(400, 400);
-        //}
-
+        public Repairkit(Vector2 Position, byte x, byte y)
+        {
+            this.position = Position;
+            xByte = x;
+            yByte = y;
+        }
         public Repairkit(Vector2 Position)
         {
 
@@ -32,7 +31,7 @@ namespace EksamensProjekt2021
         }
 
 
-
+        
 
         public override void LoadContent(ContentManager content)
         {
@@ -40,16 +39,33 @@ namespace EksamensProjekt2021
             sprite = content.Load<Texture2D>("repairkit");
         }
 
+    
 
         public override void Update(GameTime gameTime)
         {
-
+            if (RoomManager.playerInRoom[0] == xByte && RoomManager.playerInRoom[1] == yByte)
+            {
+                show = true;
+            }
+            else show = false;
         }
+
 
         public override void OnCollision(GameObject other)
         {
+            if (other is Player player && show)
+            {
+                if (other.Armor != 50)
+                {
+                    player.Armor += armorPlus;
+                    GameWorld.Despawn(this);
+                }
 
+            }
         }
+
+
+
     }
 
 

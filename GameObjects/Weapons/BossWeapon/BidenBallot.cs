@@ -7,14 +7,30 @@ using System.Text;
 
 namespace EksamensProjekt2021
 {
-    class BidenBallot : Biden
+    class BidenBallot : BidenBox
     {
-        
-        private SpriteEffects weaponMirror;
-        private float ballotRotation;
+
+        public override Rectangle Collision
+        {
+            get
+            {
+
+
+                return new Rectangle(
+                               (int)(Position.X - 8),
+                               (int)(Position.Y - 17),
+                               this.sprite.Width,
+                               this.sprite.Height
+                               );
+
+
+
+            }
+        }
+
         public BidenBallot(Vector2 position, Vector2 target, byte damage, float BallotRotation)
         {
-            this.damage = damage;
+            damage = 5;
             
             Position = position;
             this.target = target;
@@ -26,11 +42,7 @@ namespace EksamensProjekt2021
 
         }
 
-        public override void LoadContent(ContentManager content)
-        {
-            sprite = content.Load<Texture2D>("BallotRight");
-            origin = new Vector2(this.sprite.Width / 2, this.sprite.Height / 2);
-        }
+       
         public void BidenBallotShoot(GameTime gameTime, Vector2 target)
         {
 
@@ -54,6 +66,12 @@ namespace EksamensProjekt2021
             
         }
 
+        public override void LoadContent(ContentManager content)
+        {
+            sprite = content.Load<Texture2D>("BallotRight");
+            origin = new Vector2(this.sprite.Width / 2, this.sprite.Height / 2);
+        }
+
         public override void OnCollision(GameObject other)
         {
             if (other is Player)
@@ -64,31 +82,9 @@ namespace EksamensProjekt2021
             }
 
         }
+       
         
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(sprite, position, null, Color.White, ballotRotation, origin, 1, weaponMirror, 0);
-
-        }
-
-        
-        public override Rectangle Collision
-        {
-            get
-            {
-
-
-                return new Rectangle(
-                               (int)(Position.X - 8),
-                               (int)(Position.Y - 17),
-                               this.sprite.Width,
-                               this.sprite.Height
-                               );
-              
-
-
-            }
-        }
+  
 
         
     }
