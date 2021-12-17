@@ -17,7 +17,7 @@ namespace EksamensProjekt2021
     }
     public class GameWorld : Game
     {
-        public static bool HCDebug = false;
+        public static bool RoomManagerDebug = false;
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 

@@ -12,7 +12,7 @@ namespace EksamensProjekt2021
         private int healthplus = 20;
         private byte xByte;
         private byte yByte;
-        bool show;
+        private bool show;
         public int Healthplus { get => healthplus; set => healthplus = value; }
 
 

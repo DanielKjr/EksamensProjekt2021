@@ -33,15 +33,15 @@ namespace EksamensProjekt2021
         /// </summary>
         public void Update()
         {
-            if (GameWorld.EnemyCount <= 0)
+            if (GameWorld.EnemyCount <= 0) //Checks if the player has cleared a room
             {
-                if(roomLayout[playerInRoom[0], playerInRoom[1]] == 5) //Next level
+                if (roomLayout[playerInRoom[0], playerInRoom[1]] == 5) //if player has cleared level.
                 {
                     roomsCleared++;
                     levelsCleared++;
                     foreach (var item in GameWorld.gameObjects) //Deletes all leftover items
                     {
-                        if(item is Item)
+                        if (item is Item)
                         {
                             GameWorld.Despawn(item);
                         }
@@ -53,7 +53,7 @@ namespace EksamensProjekt2021
                     roomLayout[playerInRoom[0], playerInRoom[1]] = (byte)RoomType.Cleared;
                     roomsCleared++;
                 }
-                GameWorld.EnemyCount = 0;
+                GameWorld.EnemyCount = 0; //Failsafe hvis nu at en enemy ikke plusser sin værdi til enemyCount
             }
         }
         /// <summary>
@@ -64,6 +64,7 @@ namespace EksamensProjekt2021
         public void CreateMap(byte amountOfRooms)
         {
             Reset();
+            mapReruns = 0;
 
             while (filledRooms < amountOfRooms)
             {
@@ -108,7 +109,7 @@ namespace EksamensProjekt2021
                     if ((byte)rnd.Next(0, 2) == 1) //Randomizes if there should be a room
                     {
                         roomLayout[ix + x, iy + y] = (byte)Chance();
-                        CreateStyle(ix +x, iy + y);
+                        CreateStyle(ix + x, iy + y);
                         indexList.Add($"{ix + x}{iy + y}");
                         filledRooms++;
                     }
@@ -142,6 +143,8 @@ namespace EksamensProjekt2021
         private void CreateStyle(int x, int y)
         {
             roomStyle[x, y] = (byte)rnd.Next(0, 3);
+            //I første version tænkte vi at denne skulle være større, men det gav problemer overalt hvis at vi brugte 0-9 i stedet for 0-2
+            //Ved brug af 0-9 kunne vi opbevarer om der skulle være ekstra vægge inde i rummet.
         }
         /// <summary>
         /// Console.WriteLine debug method
@@ -154,7 +157,8 @@ namespace EksamensProjekt2021
         {
             //To view: Right click EksamensProjekt2021.crsproj -> properties.
             //Outputtype: Console Application.
-            if (GameWorld.HCDebug == true)
+            //Vil crashe hvis du tænder uden at være konsol applikation.
+            if (GameWorld.RoomManagerDebug == true)
             {
                 Console.Clear();
                 for (int y = 0; y < roomLayout.GetLength(0); y++)
@@ -189,6 +193,7 @@ namespace EksamensProjekt2021
                     revealedRoom[x, y] = false;
                 }
             }
+            mapReruns++;
             indexList.Clear();
             filledRooms = 0;
             failSafe = 0; //If the code messes up, use this to escape
@@ -219,7 +224,7 @@ namespace EksamensProjekt2021
         /// <param name="indexY"></param>
         public void DrawRoom(SpriteBatch spriteBatch)
         {
-            switch (roomStyle[playerInRoom[0], playerInRoom[1]])
+            switch (roomStyle[playerInRoom[0], playerInRoom[1]]) //Tegner de forskellige gulve sammen med væggen.
             {
                 case 2:
                     spriteBatch.Draw(floor[2], Vector2.Zero, Color.White);
@@ -273,7 +278,7 @@ namespace EksamensProjekt2021
             if (x == -1) GameWorld.player.Position = new Vector2(GameWorld.screenSize.X - 146, GameWorld.screenSize.Y / 2);
             if (x == 1) GameWorld.player.Position = new Vector2(146, GameWorld.screenSize.Y / 2);
             if (y == -1) GameWorld.player.Position = new Vector2(GameWorld.screenSize.X / 2, GameWorld.screenSize.Y - 144);
-            if (y== 1) GameWorld.player.Position = new Vector2(GameWorld.screenSize.X / 2, 144);
+            if (y == 1) GameWorld.player.Position = new Vector2(GameWorld.screenSize.X / 2, 144);
             playerInRoom[0] += x; //Sets player room pos to new room
             playerInRoom[1] += y;
             Debug(0, 0);
