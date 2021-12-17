@@ -23,7 +23,6 @@ namespace EksamensProjekt2021
 
         public static List<GameObject> gameObjects;
         private static List<GameObject> deleteObjects;
-        private static List<Enemy> enemies;
         public static List<GameObject> newObjects;
         public static List<GameObject> projectiles;
 
@@ -51,8 +50,9 @@ namespace EksamensProjekt2021
         private Texture2D collisionTexture;
 
 
-        private Song music;
-
+        public Song music;
+        public Song bossMusic;
+       
 
         public static Vector2 screenSize;
 
@@ -69,6 +69,9 @@ namespace EksamensProjekt2021
             roomManager = new RoomManager();
             screenSize = new Vector2(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
+
+
+
         }
 
 
@@ -81,11 +84,14 @@ namespace EksamensProjekt2021
             _graphics.ApplyChanges();
             screenSize = new Vector2(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
-            player = new Player();
-           
-           
 
-            
+
+
+            player = new Player();
+
+
+
+
             ui = new UserInterface();
             gameFlow = new GameFlow();
 
@@ -95,18 +101,12 @@ namespace EksamensProjekt2021
             gameObjects = new List<GameObject>();
             newObjects = new List<GameObject>();
             projectiles = new List<GameObject>();
-            // enemies = new List<Enemy>();
+
 
             deleteObjects = new List<GameObject>();
             gameObjects.Add(player);
 
 
-            //AddGameObject(new Biden());
-         //   AddGameObject(new Enemy());
-
-
-
-            //gameObjects.Add(new Revolver());
 
             for (byte i = 0; i < 4; i++) // Create the 4 doors. GameObject will handle LoadContent() and Update().
             {
@@ -121,8 +121,21 @@ namespace EksamensProjekt2021
             base.Initialize();
         }
 
+
         protected override void LoadContent()
         {
+
+            music = Content.Load<Song>("SoundEffects/FortunateSon");
+            bossMusic = Content.Load<Song>("SoundEffects/FreeBird");
+
+
+
+            MediaPlayer.Play(music);
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Volume = 0.3f;
+
+
+
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -151,11 +164,11 @@ namespace EksamensProjekt2021
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-
-
+            
+            
             if (player.IsAlive)
             {
-                
+
                 roomManager.Update();
                 player.Update(gameTime);
                 UpdateGameObjects(gameTime);
@@ -190,8 +203,8 @@ namespace EksamensProjekt2021
             {
                 _spriteBatch.Draw(cursor, new Vector2(player.MousePosition.X, player.MousePosition.Y), null, Color.Green);
             }
-           
-           
+
+
             ui.Draw(_spriteBatch);
 
             foreach (GameObject go in gameObjects)
@@ -204,12 +217,12 @@ namespace EksamensProjekt2021
             }
 
 
-           
 
 
 
 
-           
+
+
             _spriteBatch.End();
 
 
@@ -308,7 +321,7 @@ namespace EksamensProjekt2021
         }
 
 
-       
+
 
 
     }

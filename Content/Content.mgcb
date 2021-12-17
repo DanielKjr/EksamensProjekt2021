@@ -303,11 +303,71 @@
 /processorParam:TextureFormat=Color
 /build:snub-nosedRevolver.png
 
+#begin SoundEffects/FortunateSon.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/FortunateSon.wav
+
+#begin SoundEffects/FreeBird.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/FreeBird.wav
+
 #begin SoundEffects/SingleShot.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:SoundEffects/SingleShot.wav
+
+#begin SoundEffects/TrumpFury.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/TrumpFury.wav
+
+#begin SoundEffects/TrumpNews.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/TrumpNews.wav
+
+#begin SoundEffects/TrumpPuertoRico.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/TrumpPuertoRico.wav
+
+#begin SoundEffects/TrumpRocketman.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/TrumpRocketman.wav
+
+#begin SoundEffects/TrumpRude.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/TrumpRude.wav
+
+#begin SoundEffects/TrumpSickPuppy.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/TrumpSickPuppy.wav
+
+#begin SoundEffects/TrumpTerrible.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/TrumpTerrible.wav
+
+#begin SoundEffects/TrumpTipTop.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/TrumpTipTop.wav
 
 #begin SpritePlaceHolder2.png
 /importer:TextureImporter
