@@ -51,10 +51,11 @@ namespace EksamensProjekt2021
 
         public override void OnCollision(GameObject other)
         {
-            if (other is Enemy)
+            if (other is Enemy || other is Biden)
             {
                
                 other.Health -= damage;
+                GameWorld.Despawn(this);
                 
             }
         }

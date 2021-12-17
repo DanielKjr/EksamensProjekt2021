@@ -14,15 +14,17 @@ namespace EksamensProjekt2021
     {
 
         private Weapon weapon;
+        private Weapon newWeapon;
 
         // private MouseState mStateOld = Mouse.GetState();
         private MouseState mState;
         private Vector2 mousePosition;
         private bool mLeftReleased = true;
-        
 
+        private double timer = 1;
 
-        private int speed = 250;
+        //  private int speed = 250;
+        private float speed;
 
         //en værdi vi bare kan ændre til at passe med hvor hurtigt vi vil ha ham. bliver brugt i udregninen af når han bevæger sig
         private bool isMoving = false;
@@ -31,7 +33,7 @@ namespace EksamensProjekt2021
         // enum'en som vi lavede ude i gameworld
 
         //ska vi bruger senere til shoot-funktion. trust me boiis.
-       
+
 
         public SpriteAnimation anim;
         public SpriteAnimation[] animations = new SpriteAnimation[4];
@@ -97,16 +99,16 @@ namespace EksamensProjekt2021
         {
 
 
-            
-                UpdateWeapon();
-                PlayerShoot(gameTime);
-                HandeInput(gameTime);
 
-                PlayerAnimation(gameTime);
-            
+            UpdateWeapon();
+            PlayerShoot(gameTime);
+            HandeInput(gameTime);
+            PlayerAnimation(gameTime);
 
 
-           
+
+
+
 
         }
 
@@ -119,6 +121,8 @@ namespace EksamensProjekt2021
             //set weapon position so it knows where to draw it
             weapon.Position = new Vector2(Position.X, Position.Y);
 
+            speed = weapon.MoveSpeed;
+
 
             //mstate to create mouse position
             mState = Mouse.GetState();
@@ -130,7 +134,7 @@ namespace EksamensProjekt2021
             weapon.Rotation = (float)Math.Atan2(wRotate.Y, wRotate.X);
 
 
-            if (MousePosition.X > GameWorld.screenSize.X / 2)
+            if (MousePosition.X > GameWorld.player.position.X)
             {
                 weapon.WeaponMirror = SpriteEffects.None;
                 direction = Dir.Right;
@@ -153,14 +157,18 @@ namespace EksamensProjekt2021
         /// <param name="gameTime"></param>
         private void PlayerShoot(GameTime gameTime)
         {
+            timer -= gameTime.ElapsedGameTime.TotalSeconds;
             if (mState.LeftButton == ButtonState.Pressed && mLeftReleased == true && Vector2.Distance(Position, mousePosition) < weapon.Range)
             {
+                if (timer <= 0)
+                {
+                    mLeftReleased = false;
+                    weapon.ShootWeapon(mousePosition);
 
-                mLeftReleased = false;
-                weapon.ShootWeapon(mousePosition);
+                    weapon.GunFire.Play();
 
-                weapon.GunFire.Play();
-              
+                    timer = weapon.FireRate;
+                }
 
             }
 
@@ -172,12 +180,12 @@ namespace EksamensProjekt2021
 
         public void Damage(int damage)
         {
-            if (armor != 0)
+            if (armor != 0 && armor >= 0)
             {
                 armor -= damage;
 
             }
-            else
+            else 
             {
                 health -= damage;
 
@@ -185,7 +193,7 @@ namespace EksamensProjekt2021
                 {
 
                     GameWorld.Despawn(this);
-                    
+
                     isAlive = false;
                 }
             }
@@ -193,16 +201,40 @@ namespace EksamensProjekt2021
         }
         public override void OnCollision(GameObject other)
         {
-            
+           
+
+        }
+
+        /// <summary>
+        /// Adds the new weapon, gives it position and replaces the players current weapon
+        /// </summary>
+        /// <param name="weapon"></param>
+        public void NewWeapon(Weapon weapon)
+        {
+            newWeapon = weapon;
+            weapon.Position = Position;
+
+            if (newWeapon != null)
+            {
+
+                this.weapon = newWeapon;
+
+            }
+
+
         }
 
         public void MedkitHeal(int Healthplus)
         {
-            Health += Healthplus;
+            
+                health += Healthplus;
+            
+            
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+
             anim.Draw(spriteBatch);
 
             weapon.Draw(spriteBatch);

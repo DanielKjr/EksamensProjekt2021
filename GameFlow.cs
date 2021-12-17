@@ -7,7 +7,15 @@ namespace EksamensProjekt2021
 {
     public class GameFlow
     {
+
+
+        protected int nextWeapon;
+
+        public int NextWeapon { get => nextWeapon; }
+
+
         private Random rnd = new Random();
+
         /// <summary>
         /// adds enemies
         /// </summary>
@@ -26,9 +34,29 @@ namespace EksamensProjekt2021
                     (byte)RoomManager.playerInRoom[0], (byte)RoomManager.playerInRoom[1]));
             }
 
+            
+                SpawnNewWeapon();
+            
+          
+           
             //Add weapon spawner here.
 
+           
+
         }
+
+        public void SpawnNewWeapon()
+        {
+            nextWeapon = rnd.Next(0,101);
+            
+
+            if (nextWeapon >= 20)
+            {
+                GameWorld.Instantiate(new WeaponPickup(new Vector2(GameWorld.screenSize.X / 2, GameWorld.screenSize.Y /2)));
+            }
+           
+        }
+
 
         /// <summary>
         /// adds enemies with random position and weapon

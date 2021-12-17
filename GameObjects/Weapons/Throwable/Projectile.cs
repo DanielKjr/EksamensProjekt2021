@@ -11,7 +11,7 @@ namespace EksamensProjekt2021
     {
 
 
-        public Projectile(Texture2D sprite, Vector2 position, Vector2 target, byte damage, float throwRotationSpeed)
+        public Projectile(Texture2D sprite, Vector2 position, Vector2 target, byte damage, float throwRotationSpeed, Vector2 origin)
         {
             this.damage = damage;
             this.sprite = sprite;
@@ -21,10 +21,11 @@ namespace EksamensProjekt2021
             this.throwRotationSpeed = throwRotationSpeed;
             throwRotation -= throwRotationSpeed;
             moveSpeed = 400;
+            this.origin = origin;
             
         }
 
-        public Projectile(Texture2D sprite, Vector2 position, Vector2 target, byte damage, float throwRotationSpeed, bool canHurtPlayer)
+        public Projectile(Texture2D sprite, Vector2 position, Vector2 target, byte damage, float throwRotationSpeed, bool canHurtPlayer, Vector2 origin)
         {
             this.damage = damage;
             this.sprite = sprite;
@@ -33,8 +34,9 @@ namespace EksamensProjekt2021
             this.origin = Vector2.Zero;
             this.throwRotationSpeed = throwRotationSpeed;
             throwRotation -= throwRotationSpeed;
-            moveSpeed = 400;
+            moveSpeed = 600;
             this.canHurtPlayer = canHurtPlayer;
+            this.origin = origin;
 
 
         }
@@ -73,7 +75,7 @@ namespace EksamensProjekt2021
             if (Vector2.Distance(Position, target) < 10)
             {
                 GameWorld.Despawn(this);
-                //TODO add damage to player
+              
             }
             throwRotation += throwRotationSpeed;
         }
@@ -81,7 +83,7 @@ namespace EksamensProjekt2021
         public override void OnCollision(GameObject other)
         {
 
-            if (other is Enemy && !canHurtPlayer)
+            if (other is Enemy && !canHurtPlayer || other is Biden && !canHurtPlayer)
             {
                 other.Health -= damage;
                 

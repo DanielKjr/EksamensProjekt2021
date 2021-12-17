@@ -296,10 +296,14 @@ namespace EksamensProjekt2021
                     GameWorld.gameFlow.LootSpawner();
                     break;
                 case 5:
+                    GameWorld.Instantiate(new Biden());
+                    GameWorld.bossSpawned = true;
+                    /*
                     GameWorld.gameFlow.EnemySpawner();
                     GameWorld.gameFlow.EnemySpawner();
                     GameWorld.gameFlow.EnemySpawner();
                     GameWorld.gameFlow.EnemySpawner();
+                    */
                     break;
             }
         }

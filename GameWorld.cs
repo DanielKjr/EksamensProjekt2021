@@ -28,7 +28,7 @@ namespace EksamensProjekt2021
         public static List<GameObject> projectiles;
 
         public static Player player;
-       
+
         public static Enemy enemy;
         public static GameFlow gameFlow;
 
@@ -39,9 +39,11 @@ namespace EksamensProjekt2021
 
 
         public static int EnemyCount;
-
+        public static int BidenHealth;
+        public static bool bossSpawned = false;
 
         public static SpriteFont HUDFont;
+        public static SpriteFont HUDWFont;
         public static Texture2D trumpSad;
 
         private Texture2D cursor;
@@ -69,6 +71,8 @@ namespace EksamensProjekt2021
 
         }
 
+
+
         protected override void Initialize()
         {
             _graphics.IsFullScreen = false;
@@ -78,7 +82,8 @@ namespace EksamensProjekt2021
             screenSize = new Vector2(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
             player = new Player();
-
+           
+           
 
             
             ui = new UserInterface();
@@ -97,7 +102,7 @@ namespace EksamensProjekt2021
 
 
             //AddGameObject(new Biden());
-            AddGameObject(new Enemy());
+         //   AddGameObject(new Enemy());
 
 
 
@@ -122,7 +127,7 @@ namespace EksamensProjekt2021
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             HUDFont = Content.Load<SpriteFont>("HUDFont");
-
+            HUDWFont = Content.Load<SpriteFont>("HUDWFont");
             cursor = Content.Load<Texture2D>("crosshair");
 
             trumpSad = Content.Load<Texture2D>("trumpSad");
@@ -150,6 +155,7 @@ namespace EksamensProjekt2021
 
             if (player.IsAlive)
             {
+                
                 roomManager.Update();
                 player.Update(gameTime);
                 UpdateGameObjects(gameTime);
@@ -174,13 +180,26 @@ namespace EksamensProjekt2021
             GraphicsDevice.Clear(Color.CornflowerBlue);
             _spriteBatch.Begin();
             roomManager.DrawRoom(_spriteBatch);
-            _spriteBatch.Draw(cursor, new Vector2(player.MousePosition.X, player.MousePosition.Y), null, Color.Red);
+
+            //skal måske flyttes
+            if (Vector2.Distance(player.MousePosition, player.Position) < player.CurrentWeapon.Range)
+            {
+                _spriteBatch.Draw(cursor, new Vector2(player.MousePosition.X, player.MousePosition.Y), null, Color.Red);
+            }
+            else
+            {
+                _spriteBatch.Draw(cursor, new Vector2(player.MousePosition.X, player.MousePosition.Y), null, Color.Green);
+            }
+           
+           
             ui.Draw(_spriteBatch);
+
             foreach (GameObject go in gameObjects)
             {
                 go.Draw(_spriteBatch);
-
+#if DEBUG
                 DrawCollisionBox(go);
+#endif
 
             }
 

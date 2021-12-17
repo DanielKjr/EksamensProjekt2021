@@ -14,7 +14,16 @@ namespace EksamensProjekt2021
 
             range = 700;
             damage = 5;
+            moveSpeed = 150;
+            fireRate = 1.7d;
 
+        }
+
+        public AK47(Vector2 Position)
+        {
+            this.Position = Position;
+            range = 700;
+            damage = 5;
         }
 
 

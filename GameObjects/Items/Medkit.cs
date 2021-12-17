@@ -10,9 +10,7 @@ namespace EksamensProjekt2021
     class Medkit : Item
     {
         private int healthplus = 20;
-        private byte xByte;
-        private byte yByte;
-        private bool show;
+
         public int Healthplus { get => healthplus; set => healthplus = value; }
 
 
@@ -40,15 +38,7 @@ namespace EksamensProjekt2021
             sprite = content.Load<Texture2D>("medkit");
         }
 
-
-        public override void Update(GameTime gameTime)
-        {
-            if (RoomManager.playerInRoom[0] == xByte && RoomManager.playerInRoom[1] == yByte)
-            {
-                show = true;
-            }
-            else show = false;
-        }
+        
         public override void Draw(SpriteBatch spriteBatch)
         {
             if (show) spriteBatch.Draw(sprite, position, null, Color.White, 0, origin, 1, SpriteEffects.None, 0);
@@ -58,8 +48,12 @@ namespace EksamensProjekt2021
         {
             if (other is Player player && show)
             {
-                player.MedkitHeal(Healthplus);
-                GameWorld.Despawn(this);
+                if (other.Health != 100)
+                {
+                    player.MedkitHeal(Healthplus);
+                    GameWorld.Despawn(this);
+                }
+                
             }
         }
     }

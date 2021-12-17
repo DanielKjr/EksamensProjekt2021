@@ -18,9 +18,10 @@ namespace EksamensProjekt2021
         private double timer = 2;
 
 
-        public Enemy() : base()
+        public Enemy() 
         {
             GameWorld.EnemyCount++;
+            /*
             //enemy skal have et våben, lige nu er det bare Throwable men når vi får ting ind som en tomahawk ville det være new Tomahawk()
             this.weapon = new Tomahawk(true);
 
@@ -31,7 +32,9 @@ namespace EksamensProjekt2021
             //target, hvad enemien prøver at skyde efter og følger efter (den følger spilleren der er instantieret i GameWorld)
             target = playerPos.Position;
 
-            this.origin = Vector2.Zero;
+
+            
+            origin = Vector2.Zero;
 
             //Movespeed, hvor hurtig de skal bevæge sig
             moveSpeed = 100;
@@ -40,7 +43,7 @@ namespace EksamensProjekt2021
             health = 10;
 
             weapon.CanHurtPlayer = true;
-           
+           */
 
         }
 
@@ -87,9 +90,16 @@ namespace EksamensProjekt2021
 
         public override void Update(GameTime gameTime)
         {
-
+            
             EnemyTargeting(gameTime);
             Movement(gameTime);
+           
+
+            if (health <= 0)
+            {
+                GameWorld.EnemyCount--;
+                GameWorld.Despawn(this);
+            }
 
         }
 
@@ -147,33 +157,11 @@ namespace EksamensProjekt2021
 
         }
 
+      
+
 
         public override void OnCollision(GameObject other)
         {
-            if (other is HitscanShoot)
-            {
-
-                if (health <= 0)
-                {
-                    GameWorld.EnemyCount--;
-                    GameWorld.Despawn(this);
-                }
-
-
-                GameWorld.Despawn(other);
-            }
-            else if (other is Projectile && weapon.CanHurtPlayer)
-            {
-                if (health <= 0)
-                {
-                    GameWorld.EnemyCount--;
-                    GameWorld.Despawn(this);
-                }
-             
-               
-            }
-            
-          
 
 
         }
