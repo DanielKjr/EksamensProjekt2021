@@ -30,11 +30,11 @@ namespace EksamensProjekt2021
 
         public BidenBallot(Vector2 position, Vector2 target, byte damage, float BallotRotation)
         {
-            damage = 5;
+            
             
             Position = position;
             this.target = target;
-            this.origin = Vector2.Zero;
+            origin = Vector2.Zero;
             ballotRotation = BallotRotation;
             
             moveSpeed = 300;

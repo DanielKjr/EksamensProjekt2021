@@ -10,24 +10,19 @@ namespace EksamensProjekt2021
 {
     public class UserInterface
     {
-        private Weapon weapon;
+      //  private Weapon weapon;
         private Texture2D wSprite;
         private Texture2D UIBox276;
         private Texture2D trumpGraph;
         private Texture2D trumpSad;
         private Vector2 boxPosition;
-
         private Vector2 trumpVector = new Vector2((GameWorld.screenSize.X / 2 ), GameWorld.screenSize.Y);
-
-
-    
-
-
         private Color color;
         private byte dist = 12;
         private int offsetX;
         private int offsetY;
         private Texture2D sprite;
+
         public void LoadContent(ContentManager content)
         {
             sprite = content.Load<Texture2D>("CollisionTexture ");
@@ -51,17 +46,10 @@ namespace EksamensProjekt2021
         public void Update(GameTime gameTime)
         {
             wSprite = GameWorld.player.CurrentWeapon.UISprite;
-            weapon = GameWorld.player.CurrentWeapon;
-
-           
-           
-
+          //  weapon = GameWorld.player.CurrentWeapon;
 
             float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
             KeyboardState kState = Keyboard.GetState();
-
-            
-
 
             
             if (kState.IsKeyDown(Keys.Tab) && boxPosition.Y >= GameWorld.screenSize.Y - 250)
