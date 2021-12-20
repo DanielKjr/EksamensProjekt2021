@@ -248,6 +248,7 @@ namespace EksamensProjekt2021
                 position.X += speed * dt; //sådan at den bevæger sig
                 isMoving = true; //forklaret ovenover
             }
+
             if (kState.IsKeyDown(Keys.A))
             {
                 direction = Dir.Left;
