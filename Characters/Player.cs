@@ -44,7 +44,7 @@ namespace EksamensProjekt2021
         private Texture2D trumpWalkUp;
         private Texture2D trumpWalkDown;
         private SoundEffect deathQuote;
-        private SoundEffect damageSound;
+        public SoundEffect damageSound;
 
         public Weapon CurrentWeapon { get => weapon; }
         public int CurrentArmor { get => armor; }
@@ -102,7 +102,7 @@ namespace EksamensProjekt2021
             
             UpdateWeapon();
             PlayerShoot(gameTime);
-            HandeInput(gameTime);
+            HandleInput(gameTime);
             PlayerAnimation(gameTime);
 
         }
@@ -233,7 +233,7 @@ namespace EksamensProjekt2021
         }
 
    
-        private void HandeInput(GameTime gameTime)
+        private void HandleInput(GameTime gameTime)
         {
             KeyboardState kState = Keyboard.GetState();
             //keyboard.getstate() ved statusen på vores keyboard (om vi har trykket på en knap eller givet slip for eksempel). kstate gemmer det til en variabel, sårn vi kan benytte os af den
@@ -299,7 +299,7 @@ namespace EksamensProjekt2021
 
             weapon.LoadContent(content);
 
-            deathQuote = content.Load<SoundEffect>("SoundEffects/TrumpNews");
+            deathQuote = content.Load<SoundEffect>("SoundEffects/TrumpTerrible");
             damageSound = content.Load<SoundEffect>("SoundEFfects/TrumpRude");
 
             trumpWalkRight = content.Load<Texture2D>("trumpWalkRight");

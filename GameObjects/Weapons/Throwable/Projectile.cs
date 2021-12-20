@@ -103,6 +103,14 @@ namespace EksamensProjekt2021
 
             if (other is Player && canHurtPlayer)
             {
+                Random rnd = new Random();
+                int sayQuote = rnd.Next(0, 11);
+
+                
+                if (sayQuote <= 5)
+                {
+                    GameWorld.player.damageSound.Play();
+                }
                 GameWorld.player.Damage(damage);
                 GameWorld.Despawn(this);
             }
