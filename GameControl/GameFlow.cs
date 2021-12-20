@@ -34,7 +34,7 @@ namespace EksamensProjekt2021
                     (byte)RoomManager.playerInRoom[0], (byte)RoomManager.playerInRoom[1]));
             }
 
-            GameWorld.Instantiate(new Repairkit(new Vector2(GameWorld.screenSize.X / 2 - 200,GameWorld.screenSize.Y / 2),
+            GameWorld.Instantiate(new Repairkit(new Vector2(GameWorld.screenSize.X / 2 - 200, GameWorld.screenSize.Y / 2),
                     (byte)RoomManager.playerInRoom[0], (byte)RoomManager.playerInRoom[1]));
 
             SpawnNewWeapon();
@@ -62,16 +62,7 @@ namespace EksamensProjekt2021
             var EXPos = rnd.Next(0, (int)GameWorld.screenSize.X); //sets a random X value
             var EYPOS = rnd.Next(0, (int)GameWorld.screenSize.Y); //sets a random Y value
 
-            int weapon = rnd.Next(0, 1);
-
-            if (weapon == 0)                                      //50/50 chance that enemy has a tomahowk or molotov
-            {
-                GameWorld.Instantiate(new Enemy(new Vector2(EXPos, EYPOS), new Tomahawk(true)));
-            }
-            else
-            {
-                //GameWorld.Instantiate(new Enemy(new Vector2(EXPos, EYPOS), new Molotov()));
-            }
+            GameWorld.Instantiate(new Enemy(new Vector2(EXPos, EYPOS), new Tomahawk(true)));
 
 
         }

@@ -12,7 +12,6 @@ namespace EksamensProjekt2021
     {
         protected Vector2 position;
         protected Vector2 target;
-
         protected Vector2 origin;
         protected Texture2D sprite;
         protected Texture2D[] sprites;
@@ -26,52 +25,35 @@ namespace EksamensProjekt2021
 
         public Vector2 playerPosition;
         public Vector2 PlayerPosition { get => playerPosition; set => playerPosition = value; }
-
         public bool IsAlive { get => isAlive; }
-
         public int Health { get => health; set => health = value; }
 
-        //get rectangle
+        
         public virtual Rectangle Collision
         {
             get
-            {
-                
-                
+            {                           
                     return new Rectangle(
                    (int)(position.X),
                    (int)(position.Y),
                    sprite.Width,
                    sprite.Height
-                   );
-                
-                
+                   );                           
             }
         }
 
        
         public Vector2 Position { get => position; set => position = value; }
 
-       
-
-        //Target er så våbnet kan finde positionen 
-        public Vector2 Target { get => target; }
-
         public int Armor { get => armor; set => armor = value; }
-
-        public Vector2 Origin { get => origin; set => origin = value; }
 
 
         public abstract void LoadContent(ContentManager content);
         
-
         public virtual void Draw(SpriteBatch spriteBatch)
-        {
-            
+        {         
             spriteBatch.Draw(sprite, position, null, Color.White, 0, origin, 1, SpriteEffects.None, 0);
         }
-
-       
 
         public abstract void Update(GameTime gameTime);
 

@@ -34,7 +34,7 @@ namespace EksamensProjekt2021
             sprite = content.Load<Texture2D>("Weapons/lilleTomahawk");
 
 
-            origin = new Vector2(this.sprite.Width / 2, this.sprite.Height / 2);
+            origin = new Vector2(sprite.Width / 2, sprite.Height / 2);
             gunFire = content.Load<SoundEffect>("SoundEffects/SingleShot");
 
         }

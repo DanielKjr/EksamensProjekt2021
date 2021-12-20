@@ -194,7 +194,7 @@ namespace EksamensProjekt2021
             _spriteBatch.Begin();
             roomManager.DrawRoom(_spriteBatch);
 
-            //skal måske flyttes
+
             if (Vector2.Distance(player.MousePosition, player.Position) < player.CurrentWeapon.Range)
             {
                 _spriteBatch.Draw(cursor, new Vector2(player.MousePosition.X, player.MousePosition.Y), null, Color.Red);
@@ -216,38 +216,11 @@ namespace EksamensProjekt2021
 
             }
 
-
-
-
-
-
-
-
             _spriteBatch.End();
-
-
             base.Draw(gameTime);
 
-
-
         }
 
-
-        /// <summary>
-        /// Initializes game object by loading its contents and adding to the list
-        /// </summary>
-        /// <param name="gameObject"></param>
-        private void AddGameObject(GameObject gameObject)
-        {
-
-            if (gameObject is null)
-                throw new System.ArgumentNullException($"{nameof(gameObject)} cannot be null.");
-
-            gameObject.LoadContent(this.Content);
-            newObjects.Add(gameObject);
-
-
-        }
 
         /// <summary>
         /// Instantiates GameObjects by adding them to the newObjects list.
@@ -255,7 +228,6 @@ namespace EksamensProjekt2021
         /// <param name="go"></param>
         public static void Instantiate(GameObject go)
         {
-
             newObjects.Add(go);
         }
 

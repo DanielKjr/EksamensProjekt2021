@@ -13,7 +13,6 @@ namespace EksamensProjekt2021
     {
         protected Vector2 moveDir;
         private Weapon weapon;
-
         protected GameObject playerPos = GameWorld.player;
         private double timer = 2;
 
@@ -22,7 +21,6 @@ namespace EksamensProjekt2021
         {
             GameWorld.EnemyCount++;
             
-
         }
 
 
@@ -52,10 +50,9 @@ namespace EksamensProjekt2021
             sprites[5] = content.Load<Texture2D>("Enemies/Gangster");
             sprites[6] = content.Load<Texture2D>("Enemies/Chinese");
 
-            int i = rnd.Next(0, 6);
+            int i = rnd.Next(0, 7);
             sprite = sprites[i];
 
-            //skal have en Weapon.LoadContent(Content); for at kunne loade våbnets sprite, samme går for spilleren når vi når dertil
             weapon.LoadContent(content);
 
         }
@@ -121,9 +118,6 @@ namespace EksamensProjekt2021
             moveDir = playerPos.Position - new Vector2(Position.X + 50, Position.Y - 40);
             moveDir.Normalize();
             Position += moveDir * moveSpeed * deltaTime;
-
-            //TODO make it so they stop for a moment when shooting before continuing
-
 
 
 
