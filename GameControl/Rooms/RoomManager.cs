@@ -20,7 +20,7 @@ namespace EksamensProjekt2021
         public static int roomsCleared;
         public static int levelsCleared;
         public static byte mapReruns = 0; //See how many times the RoomsGenerator needed to run
-        private Texture2D[] floor = new Texture2D[3];
+        private Texture2D[] floor = new Texture2D[4];
         private Texture2D wall;
 
         private byte filledRooms = 0;
@@ -143,6 +143,7 @@ namespace EksamensProjekt2021
         private void CreateStyle(int x, int y)
         {
             roomStyle[x, y] = (byte)rnd.Next(0, 3);
+            if (roomLayout[x, y] == 1) roomStyle[x, y] = 3;
             //I første version tænkte vi at denne skulle være større, men det gav problemer overalt hvis at vi brugte 0-9 i stedet for 0-2
             //Ved brug af 0-9 kunne vi opbevarer om der skulle være ekstra vægge inde i rummet.
         }
@@ -211,7 +212,7 @@ namespace EksamensProjekt2021
         /// <param name="content"></param>
         public void LoadContent(ContentManager content)
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
             {
                 floor[i] = content.Load<Texture2D>($"Floor{i}");
             }
@@ -226,6 +227,10 @@ namespace EksamensProjekt2021
         {
             switch (roomStyle[playerInRoom[0], playerInRoom[1]]) //Tegner de forskellige gulve sammen med væggen.
             {
+                case 3:
+                    spriteBatch.Draw(floor[3], Vector2.Zero, Color.White);
+                    spriteBatch.Draw(wall, Vector2.Zero, Color.White);
+                    break;
                 case 2:
                     spriteBatch.Draw(floor[2], Vector2.Zero, Color.White);
                     spriteBatch.Draw(wall, Vector2.Zero, Color.White);
