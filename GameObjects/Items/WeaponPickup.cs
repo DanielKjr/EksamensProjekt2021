@@ -30,7 +30,7 @@ namespace EksamensProjekt2021
         }
         public WeaponPickup(Vector2 Position, byte x, byte y)
         {
-            nextWeapon = rnd.Next(0, 4);
+            nextWeapon = rnd.Next(0, 5);
             this.position = Position;
             xByte = x;
             yByte = y;
@@ -73,6 +73,13 @@ namespace EksamensProjekt2021
                         weapon = new MP5();
                         weapon.LoadContent(content);
                         
+                        break;
+                    }
+                case 4:
+                    {
+                        sprite = content.Load <Texture2D>("snub-nosedRevolver");
+                        weapon = new Revolver();
+                        weapon.LoadContent(content);
                         break;
                     }
 

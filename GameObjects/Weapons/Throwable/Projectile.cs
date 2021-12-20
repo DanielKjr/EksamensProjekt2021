@@ -25,6 +25,16 @@ namespace EksamensProjekt2021
             
         }
 
+        /// <summary>
+        /// An overload for projectile so that there's a difference in the different projectiles and enemies won't be able to damage each other, but can damage the player.
+        /// </summary>
+        /// <param name="sprite"></param>
+        /// <param name="position"></param>
+        /// <param name="target"></param>
+        /// <param name="damage"></param>
+        /// <param name="throwRotationSpeed"></param>
+        /// <param name="canHurtPlayer"></param>
+        /// <param name="origin"></param>
         public Projectile(Texture2D sprite, Vector2 position, Vector2 target, byte damage, float throwRotationSpeed, bool canHurtPlayer, Vector2 origin)
         {
             this.damage = damage;
@@ -83,7 +93,7 @@ namespace EksamensProjekt2021
         public override void OnCollision(GameObject other)
         {
 
-            if (other is Enemy && !canHurtPlayer || other is Biden && !canHurtPlayer)
+            if (other is Enemy && !canHurtPlayer )
             {
                 other.Health -= damage;
                 

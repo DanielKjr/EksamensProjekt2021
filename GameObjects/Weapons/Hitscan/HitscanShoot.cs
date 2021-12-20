@@ -11,9 +11,9 @@ namespace EksamensProjekt2021
         public HitscanShoot(Vector2 Position, Vector2 target, byte damage)
         {
             this.damage = damage;
-            position = Position;
+            this.Position = Position;
             this.target = target;
-            this.origin = Vector2.Zero;
+            origin = Vector2.Zero;
             moveSpeed = 1700;
         }
 
@@ -51,12 +51,10 @@ namespace EksamensProjekt2021
 
         public override void OnCollision(GameObject other)
         {
-            if (other is Enemy || other is Biden)
-            {
-               
+            if (other is Enemy)
+            {              
                 other.Health -= damage;
-                GameWorld.Despawn(this);
-                
+                GameWorld.Despawn(this);              
             }
         }
 

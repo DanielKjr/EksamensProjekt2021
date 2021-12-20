@@ -22,18 +22,13 @@ namespace EksamensProjekt2021
 
 
         public bool CanHurtPlayer { get => canHurtPlayer; set => canHurtPlayer = value; }
-
-
         public float MoveSpeed { get => moveSpeed; }
-
         public int Range { get => range;  }
         public double FireRate { get => fireRate;  }
         public float Rotation { get => rotation; set => rotation = value; }
         public byte Damage { get => damage; }
-
         public SpriteEffects WeaponMirror { get => weaponMirror; set => weaponMirror = value; }
         public SoundEffect GunFire { get => gunFire;}
-
         public Texture2D UISprite { get => sprite; }
         public string WName { get => GetType().Name;  }
 

@@ -47,7 +47,7 @@ namespace EksamensProjekt2021
             {
                 if (other.Health != 100)
                 {
-                    player.MedkitHeal(Healthplus);
+                    player.Health += healthplus;
                     GameWorld.Despawn(this);
                 }
                 

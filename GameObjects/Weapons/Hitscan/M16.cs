@@ -10,12 +10,10 @@ namespace EksamensProjekt2021
 
         public M16()
         {
-
             range = 700;
             damage = 4;
             moveSpeed = 170;
-            fireRate = 1.5d;
-
+            fireRate = 1.5;
 
         }
         public M16(Vector2 Position)
@@ -35,7 +33,7 @@ namespace EksamensProjekt2021
 
 
 
-            origin = new Vector2(this.sprite.Width / 2, this.sprite.Height / 2);
+            origin = new Vector2(sprite.Width / 2, sprite.Height / 2);
             gunFire = content.Load<SoundEffect>("SoundEffects/SingleShot");
 
         }

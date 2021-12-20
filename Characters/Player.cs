@@ -88,7 +88,7 @@ namespace EksamensProjekt2021
             health = 100;
             armor = 50;
 
-            weapon = new M16();
+            weapon = new Revolver();
             isAlive = true;
 
             PlayerPosition = position;
@@ -112,10 +112,8 @@ namespace EksamensProjekt2021
         /// </summary>
         private void UpdateWeapon()
         {
-
             //set weapon position so it knows where to draw it
             weapon.Position = new Vector2(Position.X, Position.Y);
-
             speed = weapon.MoveSpeed;
 
 
@@ -163,12 +161,9 @@ namespace EksamensProjekt2021
                     if (weapon is Hitscan)
                     {
                         weapon.GunFire.Play();
-                    }
-                    
-
+                    }                  
                     timer = weapon.FireRate;
                 }
-
             }
 
             if (mState.LeftButton == ButtonState.Released)
@@ -177,6 +172,10 @@ namespace EksamensProjekt2021
             }
         }
 
+        /// <summary>
+        /// Damages the player
+        /// </summary>
+        /// <param name="damage"></param>
         public void Damage(int damage)
         {
             if (armor != 0 && armor >= 0)
@@ -223,11 +222,6 @@ namespace EksamensProjekt2021
 
         }
 
-        public void MedkitHeal(int Healthplus)
-        {           
-                health += Healthplus;
-                     
-        }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -238,6 +232,7 @@ namespace EksamensProjekt2021
 
         }
 
+   
         private void HandeInput(GameTime gameTime)
         {
             KeyboardState kState = Keyboard.GetState();
