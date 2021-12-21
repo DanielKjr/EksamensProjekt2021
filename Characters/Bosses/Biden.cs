@@ -13,28 +13,27 @@ namespace EksamensProjekt2021
         public SpriteAnimation anim;
         private Texture2D biden;
         private Vector2 bidenDestination = new Vector2(GameWorld.screenSize.X / 2, GameWorld.screenSize.Y / 2);
+
         private Random rand = new Random();
-        private float timer = 3;
+       
         private int bidenEnemyX;
         private int bidenEnemyY;
-        private bool dontTouch = false;
+
+        private float timer = 3;
         private float dontTouchTextTimer = 5;
         private float dontTouchTimer = 10;
 
+        private bool dontTouch = false;
         public override Rectangle Collision
         {
             get
             {
-
-
                 return new Rectangle(
                                (int)(anim.Position.X),
                                (int)(anim.Position.Y),
                                anim.Texture.Width / 5,
                                anim.Texture.Height
                                );
-
-
             }
         }
 
@@ -60,6 +59,7 @@ namespace EksamensProjekt2021
 
             }
         }
+
         public void BidenEnemySpawn(GameTime gameTime)
         {
             dontTouchTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -78,6 +78,7 @@ namespace EksamensProjekt2021
             }
             dontTouch = false;
         }
+
         public override void Movement(GameTime gameTime)
         {
 
@@ -96,16 +97,13 @@ namespace EksamensProjekt2021
         public override void Update(GameTime gameTime)
         {
             GameWorld.BidenHealth = health;
-            weapon.Position = this.Position;
+            weapon.Position = Position;
             weapon.Update(gameTime);
-
 
             anim.Update(gameTime);
             anim.Position = new Vector2(Position.X , Position.Y);
             Movement(gameTime);
             BidenShoot(gameTime);
-
-
             BidenEnemySpawn(gameTime);
 
 

@@ -14,16 +14,12 @@ namespace EksamensProjekt2021
         {
             get
             {
-
-
                 return new Rectangle(
                                (int)(Position.X - 8),
                                (int)(Position.Y - 17),
-                               this.sprite.Width,
-                               this.sprite.Height
+                               sprite.Width,
+                               sprite.Height
                                );
-
-
 
             }
         }

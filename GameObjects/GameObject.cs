@@ -10,6 +10,7 @@ namespace EksamensProjekt2021
 {
     public abstract class GameObject
     {
+        protected Vector2 playerPosition;
         protected Vector2 position;
         protected Vector2 target;
         protected Vector2 origin;
@@ -23,12 +24,13 @@ namespace EksamensProjekt2021
         protected bool isAlive;
 
 
-        public Vector2 playerPosition;
+        
         public Vector2 PlayerPosition { get => playerPosition; set => playerPosition = value; }
         public bool IsAlive { get => isAlive; }
         public int Health { get => health; set => health = value; }
+        public Vector2 Position { get => position; set => position = value; }
+        public int Armor { get => armor; set => armor = value; }
 
-        
         public virtual Rectangle Collision
         {
             get
@@ -43,9 +45,7 @@ namespace EksamensProjekt2021
         }
 
        
-        public Vector2 Position { get => position; set => position = value; }
-
-        public int Armor { get => armor; set => armor = value; }
+     
 
 
         public abstract void LoadContent(ContentManager content);
@@ -57,8 +57,16 @@ namespace EksamensProjekt2021
 
         public abstract void Update(GameTime gameTime);
 
+        /// <summary>
+        /// Decides what happens when two oblects' hitboxes collide
+        /// </summary>
+        /// <param name="other"></param>
         public abstract void OnCollision(GameObject other);
 
+        /// <summary>
+        /// Checks whether or not two Collision rectangles interesects
+        /// </summary>
+        /// <param name="other"></param>
         public void CheckCollision(GameObject other)
         {
             if (Collision.Intersects(other.Collision))

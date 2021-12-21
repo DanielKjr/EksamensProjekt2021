@@ -24,18 +24,13 @@ namespace EksamensProjekt2021
         public static List<GameObject> gameObjects;
         private static List<GameObject> deleteObjects;
         public static List<GameObject> newObjects;
-        public static List<GameObject> projectiles;
 
         public static Player player;
-
         public static Enemy enemy;
         public static GameFlow gameFlow;
-
         public static RoomManager roomManager;
         public static Door door;
-
         public static UserInterface ui;
-
 
         public static int EnemyCount;
         public static int BidenHealth;
@@ -46,14 +41,11 @@ namespace EksamensProjekt2021
         public static Texture2D trumpSad;
 
         private Texture2D cursor;
-
         private Texture2D collisionTexture;
-
 
         public Song music;
         public Song bossMusic;
        
-
         public static Vector2 screenSize;
 
 
@@ -62,14 +54,10 @@ namespace EksamensProjekt2021
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-
             IsMouseVisible = false;
-
             player = new Player();
             roomManager = new RoomManager();
             screenSize = new Vector2(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
-
-
 
 
         }
@@ -85,28 +73,16 @@ namespace EksamensProjekt2021
             screenSize = new Vector2(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
 
-
-
             player = new Player();
-
-
-
-
             ui = new UserInterface();
             gameFlow = new GameFlow();
-
 
             player.Position = new Vector2(500, 500);
 
             gameObjects = new List<GameObject>();
             newObjects = new List<GameObject>();
-            projectiles = new List<GameObject>();
-
-
             deleteObjects = new List<GameObject>();
             gameObjects.Add(player);
-
-
 
             for (byte i = 0; i < 4; i++) // Create the 4 doors. GameObject will handle LoadContent() and Update().
             {
@@ -116,35 +92,25 @@ namespace EksamensProjekt2021
 
             roomManager.CreateMap(9);
 
-
-
             base.Initialize();
         }
 
 
         protected override void LoadContent()
         {
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             music = Content.Load<Song>("SoundEffects/FortunateSon");
             bossMusic = Content.Load<Song>("SoundEffects/FreeBird");
 
-
-
             MediaPlayer.Play(music);
             MediaPlayer.IsRepeating = true;
-            MediaPlayer.Volume = 0.3f;
-
-
-
-
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            MediaPlayer.Volume = 0.2f;
+       
             HUDFont = Content.Load<SpriteFont>("HUDFont");
             HUDWFont = Content.Load<SpriteFont>("HUDWFont");
             cursor = Content.Load<Texture2D>("crosshair");
-
             trumpSad = Content.Load<Texture2D>("trumpSad");
-
             collisionTexture = Content.Load<Texture2D>("CollisionTexture ");
 
             foreach (GameObject go in gameObjects)
@@ -154,38 +120,22 @@ namespace EksamensProjekt2021
             ui.LoadContent(Content);
             roomManager.LoadContent(Content);
 
-
-
-
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
-            
-            
+                   
             if (player.IsAlive)
             {
-
                 roomManager.Update();
                 player.Update(gameTime);
                 UpdateGameObjects(gameTime);
-
             }
-
-
-
-
 
             ui.Update(gameTime);
 
-
-
-            //base.Update(gameTime);
-
-            //ui.mapDisplay();
         }
 
         protected override void Draw(GameTime gameTime)
@@ -194,7 +144,7 @@ namespace EksamensProjekt2021
             _spriteBatch.Begin();
             roomManager.DrawRoom(_spriteBatch);
 
-
+            //indication if you are out of range or not
             if (Vector2.Distance(player.MousePosition, player.Position) < player.CurrentWeapon.Range)
             {
                 _spriteBatch.Draw(cursor, new Vector2(player.MousePosition.X, player.MousePosition.Y), null, Color.Red);
@@ -213,7 +163,6 @@ namespace EksamensProjekt2021
 #if DEBUG
                 DrawCollisionBox(go);
 #endif
-
             }
 
             _spriteBatch.End();
@@ -246,7 +195,6 @@ namespace EksamensProjekt2021
         /// <param name="gameTime"></param>
         public void UpdateGameObjects(GameTime gameTime)
         {
-
 
             foreach (var go in newObjects)
             {//has to be here to give projectiles a sprite before they are added to gameObjects and then drawn.

@@ -20,19 +20,19 @@ namespace EksamensProjekt2021
         protected bool canHurtPlayer;
         protected SoundEffect gunFire;
 
-
-        public bool CanHurtPlayer { get => canHurtPlayer; set => canHurtPlayer = value; }
-        public float MoveSpeed { get => moveSpeed; }
-        public int Range { get => range;  }
-        public double FireRate { get => fireRate;  }
-        public float Rotation { get => rotation; set => rotation = value; }
+        public string WName { get => GetType().Name; }
         public byte Damage { get => damage; }
+        public float MoveSpeed { get => moveSpeed; }
+        public float Rotation { get => rotation; set => rotation = value; }
+        public double FireRate { get => fireRate;  }
+        public int Range { get => range; }
+        public bool CanHurtPlayer { get => canHurtPlayer; set => canHurtPlayer = value; }
         public SpriteEffects WeaponMirror { get => weaponMirror; set => weaponMirror = value; }
         public SoundEffect GunFire { get => gunFire;}
         public Texture2D UISprite { get => sprite; }
-        public string WName { get => GetType().Name;  }
 
-  
+       
+
 
 
         public override void OnCollision(GameObject other)

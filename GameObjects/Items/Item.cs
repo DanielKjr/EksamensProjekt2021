@@ -9,17 +9,13 @@ namespace EksamensProjekt2021
 {
     class Item : GameObject
     {
-        public List<Item> items = new List<Item>();
+
 
         protected int nextWeapon;
         protected bool show;
         protected byte xByte;
         protected byte yByte;
-        public int NextWeapon { get => nextWeapon; set => nextWeapon = value; }
-
-
-
-      
+    
         public override void LoadContent(ContentManager content)
         {
            

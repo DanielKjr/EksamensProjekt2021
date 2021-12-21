@@ -45,7 +45,7 @@ namespace EksamensProjekt2021
 
         public override void LoadContent(ContentManager content)
         {
-            //this is the texture used for ALL hitscan projectiles
+            
             sprite = content.Load<Texture2D>("CollisionTexture ");
         }
 
