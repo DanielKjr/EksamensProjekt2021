@@ -13,17 +13,19 @@ namespace EksamensProjekt2021
     {
         private enum RoomType { Empty, Cleared, Normal, Hard, Loot, Boss }
         private List<string> indexList = new List<string>(20);
+
         public static byte[,] roomLayout = new byte[5, 5];
         public static byte[,] roomStyle = new byte[5, 5]; //0-3
         public static bool[,] revealedRoom = new bool[5, 5];
         public static sbyte[] playerInRoom = new sbyte[2]; //See which room the player is in. (X, Y)
+
         public static int roomsCleared;
         public static int levelsCleared;
+
         public static byte mapReruns = 0; //See how many times the RoomsGenerator needed to run
         private Texture2D[] floor = new Texture2D[4];
         private Texture2D wall;
 
-    
         private byte filledRooms = 0;
         private byte failSafe = 0;
         private int[] index = new int[2];
@@ -111,7 +113,7 @@ namespace EksamensProjekt2021
                     {
                         roomLayout[ix + x, iy + y] = (byte)Chance();
                         CreateStyle(ix + x, iy + y);
-                        indexList.Add($"{ix + x}{iy + y}");
+                        indexList.Add($"{ix + x}{iy + y}"); //Add to index list for future use
                         filledRooms++;
                     }
                 }
@@ -146,12 +148,13 @@ namespace EksamensProjekt2021
             roomStyle[x, y] = (byte)rnd.Next(0, 3);
             if (roomLayout[x, y] == 1) roomStyle[x, y] = 3;
             //I første version tænkte vi at denne skulle være større, men det gav problemer overalt hvis at vi brugte 0-9 i stedet for 0-2
-            //Ved brug af 0-9 kunne vi opbevarer om der skulle være ekstra vægge inde i rummet.
+            //Ved brug af 0-9 kunne vi opbevarer om der skulle være ekstra vægge inde i rummet. Aka: Flere detaljer kunne gemmes
         }
         /// <summary>
         /// Console.WriteLine debug method
         /// To view: Right click EksamensProjekt2021.crsproj -> properties.
         /// Outputtype: Console Application.
+        /// Also! Set RoomManagerDebug in GameWorld to true.
         /// </summary>
         /// <param name="failSafe"></param>
         /// <param name="reruns"></param>
@@ -226,25 +229,9 @@ namespace EksamensProjekt2021
         /// <param name="indexY"></param>
         public void DrawRoom(SpriteBatch spriteBatch)
         {
-            switch (roomStyle[playerInRoom[0], playerInRoom[1]]) //Tegner de forskellige gulve sammen med væggen.
-            {
-                case 3:
-                    spriteBatch.Draw(floor[3], Vector2.Zero, Color.White);
-                    spriteBatch.Draw(wall, Vector2.Zero, Color.White);
-                    break;
-                case 2:
-                    spriteBatch.Draw(floor[2], Vector2.Zero, Color.White);
-                    spriteBatch.Draw(wall, Vector2.Zero, Color.White);
-                    break;
-                case 1:
-                    spriteBatch.Draw(floor[1], Vector2.Zero, Color.White);
-                    spriteBatch.Draw(wall, Vector2.Zero, Color.White);
-                    break;
-                default:
-                    spriteBatch.Draw(floor[0], Vector2.Zero, Color.White);
-                    spriteBatch.Draw(wall, Vector2.Zero, Color.White);
-                    break;
-            }
+            //Var Switch Case før, nu rettet til at være mere simpel.
+            spriteBatch.Draw(floor[roomStyle[playerInRoom[0], playerInRoom[1]]], Vector2.Zero, Color.White);
+            spriteBatch.Draw(wall, Vector2.Zero, Color.White);
         }
         /// <summary>
         /// Checks what rooms are visible to the player.
@@ -264,7 +251,7 @@ namespace EksamensProjekt2021
                         revealedRoom[x + i, y] = true; //Reveal rooms left and right
                     }
                 }
-                if (y + i > -1 && y + i < 5)
+                if (y + i > -1 && y + i < 5)//Out of bounds failsafe
                 {
                     if (roomLayout[x, y + i] >= 1)
                     {
@@ -285,27 +272,28 @@ namespace EksamensProjekt2021
             if (x == 1) GameWorld.player.Position = new Vector2(146, GameWorld.screenSize.Y / 2);
             if (y == -1) GameWorld.player.Position = new Vector2(GameWorld.screenSize.X / 2, GameWorld.screenSize.Y - 144);
             if (y == 1) GameWorld.player.Position = new Vector2(GameWorld.screenSize.X / 2, 144);
+
             playerInRoom[0] += x; //Sets player room pos to new room
             playerInRoom[1] += y;
+
             Debug(0, 0);
             RevealRooms();
+
             switch (roomLayout[playerInRoom[0], playerInRoom[1]])
             {
                 case 2:
-                    GameWorld.gameFlow.EnemySpawner();
+                    GameWorld.gameFlow.EnemySpawner(); //'Normal' Room. Spawn 1 enemy batch
                     break;
                 case 3:
-                    GameWorld.gameFlow.EnemySpawner();
+                    GameWorld.gameFlow.EnemySpawner(); //'Hard' Room. Spawn 2 batches of enemies.
                     GameWorld.gameFlow.EnemySpawner();
                     break;
                 case 4:
-                    GameWorld.gameFlow.LootSpawner();
+                    GameWorld.gameFlow.LootSpawner(); //'Loot' Room. Spawn loot.
                     break;
                 case 5:
-                    GameWorld.Instantiate(new Biden());
-                    GameWorld.bossSpawned = true;
-                    
-                    
+                    GameWorld.Instantiate(new Biden()); //Make a new boss.
+                    GameWorld.bossSpawned = true; //To draw boss healthbar
                     break;
             }
         }

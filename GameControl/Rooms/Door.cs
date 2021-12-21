@@ -19,8 +19,6 @@ namespace EksamensProjekt2021
         private Rectangle[] source = new Rectangle[4];
         private byte frameIndex = 0;
 
-
-
         /// <summary>
         /// 0 = up, 1 = down, 2 = left, 3 = right
         /// </summary>
@@ -40,11 +38,11 @@ namespace EksamensProjekt2021
             {
                 case 0: //Døren i toppen
                     sprite = content.Load<Texture2D>("DoorTop"); //0
-                    animSetup();
-                    position = new Vector2(GameWorld.screenSize.X / 2 - width / 2, 0);
-                    placementDir = new Vector2(0, -1);
+                    animSetup(); //Klargøre Rectangles som bruges til animationen
+                    position = new Vector2(GameWorld.screenSize.X / 2 - width / 2, 0); //Sætter døren pos til ønskede sted
+                    placementDir = new Vector2(0, -1); //Placement dir til senere brug
                     break;
-                case 1: //Døren i bunden
+                case 1: //Døren i bunden, skulle have en anden sprite men kunne ikke finde en bedre.
                     sprite = content.Load<Texture2D>("DoorTop"); //1
                     animSetup();
                     position = new Vector2(GameWorld.screenSize.X / 2 - width / 2, GameWorld.screenSize.Y - height);
@@ -106,7 +104,16 @@ namespace EksamensProjekt2021
                     }
                 }
             }
-            if (activeDoor) //Animation section.
+            Animation(gameTime);
+            
+        }
+        /// <summary>
+        /// Runs the animation. Didnt work properly when using SpriteAnimation class.
+        /// </summary>
+        /// <param name="gameTime"></param>
+        private void Animation(GameTime gameTime)
+        {
+            if (activeDoor) //Only animate if door is ready to or is open
             {
                 animTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
                 if (animTimer >= fpsThreshold)
