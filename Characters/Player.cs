@@ -55,24 +55,12 @@ namespace EksamensProjekt2021
         {
             get
             {
-                if (direction == Dir.Down || direction == Dir.Up)
-                {
                     return new Rectangle(
                                    (int)(anim.Position.X),
                                    (int)(anim.Position.Y),
-                                   43,
-                                   71
-                                   );
-                }
-                else
-                {
-                    return new Rectangle(
-                   (int)(anim.Position.X),
-                   (int)(anim.Position.Y),
-                   63,
-                   70
-                   );
-                }
+                                   anim.Texture.Width/6,
+                                   anim.Texture.Height
+                                   );  
             }
 
         }
