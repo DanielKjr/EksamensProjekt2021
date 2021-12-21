@@ -65,10 +65,11 @@ namespace EksamensProjekt2021
             for (int i = 0; i < 4; i++)
             {
                 ballotTarget = new Vector2(target.X + (int)rand.Next(-125, 125), target.Y + (int)rand.Next(-125, 125));
+                //dette brug af Random giver projektilerne en shotgun-effekt.
                 Vector2 bRotate = ballotTarget - position;
                 BallotRotation = (float)Math.Atan2(bRotate.Y, bRotate.X);
                 GameWorld.Instantiate(new BidenBallot(position, ballotTarget, damage, BallotRotation));
-
+                
             }
 
 

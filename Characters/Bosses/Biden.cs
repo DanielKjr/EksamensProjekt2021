@@ -73,10 +73,9 @@ namespace EksamensProjekt2021
                 GameWorld.Instantiate(new Enemy(new Vector2(bidenEnemyX, bidenEnemyY), new Tomahawk(true)));
                 dontTouchTimer = 10;
                 dontTouchTextTimer = 1.5f;
-
-
             }
             dontTouch = false;
+            //denne metode spawner en fjender når spilleren rør Biden
         }
 
         public override void Movement(GameTime gameTime)
@@ -90,8 +89,7 @@ namespace EksamensProjekt2021
             {
                 bidenDestination = new Vector2(rand.Next(50, (int)GameWorld.screenSize.X - 50), rand.Next(50, (int)GameWorld.screenSize.Y - 50));
             }
-
-
+            //Biden bevæger sig i random retninger i stedet for mod spilleren
         }
 
         public override void Update(GameTime gameTime)
@@ -104,8 +102,9 @@ namespace EksamensProjekt2021
             anim.Position = new Vector2(Position.X , Position.Y);
             Movement(gameTime);
             BidenShoot(gameTime);
-            BidenEnemySpawn(gameTime);
 
+
+            BidenEnemySpawn(gameTime);
 
             if (health <= 0)
             {
@@ -113,9 +112,7 @@ namespace EksamensProjekt2021
                 GameWorld.bossSpawned = false;
                 GameWorld.EnemyCount--;
             }
-
         }
-
         public void BidenShoot(GameTime gameTime)
         {
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -126,7 +123,6 @@ namespace EksamensProjekt2021
                 weapon.ShootWeapon(target);
                 timer = (float)weapon.FireRate;
             }
-
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -137,9 +133,7 @@ namespace EksamensProjekt2021
             {
                 spriteBatch.DrawString(GameWorld.HUDFont, "Don't Touch My Master!", new Vector2(bidenEnemyX - 205, bidenEnemyY + 90), Color.White);
             }
-
         }
-
         public override void LoadContent(ContentManager content)
         {
             weapon.LoadContent(content);
@@ -147,6 +141,5 @@ namespace EksamensProjekt2021
             anim = new SpriteAnimation(biden, 5, 9);
            
         }
-
     }
 }
