@@ -43,7 +43,7 @@ namespace EksamensProjekt2021
             Position = new Vector2(800, 500);
             moveSpeed = 500;
             health = 200;
-
+            GameWorld.EnemyCount++;
             target = playerPos.Position;
             weapon = new BidenBox(Position, target, 5, 0.2f);
         }
