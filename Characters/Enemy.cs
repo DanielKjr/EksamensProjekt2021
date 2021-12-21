@@ -12,17 +12,17 @@ namespace EksamensProjekt2021
     public class Enemy : GameObject
     {
         protected Vector2 moveDir;
+
         private Weapon weapon;
         protected GameObject playerPos = GameWorld.player;
+
         private double timer = 2;
 
 
         public Enemy() 
         {
-            GameWorld.EnemyCount++;
-            
+                      
         }
-
 
         public Enemy(Vector2 Position, Weapon weapon)
         {

@@ -11,8 +11,7 @@ namespace EksamensProjekt2021
     class Hitscan : Weapon
     {
 
-       
-
+     
         public Hitscan()
         {
 

@@ -11,14 +11,9 @@ namespace EksamensProjekt2021
     {
         private int healthplus = 20;
 
-        public int Healthplus { get => healthplus; set => healthplus = value; }
-
-
-
         public Medkit(Vector2 Position, byte x, byte y)
         {
-            this.position = Position;
-            Healthplus = healthplus;
+            position = Position;
             xByte = x;
             yByte = y;
         }

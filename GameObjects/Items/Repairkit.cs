@@ -12,26 +12,12 @@ namespace EksamensProjekt2021
     {
         private int armorPlus = 15;
 
-
-        public int Armorplus { get => armorPlus; set => armorPlus = value; }
-
-
-
         public Repairkit(Vector2 Position, byte x, byte y)
         {
-            this.position = Position;
+            position = Position;
             xByte = x;
             yByte = y;
         }
-        public Repairkit(Vector2 Position)
-        {
-
-            this.position = Position;
-
-        }
-
-
-        
 
         public override void LoadContent(ContentManager content)
         {
@@ -39,8 +25,7 @@ namespace EksamensProjekt2021
             sprite = content.Load<Texture2D>("repairkit");
         }
 
-    
-
+  
         public override void Update(GameTime gameTime)
         {
             if (RoomManager.playerInRoom[0] == xByte && RoomManager.playerInRoom[1] == yByte)

@@ -10,13 +10,10 @@ namespace EksamensProjekt2021
         
         public AK47()
         {
-
-
             range = 700;
             damage = 5;
             moveSpeed = 150;
             fireRate = 1.7;
-
         }
 
         public AK47(Vector2 Position)
@@ -30,8 +27,6 @@ namespace EksamensProjekt2021
         public override void LoadContent(ContentManager content)
         {
             sprite = content.Load<Texture2D>("Weapons/AK-47");
-
-
 
             origin = new Vector2(sprite.Width / 2, sprite.Height / 2);
             gunFire = content.Load<SoundEffect>("SoundEffects/SingleShot");

@@ -11,10 +11,9 @@ namespace EksamensProjekt2021
     {
         protected float throwRotation = 0f;
         protected float throwRotationSpeed;
-        protected Vector2 ballotTarget = new Vector2(-1, 0);
-
         protected float ballotRotation;
 
+        protected Vector2 ballotTarget = new Vector2(-1, 0);
 
       
         protected Random rand;

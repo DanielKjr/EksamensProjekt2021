@@ -10,7 +10,7 @@ namespace EksamensProjekt2021
 {
     public class UserInterface
     {
-      //  private Weapon weapon;
+
         private Texture2D wSprite;
         private Texture2D UIBox276;
         private Texture2D trumpGraph;
@@ -27,17 +27,10 @@ namespace EksamensProjekt2021
         {
             sprite = content.Load<Texture2D>("CollisionTexture ");
             trumpGraph = content.Load<Texture2D>("trumpGraph");
-
             trumpSad = content.Load<Texture2D>("trumpSad");
 
-            //offsetX = (int)GameWorld.screenSize.X - RoomManager.roomLayout.GetLength(0) * sprite.Width - RoomManager.roomLayout.GetLength(0) * dist;
-            //offsetY = (int)GameWorld.screenSize.Y - RoomManager.roomLayout.GetLength(1) * sprite.Width - RoomManager.roomLayout.GetLength(0) * dist;
             offsetX = 450;
             offsetY = 110;
-
-
-
-           
 
             UIBox276 = content.Load<Texture2D>("UIBox276");
             boxPosition = new Vector2((GameWorld.screenSize.X / 2) - (UIBox276.Width/2), GameWorld.screenSize.Y );
@@ -46,7 +39,7 @@ namespace EksamensProjekt2021
         public void Update(GameTime gameTime)
         {
             wSprite = GameWorld.player.CurrentWeapon.UISprite;
-          //  weapon = GameWorld.player.CurrentWeapon;
+
 
             float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
             KeyboardState kState = Keyboard.GetState();
