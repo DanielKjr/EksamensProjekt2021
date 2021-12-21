@@ -17,24 +17,14 @@ namespace EksamensProjekt2021
         private Weapon weapon;
         private Weapon newWeapon;
 
-        // private MouseState mStateOld = Mouse.GetState();
-        private MouseState mState;
-        private Vector2 mousePosition;
+        private double timer = 1;
+        private float speed;
+        private bool isMoving = false;
         private bool mLeftReleased = true;
 
-        private double timer = 1;
-
-        //  private int speed = 250;
-        private float speed;
-
-        //en værdi vi bare kan ændre til at passe med hvor hurtigt vi vil ha ham. bliver brugt i udregninen af når han bevæger sig
-        private bool isMoving = false;
-        //forklaret hvor den er relevant
         private Dir direction = Dir.Right;
-        // enum'en som vi lavede ude i gameworld
-
-        //ska vi bruger senere til shoot-funktion. trust me boiis.
-
+        private MouseState mState;
+        private Vector2 mousePosition;
 
         public SpriteAnimation anim;
         public SpriteAnimation[] animations = new SpriteAnimation[4];
@@ -43,12 +33,13 @@ namespace EksamensProjekt2021
         private Texture2D trumpWalkLeft;
         private Texture2D trumpWalkUp;
         private Texture2D trumpWalkDown;
+
         private SoundEffect deathQuote;
         public SoundEffect damageSound;
 
+        public Vector2 MousePosition { get => mousePosition; }
         public Weapon CurrentWeapon { get => weapon; }
         public int CurrentArmor { get => armor; }
-
         public int CurrentHealth { get => health; }
 
         public override Rectangle Collision
@@ -66,8 +57,7 @@ namespace EksamensProjekt2021
         }
 
 
-        public Vector2 MousePosition { get => mousePosition; }
-
+       
 
         public Player()
         {
@@ -87,7 +77,7 @@ namespace EksamensProjekt2021
 
         public override void Update(GameTime gameTime)
         {
-            
+
             UpdateWeapon();
             PlayerShoot(gameTime);
             HandleInput(gameTime);
@@ -149,7 +139,7 @@ namespace EksamensProjekt2021
                     if (weapon is Hitscan)
                     {
                         weapon.GunFire.Play();
-                    }                  
+                    }
                     timer = weapon.FireRate;
                 }
             }
@@ -171,7 +161,7 @@ namespace EksamensProjekt2021
                 armor -= damage;
 
             }
-            else 
+            else
             {
                 health -= damage;
 
@@ -187,7 +177,7 @@ namespace EksamensProjekt2021
         }
         public override void OnCollision(GameObject other)
         {
-           
+
 
         }
 
@@ -220,7 +210,7 @@ namespace EksamensProjekt2021
 
         }
 
-   
+
         private void HandleInput(GameTime gameTime)
         {
             KeyboardState kState = Keyboard.GetState();
@@ -287,7 +277,7 @@ namespace EksamensProjekt2021
         {
 
             weapon.LoadContent(content);
-
+            SoundEffect.MasterVolume = 0.5f;
             deathQuote = content.Load<SoundEffect>("SoundEffects/TrumpTerrible");
             damageSound = content.Load<SoundEffect>("SoundEFfects/TrumpRude");
 

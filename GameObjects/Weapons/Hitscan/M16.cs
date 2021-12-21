@@ -21,12 +21,9 @@ namespace EksamensProjekt2021
             this.Position = Position;
             range = 700;
             damage = 5;
-
-
         }
 
-   
-
+  
         public override void LoadContent(ContentManager content)
         {
             sprite = content.Load<Texture2D>("Weapons/M16");

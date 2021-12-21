@@ -7,13 +7,7 @@ namespace EksamensProjekt2021
 {
     public class GameFlow
     {
-
-
         protected int nextWeapon;
-
-        public int NextWeapon { get => nextWeapon; }
-
-
         private Random rnd = new Random();
 
         /// <summary>
@@ -26,6 +20,7 @@ namespace EksamensProjekt2021
                 AddEnemy();
             }
         }
+
         public void LootSpawner()
         {
             for (int i = 0; i < rnd.Next(1, 3); i++) //Spawns 1-2 medkits
@@ -41,6 +36,9 @@ namespace EksamensProjekt2021
 
         }
 
+        /// <summary>
+        /// Instantiates a random weapon in the loot room
+        /// </summary>
         public void SpawnNewWeapon()
         {
 

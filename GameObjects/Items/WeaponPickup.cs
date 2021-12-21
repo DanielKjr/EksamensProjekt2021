@@ -31,7 +31,7 @@ namespace EksamensProjekt2021
         public WeaponPickup(Vector2 Position, byte x, byte y)
         {
             nextWeapon = rnd.Next(0, 5);
-            this.position = Position;
+            this.Position = Position;
             xByte = x;
             yByte = y;
 

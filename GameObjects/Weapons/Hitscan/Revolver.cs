@@ -10,18 +10,12 @@ namespace EksamensProjekt2021
 
 
         public Revolver()
-        {
-           
-
+        {          
             damage = 3;
             range = 500;
             fireRate = 1.2;
             moveSpeed = 200;
-
         }
-
-
-
 
         public override void LoadContent(ContentManager content)
         {

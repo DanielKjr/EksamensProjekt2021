@@ -20,8 +20,8 @@ namespace EksamensProjekt2021
                 return new Rectangle(
                                (int)(Position.X - 48),
                                (int)(Position.Y - 48),
-                               this.sprite.Width,
-                               this.sprite.Height
+                               sprite.Width,
+                               sprite.Height
                                );
 
 
