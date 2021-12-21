@@ -85,7 +85,7 @@ namespace EksamensProjekt2021
                     new Vector2(boxPosition.X + 70, boxPosition.Y + 80), Color.White);
                 
             }
-            spriteBatch.DrawString(GameWorld.HUDFont, $"Level:{RoomManager.levelsCleared}", new Vector2(boxPosition.X + 375, boxPosition.Y + 5), Color.White);
+            spriteBatch.DrawString(GameWorld.HUDFont, $"Level:{RoomManager.levelsCleared +1}", new Vector2(boxPosition.X + 375, boxPosition.Y + 5), Color.White);
             spriteBatch.DrawString(GameWorld.HUDFont, $"Rooms Cleared:{RoomManager.roomsCleared}", new Vector2(boxPosition.X + 375, boxPosition.Y + 30), Color.White);
 
 
